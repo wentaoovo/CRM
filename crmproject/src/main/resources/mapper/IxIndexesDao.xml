@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.crmproject.dao.hanwen.IxIndexesDao">
+  <resultMap id="BaseResultMap" type="com.trkj.crmproject.entity.hanwen.IxIndexes">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="collection_content" jdbcType="VARCHAR" property="collectionContent" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="corr_customers" jdbcType="VARCHAR" property="corrCustomers" />
+    <result column="cost" jdbcType="DECIMAL" property="cost" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="contacts" jdbcType="VARCHAR" property="contacts" />
+    <result column="contacts_information" jdbcType="CHAR" property="contactsInformation" />
+    <result column="classification" jdbcType="VARCHAR" property="classification" />
+    <result column="sub_time" jdbcType="TIMESTAMP" property="subTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, collection_content, company, corr_customers, cost, `state`, real_name, contacts, 
+    contacts_information, classification, sub_time
+  </sql>
+  <select id="selectByAll"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ix_indexes
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ix_indexes
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.trkj.crmproject.entity.hanwen.IxIndexes">
+    insert into ix_indexes (id,collection_content, company, corr_customers,
+      cost, `state`, real_name, 
+      contacts, contacts_information, classification, 
+      sub_time)
+    values (#{id}, #{collectionContent,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{corrCustomers,jdbcType=VARCHAR},
+      #{cost,jdbcType=DECIMAL}, #{state,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, 
+      #{contacts,jdbcType=VARCHAR}, #{contactsInformation,jdbcType=CHAR}, #{classification,jdbcType=VARCHAR}, 
+      #{subTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.trkj.crmproject.entity.hanwen.IxIndexes" useGeneratedKeys="true">
+    insert into ix_indexes
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="collectionContent != null">
+        collection_content,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="corrCustomers != null">
+        corr_customers,
+      </if>
+      <if test="cost != null">
+        cost,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="contacts != null">
+        contacts,
+      </if>
+      <if test="contactsInformation != null">
+        contacts_information,
+      </if>
+      <if test="classification != null">
+        classification,
+      </if>
+      <if test="subTime != null">
+        sub_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="collectionContent != null">
+        #{collectionContent,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="corrCustomers != null">
+        #{corrCustomers,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null">
+        #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsInformation != null">
+        #{contactsInformation,jdbcType=CHAR},
+      </if>
+      <if test="classification != null">
+        #{classification,jdbcType=VARCHAR},
+      </if>
+      <if test="subTime != null">
+        #{subTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.crmproject.entity.hanwen.IxIndexes">
+    update ix_indexes
+    <set>
+      <if test="collectionContent != null">
+        collection_content = #{collectionContent,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="corrCustomers != null">
+        corr_customers = #{corrCustomers,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null">
+        cost = #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        contacts = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsInformation != null">
+        contacts_information = #{contactsInformation,jdbcType=CHAR},
+      </if>
+      <if test="classification != null">
+        classification = #{classification,jdbcType=VARCHAR},
+      </if>
+      <if test="subTime != null">
+        sub_time = #{subTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.crmproject.entity.hanwen.IxIndexes">
+    update ix_indexes
+    set collection_content = #{collectionContent,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      corr_customers = #{corrCustomers,jdbcType=VARCHAR},
+      cost = #{cost,jdbcType=DECIMAL},
+      `state` = #{state,jdbcType=INTEGER},
+      real_name = #{realName,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR},
+      contacts_information = #{contactsInformation,jdbcType=CHAR},
+      classification = #{classification,jdbcType=VARCHAR},
+      sub_time = #{subTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
