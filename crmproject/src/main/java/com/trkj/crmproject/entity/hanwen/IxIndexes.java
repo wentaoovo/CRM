@@ -3,6 +3,8 @@ package com.trkj.crmproject.entity.hanwen;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -74,6 +76,7 @@ public class IxIndexes implements Serializable {
      * 提交时间
             
      */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GKT+8")
     private Date subTime;
 
     private static final long serialVersionUID = 1L;

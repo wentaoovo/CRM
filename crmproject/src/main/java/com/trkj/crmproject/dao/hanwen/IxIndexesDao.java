@@ -2,6 +2,7 @@ package com.trkj.crmproject.dao.hanwen;
 
 import com.github.pagehelper.PageInfo;
 import com.trkj.crmproject.entity.hanwen.IxIndexes;
+import com.trkj.crmproject.vo.Indexes.IndexesSearchVo;
 
 import java.util.List;
 
@@ -12,10 +13,11 @@ public interface IxIndexesDao {
 
     int insertSelective(IxIndexes record);
 
-    List<IxIndexes> selectByAll(int num, int size);
+    List<IxIndexes> selectByAll(IndexesSearchVo indexesSearchVo);
 
     int updateByPrimaryKeySelective(IxIndexes record);
 
     int updateByPrimaryKey(IxIndexes record);
+
 
 }

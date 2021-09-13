@@ -4,7 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.crmproject.dao.hanwen.IxIndexesDao;
 import com.trkj.crmproject.entity.hanwen.IxIndexes;
+import com.trkj.crmproject.entity.wentao.Indent;
 import com.trkj.crmproject.util.IdWorker;
+import com.trkj.crmproject.vo.Indexes.IndexesSearchVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,13 +26,21 @@ private IdWorker idWorker;
 
 
     @Override
-    public PageInfo<IxIndexes> selectByAll(int num,int size) {
-        PageHelper.startPage(num,size);
-        return new PageInfo<IxIndexes>(indexesDao.selectByAll(num, size));
+    public PageInfo<IxIndexes> selectByAll(IndexesSearchVo indexesSearchVo) {
+        if(indexesSearchVo.getPageNum()==null){
+            indexesSearchVo.setPageNum(1);
+        }
+        if (indexesSearchVo.getPageSize()==null){
+            indexesSearchVo.setPageSize(10);
+        }
+          PageHelper.startPage(indexesSearchVo.getPageNum(),indexesSearchVo.getPageSize());
+        return new PageInfo<IxIndexes>(indexesDao.selectByAll(indexesSearchVo));
     }
 
     @Override
     public int updateByPrimaryKey(IxIndexes record) {
         return indexesDao.updateByPrimaryKey(record);
     }
+
+
 }
