@@ -54,7 +54,17 @@ export const constantRoutes = [
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
-
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/indent',
+    children: [{
+      path: 'indent',
+      name: 'Indent',
+      component: () =>import('@/views/indent/index'),
+      meta: {title: '订单', icon: 'el-icon-s-help'}
+    }]
+  },
   {
     path: '/example',
     component: Layout,
