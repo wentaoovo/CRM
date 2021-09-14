@@ -67,7 +67,7 @@ public class IndentDaoController {
      * 查询订单列表
      * @return
      */
-    @GetMapping("find")
+    @PostMapping("find")
     public ResultVo findAll( @RequestBody SearchListVo searchListVo){
         PageInfo<Indent> all = indentService.selectAll(searchListVo);
         return ResultVoUtil.success(all);
