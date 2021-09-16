@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface IxIndexesService {
     int insert(IxIndexes record);
-    PageInfo<IxIndexes> selectByAll(IndexesSearchVo indexesSearchVo);
+    PageInfo<IxIndexes> selectByAll(Integer pageNum ,Integer pageSize);
     int updateByPrimaryKey(IxIndexes record);
 }

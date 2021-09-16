@@ -24,18 +24,13 @@ private IdWorker idWorker;
         return indexesDao.insert(record);
     }
 
-
     @Override
-    public PageInfo<IxIndexes> selectByAll(IndexesSearchVo indexesSearchVo) {
-        if(indexesSearchVo.getPageNum()==null){
-            indexesSearchVo.setPageNum(1);
-        }
-        if (indexesSearchVo.getPageSize()==null){
-            indexesSearchVo.setPageSize(10);
-        }
-          PageHelper.startPage(indexesSearchVo.getPageNum(),indexesSearchVo.getPageSize());
-        return new PageInfo<IxIndexes>(indexesDao.selectByAll(indexesSearchVo));
+    public PageInfo<IxIndexes> selectByAll(Integer pageNum ,Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<IxIndexes> list=indexesDao.selectByAll(pageNum,pageSize);
+        return new PageInfo<IxIndexes>(list);
     }
+
 
     @Override
     public int updateByPrimaryKey(IxIndexes record) {

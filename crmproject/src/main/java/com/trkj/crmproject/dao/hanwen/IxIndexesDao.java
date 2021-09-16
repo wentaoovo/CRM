@@ -13,7 +13,7 @@ public interface IxIndexesDao {
 
     int insertSelective(IxIndexes record);
 
-    List<IxIndexes> selectByAll(IndexesSearchVo indexesSearchVo);
+    List<IxIndexes> selectByAll(Integer pageNum ,Integer pageSize);
 
     int updateByPrimaryKeySelective(IxIndexes record);
 

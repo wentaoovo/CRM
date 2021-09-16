@@ -22,8 +22,9 @@ public class IxIndexesController {
        return ResultVoUtil.success(insert);
    }
    @GetMapping("/select")
-    public ResultVo select(@RequestBody IndexesSearchVo indexesSearchVo){
-      PageInfo<IxIndexes> byAll = ixIndexesService.selectByAll(indexesSearchVo);
+    public ResultVo select(@RequestParam(defaultValue = "1")Integer pageNum,
+                           @RequestParam(defaultValue = "10")Integer pageSize){
+      PageInfo<IxIndexes> byAll = ixIndexesService.selectByAll(pageNum,pageSize);
        return ResultVoUtil.success(byAll);
    }
    @PutMapping("/enit")

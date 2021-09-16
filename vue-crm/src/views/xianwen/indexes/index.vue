@@ -101,7 +101,8 @@ export default{
         load(){
             console.log("sssssssssssssssssssssssssssss")
             indesexApi.getList(this.indexesSearchVo).then(res =>{
-                console.log(res);
+								console.log(res);
+								this.tableData=res.data.list
                 
             })
         },

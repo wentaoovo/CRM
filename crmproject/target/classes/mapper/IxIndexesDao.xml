@@ -22,11 +22,6 @@
     select 
     <include refid="Base_Column_List" />
     from ix_indexes
-    <where>
-      <if test="corrCustomers != null">
-          and corr_customers LIKE "%"#{corrCustomers}"%"
-      </if>
-    </where>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from ix_indexes
