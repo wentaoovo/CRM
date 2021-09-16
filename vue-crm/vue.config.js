@@ -27,7 +27,7 @@ module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
-  lintOnSave: process.env.NODE_ENV === 'development',
+  lintOnSave: false, // process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
     port: port,
@@ -36,19 +36,19 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    //跨域配置
-    proxy: {
-      [process.env.VUE_APP_BASE_API]: {
-        target: 'http://localhost:8188/', // 你请求的第三方接口
-        changeOrigin: true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-        pathRewrite: {
-          // 路径重写，
-          ['^'+process.env.VUE_APP_BASE_API]:'' //替换target中的请求地址
-        }
-      }
-    },
+    //添加代理配置
+    // proxy: {
+    //   [process.env.VUE_APP_BASE_API]: {
+    //     target: 'http://localhost:8188', // 你请求的第三方接口
+    //     changeOrigin: true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+    //     pathRewrite: {
+    //       // 路径重写，
+    //       ['^'+process.env.VUE_APP_BASE_API]:'' //替换target中的请求地址
+    //     }
+    //   }
+    // },  
     //注释mock提供的数据配置
-    before: require('./mock/mock-server.js')
+    //before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

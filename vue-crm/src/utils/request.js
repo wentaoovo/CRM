@@ -6,31 +6,32 @@ import { getToken } from '@/utils/auth'
 // create an axios instance
 const service = axios.create({
   //配置axios的baseURL
-  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  baseURL: "http://localhost:8188",
+  //baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
 
 //添加拦截器， axios每次请求都会经过这个拦截器。
 // request interceptor
-// service.interceptors.request.use(
-//   config => {
-//     // do something before request is sent
+service.interceptors.request.use(
+  config => {
+    // do something before request is sent
 
-//     if (store.getters.token) {
-//       // let each request carry token
-//       // ['X-Token'] is a custom headers key
-//       // please modify it according to the actual situation
-//       config.headers['X-Token'] = getToken()
-//     }
-//     return config
-//   },
-//   error => {
-//     // do something with request error
-//     console.log(error) // for debug
-//     return Promise.reject(error)
-//   }
-// )
+    if (store.getters.token) {
+      // let each request carry token
+      // ['X-Token'] is a custom headers key
+      // please modify it according to the actual situation
+      config.headers['X-Token'] = getToken()
+    }
+    return config
+  },
+  error => {
+    // do something with request error
+    console.log(error) // for debug
+    return Promise.reject(error)
+  }
+)
 
 //对返回结果的拦截， 在这里会判断返回结果中的状态
 // response interceptor

@@ -15,7 +15,7 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
- import request from '@/utils/request'
+ //import request from '@/utils/request'
 
 /**
  * If you don't want to use mock-server
@@ -25,6 +25,7 @@ import '@/permission' // permission control
  * Currently MockJs will be used in the production environment,
  * please remove it before going online ! ! !
  */
+//注释掉关于mock的代码
 // if (process.env.NODE_ENV === 'production') {
 //   const { mockXHR } = require('../mock')
 //   mockXHR()
@@ -38,7 +39,7 @@ import '@/permission' // permission control
 Vue.config.productionTip = false
 
 //挂载请求对象
-Vue.prototype.req =request
+//Vue.prototype.req =request
 
 new Vue({
   el: '#app',
