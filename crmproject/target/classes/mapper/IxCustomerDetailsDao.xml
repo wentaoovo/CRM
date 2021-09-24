@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.crmproject.dao.hanwen.IxCustomerDetailsDao">
+  <resultMap id="BaseResultMap" type="com.trkj.crmproject.entity.hanwen.IxCustomerDetails">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="life_cycle" jdbcType="VARCHAR" property="lifeCycle" />
+    <result column="first_signing" jdbcType="TIMESTAMP" property="firstSigning" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="credit_level" jdbcType="VARCHAR" property="creditLevel" />
+    <result column="stage" jdbcType="VARCHAR" property="stage" />
+    <result column="nexus_level" jdbcType="VARCHAR" property="nexusLevel" />
+    <result column="settlement_method" jdbcType="VARCHAR" property="settlementMethod" />
+    <result column="price_strategy" jdbcType="VARCHAR" property="priceStrategy" />
+    <result column="industry" jdbcType="VARCHAR" property="industry" />
+    <result column="personnel_size" jdbcType="VARCHAR" property="personnelSize" />
+    <result column="taobao_number" jdbcType="VARCHAR" property="taobaoNumber" />
+    <result column="jingdong_number" jdbcType="VARCHAR" property="jingdongNumber" />
+    <result column="tianmao_number" jdbcType="VARCHAR" property="tianmaoNumber" />
+    <result column="yidinghuo_number" jdbcType="VARCHAR" property="yidinghuoNumber" />
+    <result column="company_profile" jdbcType="VARCHAR" property="companyProfile" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
+    <result column="website" jdbcType="VARCHAR" property="website" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="postcode" jdbcType="VARCHAR" property="postcode" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, customer_id, `name`, `type`, life_cycle, first_signing, `source`, credit_level, 
+    stage, nexus_level, settlement_method, price_strategy, industry, personnel_size, 
+    taobao_number, jingdong_number, tianmao_number, yidinghuo_number, company_profile, 
+    telephone, mobile_phone, website, province, city, area, postcode, address, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ix_customer_details
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByAll" parameterType="com.trkj.crmproject.vo.Indexes.CosmerSearch" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from ix_customer_details
+    <where>
+      <if test="type!=null and type!=''">
+        and type like concat(concat('%',#{type}),'%')
+      </if>
+      <if test="lifeCycle!=null and type!=''">
+        and life_cycle like concat(concat('%',#{lifeCycle}),'%')
+      </if>
+      <if test="name!=null and type!=''">
+        and name like concat(concat('%',#{name}),'%')
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ix_customer_details
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert"  parameterType="com.trkj.crmproject.entity.hanwen.IxCustomerDetails">
+    insert into ix_customer_details ( id,`name`, `type`,
+      life_cycle, first_signing, `source`, 
+      credit_level, stage, nexus_level, 
+      settlement_method, price_strategy, industry, 
+      personnel_size, taobao_number, jingdong_number, 
+      tianmao_number, yidinghuo_number, company_profile, 
+      telephone, mobile_phone, website, 
+      province, city, area, 
+      postcode, address, remarks
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+      #{lifeCycle,jdbcType=VARCHAR}, #{firstSigning,jdbcType=TIMESTAMP}, #{source,jdbcType=VARCHAR}, 
+      #{creditLevel,jdbcType=VARCHAR}, #{stage,jdbcType=VARCHAR}, #{nexusLevel,jdbcType=VARCHAR}, 
+      #{settlementMethod,jdbcType=VARCHAR}, #{priceStrategy,jdbcType=VARCHAR}, #{industry,jdbcType=VARCHAR}, 
+      #{personnelSize,jdbcType=VARCHAR}, #{taobaoNumber,jdbcType=VARCHAR}, #{jingdongNumber,jdbcType=VARCHAR}, 
+      #{tianmaoNumber,jdbcType=VARCHAR}, #{yidinghuoNumber,jdbcType=VARCHAR}, #{companyProfile,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{postcode,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.trkj.crmproject.entity.hanwen.IxCustomerDetails" useGeneratedKeys="true">
+    insert into ix_customer_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="lifeCycle != null">
+        life_cycle,
+      </if>
+      <if test="firstSigning != null">
+        first_signing,
+      </if>
+      <if test="source != null">
+        `source`,
+      </if>
+      <if test="creditLevel != null">
+        credit_level,
+      </if>
+      <if test="stage != null">
+        stage,
+      </if>
+      <if test="nexusLevel != null">
+        nexus_level,
+      </if>
+      <if test="settlementMethod != null">
+        settlement_method,
+      </if>
+      <if test="priceStrategy != null">
+        price_strategy,
+      </if>
+      <if test="industry != null">
+        industry,
+      </if>
+      <if test="personnelSize != null">
+        personnel_size,
+      </if>
+      <if test="taobaoNumber != null">
+        taobao_number,
+      </if>
+      <if test="jingdongNumber != null">
+        jingdong_number,
+      </if>
+      <if test="tianmaoNumber != null">
+        tianmao_number,
+      </if>
+      <if test="yidinghuoNumber != null">
+        yidinghuo_number,
+      </if>
+      <if test="companyProfile != null">
+        company_profile,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="mobilePhone != null">
+        mobile_phone,
+      </if>
+      <if test="website != null">
+        website,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="postcode != null">
+        postcode,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeCycle != null">
+        #{lifeCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="firstSigning != null">
+        #{firstSigning,jdbcType=TIMESTAMP},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="creditLevel != null">
+        #{creditLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="stage != null">
+        #{stage,jdbcType=VARCHAR},
+      </if>
+      <if test="nexusLevel != null">
+        #{nexusLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementMethod != null">
+        #{settlementMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="priceStrategy != null">
+        #{priceStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null">
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="personnelSize != null">
+        #{personnelSize,jdbcType=VARCHAR},
+      </if>
+      <if test="taobaoNumber != null">
+        #{taobaoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jingdongNumber != null">
+        #{jingdongNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tianmaoNumber != null">
+        #{tianmaoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="yidinghuoNumber != null">
+        #{yidinghuoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="companyProfile != null">
+        #{companyProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null">
+        #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null">
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null">
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.crmproject.entity.hanwen.IxCustomerDetails">
+    update ix_customer_details
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeCycle != null">
+        life_cycle = #{lifeCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="firstSigning != null">
+        first_signing = #{firstSigning,jdbcType=TIMESTAMP},
+      </if>
+      <if test="source != null">
+        `source` = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="creditLevel != null">
+        credit_level = #{creditLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="stage != null">
+        stage = #{stage,jdbcType=VARCHAR},
+      </if>
+      <if test="nexusLevel != null">
+        nexus_level = #{nexusLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementMethod != null">
+        settlement_method = #{settlementMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="priceStrategy != null">
+        price_strategy = #{priceStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null">
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="personnelSize != null">
+        personnel_size = #{personnelSize,jdbcType=VARCHAR},
+      </if>
+      <if test="taobaoNumber != null">
+        taobao_number = #{taobaoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jingdongNumber != null">
+        jingdong_number = #{jingdongNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tianmaoNumber != null">
+        tianmao_number = #{tianmaoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="yidinghuoNumber != null">
+        yidinghuo_number = #{yidinghuoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="companyProfile != null">
+        company_profile = #{companyProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null">
+        mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null">
+        website = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null">
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.crmproject.entity.hanwen.IxCustomerDetails">
+    update ix_customer_details
+    set `name` = #{name,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      life_cycle = #{lifeCycle,jdbcType=VARCHAR},
+      first_signing = #{firstSigning,jdbcType=TIMESTAMP},
+      `source` = #{source,jdbcType=VARCHAR},
+      credit_level = #{creditLevel,jdbcType=VARCHAR},
+      stage = #{stage,jdbcType=VARCHAR},
+      nexus_level = #{nexusLevel,jdbcType=VARCHAR},
+      settlement_method = #{settlementMethod,jdbcType=VARCHAR},
+      price_strategy = #{priceStrategy,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      personnel_size = #{personnelSize,jdbcType=VARCHAR},
+      taobao_number = #{taobaoNumber,jdbcType=VARCHAR},
+      jingdong_number = #{jingdongNumber,jdbcType=VARCHAR},
+      tianmao_number = #{tianmaoNumber,jdbcType=VARCHAR},
+      yidinghuo_number = #{yidinghuoNumber,jdbcType=VARCHAR},
+      company_profile = #{companyProfile,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      website = #{website,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

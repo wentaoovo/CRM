@@ -25,16 +25,25 @@ private IdWorker idWorker;
     }
 
     @Override
-    public PageInfo<IxIndexes> selectByAll(Integer pageNum ,Integer pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
-        List<IxIndexes> list=indexesDao.selectByAll(pageNum,pageSize);
-        return new PageInfo<IxIndexes>(list);
+    public PageInfo<IxIndexes> selectByAll(IndexesSearchVo indexesSearchVo) {
+        if (indexesSearchVo.getPageNum()==null){
+            indexesSearchVo.setPageNum(1);
+        }
+        if (indexesSearchVo.getPageSize()==null){
+            indexesSearchVo.setPageSize(10);
+        }
+        PageHelper.startPage(indexesSearchVo.getPageNum(),indexesSearchVo.getPageSize());
+        return new PageInfo<IxIndexes>(indexesDao.selectByAll(indexesSearchVo));
     }
-
 
     @Override
     public int updateByPrimaryKey(IxIndexes record) {
         return indexesDao.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public IxIndexes selectById(String id) {
+        return indexesDao.selectById(id);
     }
 
 

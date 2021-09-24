@@ -7,15 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class IndexesSearchVo {
+public class CosmerSearch {
     private Integer pageNum;
     private Integer pageSize;
-    private String corrCustomers;
-    private String realName;
-    private String contacts;
-
-    /**
-     * 关键词
-     */
     private String keyword;
+    private String type;
+    private String lifeCycle;
+    private String name;
 }

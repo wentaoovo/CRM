@@ -13,11 +13,11 @@ public interface IxIndexesDao {
 
     int insertSelective(IxIndexes record);
 
-    List<IxIndexes> selectByAll(Integer pageNum ,Integer pageSize);
+    List<IxIndexes> selectByAll(IndexesSearchVo indexesSearchVo);
 
     int updateByPrimaryKeySelective(IxIndexes record);
 
     int updateByPrimaryKey(IxIndexes record);
 
-
+    IxIndexes selectById(String id);
 }

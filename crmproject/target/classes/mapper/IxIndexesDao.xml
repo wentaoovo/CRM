@@ -22,6 +22,22 @@
     select 
     <include refid="Base_Column_List" />
     from ix_indexes
+    <where>
+      <if test="corrCustomers != null and corrCustomers!=''">
+        and corr_customers like concat(concat('%',#{corrCustomers}),'%')
+      </if>
+      <if test="realName != null and corrCustomers!=''">
+        and real_name like concat(concat('%',#{realName}),'%')
+      </if>
+      <if test="contacts != null and state!=''">
+        and state like concat(concat('%',#{contacts}),'%')
+      </if>
+    </where>
+  </select>
+  <select id="selectById" parameterType="com.trkj.crmproject.entity.hanwen.IxIndexes" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"></include>
+    from ix_indexes
+    where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from ix_indexes
