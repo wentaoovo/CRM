@@ -1,19 +1,49 @@
 <template>
      <div class="dashboard-container">
+      <div class="lable-titi">
+         <div>
+           <el-select v-model="value" @change="classChange" style="width:150px;left: 50px;top: 10px" placeholder="请选择">
+            <el-option-group
+              v-for="group in options"
+              :key="group.label"
+              :label="group.label"
+            >
+              <el-option
+                v-for="item in group.options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-option-group>
+          </el-select>
+         </div>
+          <div class="lable-input">
+            <el-input
+                placeholder="搜索一下"
+                suffix-icon="el-icon-search"
+                v-model="input"
+                style="width:200px;top: 10px"
+                @change="checkChange"
+              ></el-input>
+          </div>
+      </div>
     <div class="app-container">
+      <div class="app-button"><el-button icon="el-icon-circle-plus" @click="handlAdd()" size="small">新建订单</el-button>
+      <el-button icon="el-icon-position" size="small">导出</el-button></div>
       <div class="cont-bod-box">
         <el-table :data="tableData" style="width: 100%">
           <el-table-column type="index" width="50" label="序号"></el-table-column>
-          <el-table-column prop="theme" label="主题" sortable></el-table-column>
-          <el-table-column prop="customerName" label="对应客户" sortable></el-table-column>
-          <el-table-column prop="id" label="订单号" sortable></el-table-column>
-          <el-table-column prop="totalMoney" label="总金额" sortable></el-table-column>
-          <el-table-column prop="outMoney" label="发货金额" sortable></el-table-column>
-          <el-table-column prop="returnedMoney" label="回款金额" sortable></el-table-column>
-          <el-table-column prop="state" label="状态" sortable></el-table-column>
-          <el-table-column prop="possessor" label="所有者" sortable></el-table-column>
-          <el-table-column prop="indentDate" label="开始时间" sortable></el-table-column>
-          <el-table-column prop="remark" label="备注" sortable></el-table-column>
+          <el-table-column prop="theme" label="主题" width="110" sortable></el-table-column>
+          <el-table-column prop="customerName" label="对应客户" width="110" sortable></el-table-column>
+          <el-table-column prop="id" label="订单号" width="110" sortable></el-table-column>
+          <el-table-column prop="totalMoney" label="总金额" width="110" sortable></el-table-column>
+          <el-table-column prop="outMoney" label="发货金额" width="110" sortable></el-table-column>
+          <el-table-column prop="returnedMoney" label="回款金额" width="110" sortable></el-table-column>
+          <el-table-column prop="state" label="状态" width="110" sortable></el-table-column>
+          <el-table-column prop="possessor" label="所有者" width="110" sortable></el-table-column>
+          <el-table-column prop="indentDate" label="开始时间" width="110" sortable></el-table-column>
+          <el-table-column prop="remark" label="备注" width="110" sortable></el-table-column>
           <el-table-column fixed="right" label="操作" align="center" width="100">
             <template slot-scope="scope">
               <router-link :to="{'path':'/social-securitys/detail/' + scope.row.id}" class="el-button el-button--text el-button--small">
@@ -31,25 +61,82 @@
             @current-change="onPageChange"
             background
             :total="Number(total)"
-            :page-sizes="[10,20,30,40,50]"
+            :page-sizes="[10,20,30]"
             layout="sizes, prev, pager, next, jumper"
           ></el-pagination>
         </div>
       </div>
     </div>
+    <!-- 新增订单组件 -->
+    <component v-bind:is="indexAdd" ref="indexAdd"></component>
   </div>
- 
+
 </template>
 
 <script>
 import {getList} from "@/api/indent"
+import { errorMonitor } from 'events';
+import indexAdd from '@/views/indent/components/indexadd'
 
 export default {
+  name: 'index',
+  components:{indexAdd},
     data() {
         return {
+            indexAdd: 'indexAdd',
             tableData:[],
             total: 100,
-            selectParams:{}
+            selectParams:{},
+            input:'',
+            options: [
+          {
+            options:[
+              {
+                value: '全部数据',
+                label: '全部数据',
+              }
+            ]
+          },
+          {
+            label: '状态',
+            options: [
+              {
+                value: 0,
+                label: '执行中',
+              },
+              {
+                value: 1,
+                label: '结束',
+              },
+              {
+                value: 2,
+                label: '意外中止',
+              },
+            ],
+          },
+          {
+            label: '类型',
+            options: [
+              {
+                value: '产品销售',
+                label: '产品销售',
+              },
+              {
+                value: '业务合作',
+                label: '业务合作',
+              },
+              {
+                value: '代理分销',
+                label: '代理分销',
+              },
+              {
+                value: '其他',
+                label: '其他',
+              },
+            ],
+          },
+        ],
+        value: '全部数据',
         }
     },
     methods: {
@@ -82,6 +169,29 @@ export default {
         onPageChange(page){
             this.selectParams.pageNum =page
             this.init()
+        },
+        checkChange(keyword){
+          this.selectParams.keyword = keyword
+          this.init()
+        },
+        classChange(e){
+          var reg = /^\d+(?=\.{0,1}\d+$|$)/
+          if(e == '全部数据'){
+            this.selectParams.state = null
+            this.selectParams.classify = null
+          }
+          else if(reg.test(e)){
+            this.selectParams.state = e
+            this.selectParams.classify = null
+          }else{
+            this.selectParams.classify = e
+            this.selectParams.state = null
+          }
+          this.init()
+        },
+        // 新增订单
+        handlAdd(){
+          this.$refs.indexAdd.dialogFormVisible = true;
         }
     },
     created(){
@@ -107,5 +217,22 @@ export default {
 .page-list {
   text-align: center;
   margin-top: 10px;
+}
+.lable-titi{
+  color: #606266;
+  font-size: 14px;
+}
+.lable-input{
+  position: absolute;
+  left: 250px;
+    top: 0.5px;
+}
+.app-button{
+  position: absolute;
+  right: 20px;
+  top: 30px;
+}
+.dashboard-container{
+  background: #efefef;
 }
 </style>

@@ -28,13 +28,4 @@ public class SearchListVo {
      * 分类
      */
     private String classify;
-    /**
-     * 对应客户名称
-     */
-    private String customerName;
-    /**
-     * 订单所有者
-     */
-    private String possessor;
-
 }

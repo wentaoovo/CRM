@@ -62,7 +62,7 @@ export const constantRoutes = [
       path: 'index',
       name: 'indent',
       component: () =>import('@/views/indent/index'),
-      meta: {title: '订单', icon: 'el-icon-s-help'}
+      meta: {title: '订单', icon: 'el-icon-s-order'}
     }
    ]
   },

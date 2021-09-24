@@ -36,7 +36,7 @@ public class Indent implements Serializable {
     /**
      * 对应客户名称
      */
-    @NotBlank(message = "客户名称不能为空")
+    @NotBlank(message = "客户不能为空")
     private String customerName;
 
     /**

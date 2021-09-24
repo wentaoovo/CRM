@@ -45,16 +45,15 @@ public class IndentServiceImpl implements IndentService {
     public boolean insert(Indent indent) {
         indent.setId(idWorker.nextId()+"");
         indent.setAddtime(new Date());
-        indent.setTotalMoney(BigDecimal.valueOf(0));
         indent.setIndentDate(new Date());
-        indent.setOutMoney(BigDecimal.valueOf(0));
-        indent.setReturnedMoney(BigDecimal.valueOf(0));
-        indent.setCost(BigDecimal.valueOf(0));
-        indent.setDiscount(BigDecimal.valueOf(0));
-        indent.setGrossMargin(BigDecimal.valueOf(0));
-        indent.setForgrossMargin(BigDecimal.valueOf(0));
-        indent.setInvoiceValue(BigDecimal.valueOf(0));
-        indent.setFreight(BigDecimal.valueOf(0));
+//        indent.setOutMoney(BigDecimal.valueOf(0));
+//        indent.setReturnedMoney(BigDecimal.valueOf(0));
+//        indent.setCost(BigDecimal.valueOf(0));
+//        indent.setDiscount(BigDecimal.valueOf(0));
+//        indent.setGrossMargin(BigDecimal.valueOf(0));
+//        indent.setForgrossMargin(BigDecimal.valueOf(0));
+//        indent.setInvoiceValue(BigDecimal.valueOf(0));
+//        indent.setFreight(BigDecimal.valueOf(0));
         indent.setTimeliness(0);
         indent.setUpdatetime(new Date());
         indent.setState(0);

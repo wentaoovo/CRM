@@ -60,12 +60,6 @@
     select <include refid="Base_Column_List"></include>
     from indent
     <where>
-      <if test="customerName !=null">
-        and customer_name LIKE "%"#{customerName}"%"
-      </if>
-      <if test="possessor !=null">
-        and possessor LIKE "%"#{possessor}"%"
-      </if>
       <if test="classify !=null">
         and classify =#{classify}
       </if>
@@ -73,7 +67,7 @@
         and `state` =#{state}
       </if>
       <if test="keyword !=null">
-        and CONCAT(id,theme,total_money) LIKE "%"#{keyword}"%"
+        and CONCAT(IFNULL(id,''),IFNULL(theme,''),IFNULL(customer_name,''),IFNULL(possessor,'')) LIKE "%"#{keyword}"%"
       </if>
       and timeliness = 0
     </where>
