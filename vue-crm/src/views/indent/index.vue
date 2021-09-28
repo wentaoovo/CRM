@@ -29,7 +29,7 @@
           </div>
       </div>
     <div class="app-container">
-      <div class="app-button"><el-button icon="el-icon-circle-plus" @click="handlAdd()" size="small">新建订单</el-button>
+      <div class="app-button"><el-button icon="el-icon-circle-plus" @click="handAdd()" size="small">新建订单</el-button>
       <el-button icon="el-icon-position" size="small">导出</el-button></div>
       <div class="cont-bod-box">
         <el-table :data="tableData" style="width: 100%">
@@ -46,12 +46,10 @@
           <el-table-column prop="remark" label="备注" width="110" sortable></el-table-column>
           <el-table-column fixed="right" label="操作" align="center" width="100">
             <template slot-scope="scope">
-              <router-link :to="{'path':'/social-securitys/detail/' + scope.row.id}" class="el-button el-button--text el-button--small">
+              <router-link :to="{'path':'/indent/viewIndex/' + scope.row.id}" class="el-button el-button--text el-button--small">
                 查看
               </router-link>
-              <router-link :to="{'path':'/social-securitys/detail/' + scope.row.id}" class="el-button el-button--text el-button--small">
-                删除
-              </router-link>
+               <el-button @click="handDelete(scope.row.id)" size="small" type="text">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -74,12 +72,11 @@
 </template>
 
 <script>
-import {getList} from "@/api/indent"
-import { errorMonitor } from 'events';
+import {getList,deletebyid} from "@/api/indent"
 import indexAdd from '@/views/indent/components/indexadd'
 
 export default {
-  name: 'index',
+  name: 'indent-index',
   components:{indexAdd},
     data() {
         return {
@@ -190,8 +187,31 @@ export default {
           this.init()
         },
         // 新增订单
-        handlAdd(){
+        handAdd(){
           this.$refs.indexAdd.dialogFormVisible = true;
+        },
+        //删除订单
+        handDelete(data){
+          this.$confirm('此操作将永久删除该订单, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        })
+        .then(()=>{
+          deletebyid(data).then(res =>{
+            this.$message({
+              message: res.message,
+              type:res.success?'success':'error'
+            });
+          })
+          this.init()
+        })
+        .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除',
+            })
+          })
         }
     },
     created(){

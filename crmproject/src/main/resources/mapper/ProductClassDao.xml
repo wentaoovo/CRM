@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.crmproject.dao.wentao.ProductClassDao">
+<!-- 产品类别mapper -->
+  <resultMap id="BaseResultMap" type="com.trkj.crmproject.entity.wentao.ProductClass">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="p_id" jdbcType="VARCHAR" property="pId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, p_id, `name`, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, 
+    TimeLiness
+  </sql>
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_class
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from product_class
+  </select>
+  <delete id="deleteById" parameterType="java.lang.String">
+    delete from product_class
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.trkj.crmproject.entity.wentao.ProductClass">
+    insert into product_class (id,p_id, `name`, AddName,
+      AddTime, UpdateName, UpdateTime, 
+      DeleteName, DeleteTime, TimeLiness
+      )
+    values (#{id},#{pId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR},
+      #{addtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="update" parameterType="com.trkj.crmproject.entity.wentao.ProductClass">
+    update product_class
+    set p_id = #{pId,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      AddName = #{addname,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

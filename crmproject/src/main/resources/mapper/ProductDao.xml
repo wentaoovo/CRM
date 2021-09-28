@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.crmproject.dao.wentao.ProductDao">
+  <resultMap id="BaseResultMap" type="com.trkj.crmproject.entity.wentao.Product">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="class_id" jdbcType="VARCHAR" property="classId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="coding" jdbcType="VARCHAR" property="coding" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="weight" jdbcType="VARCHAR" property="weight" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="upper_limit" jdbcType="INTEGER" property="upperLimit" />
+    <result column="lower_limit" jdbcType="INTEGER" property="lowerLimit" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="Warranty" jdbcType="INTEGER" property="warranty" />
+    <result column="outline" jdbcType="VARCHAR" property="outline" />
+    <result column="discount_norm" jdbcType="VARCHAR" property="discountNorm" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="technical" jdbcType="VARCHAR" property="technical" />
+    <result column="FAQ" jdbcType="VARCHAR" property="faq" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, class_id, `name`, coding, `state`, unit, price, cost_price, model, weight, img, 
+    upper_limit, lower_limit, `count`, Warranty, outline, discount_norm, description, 
+    technical, FAQ, remark, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, 
+    TimeLiness
+  </sql>
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" parameterType="com.trkj.crmproject.vo.Indent.SearchListVo"
+          resultType="com.trkj.crmproject.entity.wentao.Product">
+    select
+    <include refid="Base_Column_List" />
+    from product
+    <where>
+      <if test="keyword !=null">
+        and CONCAT(IFNULL(`name`,''),IFNULL(model,'')) LIKE "%"#{keyword}"%"
+      </if>
+    </where>
+  </select>
+  <delete id="deleteById" parameterType="java.lang.String">
+    delete from product
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.trkj.crmproject.entity.wentao.Product">
+    insert into product (id,class_id, `name`, coding,
+      `state`, unit, price, 
+      cost_price, model, weight, 
+      img, upper_limit, lower_limit, 
+      `count`, Warranty, outline, 
+      discount_norm, description, technical, 
+      FAQ, remark, AddName, 
+      AddTime, UpdateName, UpdateTime, 
+      DeleteName, DeleteTime, TimeLiness
+      )
+    values (#{id},#{classId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{coding,jdbcType=VARCHAR},
+      #{state,jdbcType=INTEGER}, #{unit,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{costPrice,jdbcType=DECIMAL}, #{model,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}, 
+      #{img,jdbcType=VARCHAR}, #{upperLimit,jdbcType=INTEGER}, #{lowerLimit,jdbcType=INTEGER}, 
+      #{count,jdbcType=INTEGER}, #{warranty,jdbcType=INTEGER}, #{outline,jdbcType=VARCHAR}, 
+      #{discountNorm,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{technical,jdbcType=VARCHAR}, 
+      #{faq,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="update" parameterType="com.trkj.crmproject.entity.wentao.Product">
+    update product
+    set class_id = #{classId,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      coding = #{coding,jdbcType=VARCHAR},
+      `state` = #{state,jdbcType=INTEGER},
+      unit = #{unit,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      cost_price = #{costPrice,jdbcType=DECIMAL},
+      model = #{model,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      upper_limit = #{upperLimit,jdbcType=INTEGER},
+      lower_limit = #{lowerLimit,jdbcType=INTEGER},
+      `count` = #{count,jdbcType=INTEGER},
+      Warranty = #{warranty,jdbcType=INTEGER},
+      outline = #{outline,jdbcType=VARCHAR},
+      discount_norm = #{discountNorm,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      technical = #{technical,jdbcType=VARCHAR},
+      FAQ = #{faq,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      AddName = #{addname,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

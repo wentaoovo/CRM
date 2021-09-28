@@ -63,7 +63,35 @@ export const constantRoutes = [
       name: 'indent',
       component: () =>import('@/views/indent/index'),
       meta: {title: '订单', icon: 'el-icon-s-order'}
-    }
+    },
+    {
+      path: 'viewindex/:id',
+      component: () =>import('@/views/indent/viewIndex'),
+      name: 'viewindex',
+      hidden:true,
+      meta: {
+        title: '订单-详情'}
+    },
+   ]
+  },
+  {
+    path: '/product',
+    component: Layout,
+    children: [
+      {
+      path: 'index',
+      name: 'index',
+      component: () =>import('@/views/product/index'),
+      meta: {title: '产品', icon: 'el-icon-menu'}
+    },
+    {
+      path: 'class',
+      name: 'class',
+      hidden:true,
+      component: () =>import('@/views/product/class'),
+      meta: {
+        title: '产品类别'}
+    },
    ]
   },
   {
