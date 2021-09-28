@@ -35,4 +35,19 @@ public class CoustomerDetailsServiceImpl implements CoustomerDetailsService {
         record.setId(idWorker.nextId()+"");
         return ixCustomerDetailsDao.insert(record);
     }
+
+    @Override
+    public int updateByPrimaryKeySelective(IxCustomerDetails record) {
+        return ixCustomerDetailsDao.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public IxCustomerDetails selectByPrimaryKey(String id) {
+        return ixCustomerDetailsDao.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int deleteByPrimaryKey(String id) {
+        return ixCustomerDetailsDao.deleteByPrimaryKey(id);
+    }
 }

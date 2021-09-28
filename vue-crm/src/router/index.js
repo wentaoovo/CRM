@@ -105,7 +105,16 @@ export const constantRoutes = [
       meta: { title: '索引', icon: 'table' }
     }]
   },
-
+  {
+    path: '/custment',
+    component: Layout,
+    children: [{
+      path: 'custmenrt',
+      name: 'xianwen',
+      component: () => import('@/views/xianwen/custmenrt'),
+      meta: { title: '客户', icon: 'table' }
+    }]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
