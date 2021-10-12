@@ -31,7 +31,7 @@
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, customer_id, `name`, `type`, life_cycle, first_signing, `source`, credit_level, 
+    id, `name`, `type`, life_cycle, first_signing, `source`, credit_level,
     stage, nexus_level, settlement_method, price_strategy, industry, personnel_size, 
     taobao_number, jingdong_number, tianmao_number, yidinghuo_number, company_profile, 
     telephone, mobile_phone, website, province, city, area, postcode, address, remarks

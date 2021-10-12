@@ -7,10 +7,7 @@ import com.trkj.crmproject.util.ResultVoUtil;
 import com.trkj.crmproject.vo.Indexes.CosmerSearch;
 import com.trkj.crmproject.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.CompletionService;
 
@@ -27,6 +24,21 @@ public class CoustomerController {
     @PostMapping("/save")
     public ResultVo save(@RequestBody IxCustomerDetails ixCustomerDetails){
         coustomerDetailsService.insert(ixCustomerDetails);
+        return ResultVoUtil.success();
+    }
+    @PutMapping("/updata")
+    public ResultVo updata(@RequestBody IxCustomerDetails ixCustomerDetails){
+        int i = coustomerDetailsService.updateByPrimaryKeySelective(ixCustomerDetails);
+        return ResultVoUtil.success(i);
+    }
+    @GetMapping("/byone/{id}")
+    public ResultVo selectOne(@PathVariable("id")String id){
+        IxCustomerDetails ixCustomerDetails = coustomerDetailsService.selectByPrimaryKey(id);
+        return ResultVoUtil.success(ixCustomerDetails);
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResultVo delete(@PathVariable("id")String id){
+        coustomerDetailsService.deleteByPrimaryKey(id);
         return ResultVoUtil.success();
     }
 }
