@@ -23,6 +23,9 @@ public class CoustomerController {
     }
     @PostMapping("/save")
     public ResultVo save(@RequestBody IxCustomerDetails ixCustomerDetails){
+        if(ixCustomerDetails.getRealName()==null){
+            ixCustomerDetails.setRealName("xxw");
+        }
         coustomerDetailsService.insert(ixCustomerDetails);
         return ResultVoUtil.success();
     }

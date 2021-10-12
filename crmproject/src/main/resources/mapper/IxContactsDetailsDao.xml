@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.crmproject.dao.hanwen.IxContactsDetailsDao">
+  <resultMap id="BaseResultMap" type="com.trkj.crmproject.entity.hanwen.IxContactsDetails">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="customer_details_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="contacts_id" jdbcType="VARCHAR" property="contactsId" />
+    <result column="contacts_name" jdbcType="VARCHAR" property="contactsName" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
+    <result column="corr_customer" jdbcType="VARCHAR" property="corrCustomer" />
+    <result column="contact_category" jdbcType="VARCHAR" property="contactCategory" />
+    <result column="business" jdbcType="VARCHAR" property="business" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="appellation" jdbcType="VARCHAR" property="appellation" />
+    <result column="genre" jdbcType="VARCHAR" property="genre" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="job" jdbcType="VARCHAR" property="job" />
+    <result column="wechat" jdbcType="VARCHAR" property="wechat" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="wechat_name" jdbcType="VARCHAR" property="wechatName" />
+    <result column="qq_name" jdbcType="VARCHAR" property="qqName" />
+    <result column="wangwang" jdbcType="VARCHAR" property="wangwang" />
+    <result column="mailing_address" jdbcType="VARCHAR" property="mailingAddress" />
+    <result column="work_phone" jdbcType="VARCHAR" property="workPhone" />
+    <result column="home_phone" jdbcType="VARCHAR" property="homePhone" />
+    <result column="fax" jdbcType="VARCHAR" property="fax" />
+    <result column="postcode" jdbcType="VARCHAR" property="postcode" />
+    <result column="home_address" jdbcType="VARCHAR" property="homeAddress" />
+    <result column="hobby" jdbcType="VARCHAR" property="hobby" />
+    <result column="card_id" jdbcType="VARCHAR" property="cardId" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="habit" jdbcType="VARCHAR" property="habit" />
+    <result column="interest" jdbcType="VARCHAR" property="interest" />
+    <result column="characters" jdbcType="VARCHAR" property="characters" />
+    <result column="social_characteristics" jdbcType="VARCHAR" property="socialCharacteristics" />
+    <result column="spouse" jdbcType="VARCHAR" property="spouse" />
+    <result column="children" jdbcType="VARCHAR" property="children" />
+    <result column="annual_income" jdbcType="VARCHAR" property="annualIncome" />
+    <result column="consumption_habits" jdbcType="VARCHAR" property="consumptionHabits" />
+    <association property="name" javaType="com.trkj.crmproject.entity.hanwen.IxCustomerDetails">
+      <id column="id" property="id"></id>
+      <result column="name" property="name"></result>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, customer_details_id, contacts_id, contacts_name, mobile_phone, corr_customer, contact_category,
+    business, sex, appellation, genre, department, job, wechat, qq, wechat_name, qq_name, 
+    wangwang, mailing_address, work_phone, home_phone, fax, postcode, home_address, hobby, 
+    card_id, remarks, habit, interest, `characters`, social_characteristics, spouse, 
+    children, annual_income, consumption_habits
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ix_contacts_details
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ix_contacts_details
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.trkj.crmproject.entity.hanwen.IxContactsDetails" useGeneratedKeys="true">
+    insert into ix_contacts_details (customer_details_id, contacts_id, contacts_name,
+      mobile_phone, corr_customer, contact_category, 
+      business, sex, appellation, 
+      genre, department, job, 
+      wechat, qq, wechat_name, 
+      qq_name, wangwang, mailing_address, 
+      work_phone, home_phone, fax, 
+      postcode, home_address, hobby, 
+      card_id, remarks, habit, 
+      interest, `characters`, social_characteristics, 
+      spouse, children, annual_income, 
+      consumption_habits)
+    values (#{customerDetailsId,jdbcType=VARCHAR}, #{contactsId,jdbcType=VARCHAR}, #{contactsName,jdbcType=VARCHAR},
+      #{mobilePhone,jdbcType=VARCHAR}, #{corrCustomer,jdbcType=VARCHAR}, #{contactCategory,jdbcType=VARCHAR}, 
+      #{business,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{appellation,jdbcType=VARCHAR}, 
+      #{genre,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, 
+      #{wechat,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{wechatName,jdbcType=VARCHAR}, 
+      #{qqName,jdbcType=VARCHAR}, #{wangwang,jdbcType=VARCHAR}, #{mailingAddress,jdbcType=VARCHAR}, 
+      #{workPhone,jdbcType=VARCHAR}, #{homePhone,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, 
+      #{postcode,jdbcType=VARCHAR}, #{homeAddress,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, 
+      #{cardId,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{habit,jdbcType=VARCHAR}, 
+      #{interest,jdbcType=VARCHAR}, #{characters,jdbcType=VARCHAR}, #{socialCharacteristics,jdbcType=VARCHAR}, 
+      #{spouse,jdbcType=VARCHAR}, #{children,jdbcType=VARCHAR}, #{annualIncome,jdbcType=VARCHAR}, 
+      #{consumptionHabits,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.trkj.crmproject.entity.hanwen.IxContactsDetails" useGeneratedKeys="true">
+    insert into ix_contacts_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="customerDetailsId != null">
+        customer_details_id,
+      </if>
+      <if test="contactsId != null">
+        contacts_id,
+      </if>
+      <if test="contactsName != null">
+        `contacts_name`,
+      </if>
+      <if test="mobilePhone != null">
+        mobile_phone,
+      </if>
+      <if test="corrCustomer != null">
+        corr_customer,
+      </if>
+      <if test="contactCategory != null">
+        contact_category,
+      </if>
+      <if test="business != null">
+        business,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="appellation != null">
+        appellation,
+      </if>
+      <if test="genre != null">
+        genre,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="job != null">
+        job,
+      </if>
+      <if test="wechat != null">
+        wechat,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="wechatName != null">
+        wechat_name,
+      </if>
+      <if test="qqName != null">
+        qq_name,
+      </if>
+      <if test="wangwang != null">
+        wangwang,
+      </if>
+      <if test="mailingAddress != null">
+        mailing_address,
+      </if>
+      <if test="workPhone != null">
+        work_phone,
+      </if>
+      <if test="homePhone != null">
+        home_phone,
+      </if>
+      <if test="fax != null">
+        fax,
+      </if>
+      <if test="postcode != null">
+        postcode,
+      </if>
+      <if test="homeAddress != null">
+        home_address,
+      </if>
+      <if test="hobby != null">
+        hobby,
+      </if>
+      <if test="cardId != null">
+        card_id,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="habit != null">
+        habit,
+      </if>
+      <if test="interest != null">
+        interest,
+      </if>
+      <if test="characters != null">
+        `characters`,
+      </if>
+      <if test="socialCharacteristics != null">
+        social_characteristics,
+      </if>
+      <if test="spouse != null">
+        spouse,
+      </if>
+      <if test="children != null">
+        children,
+      </if>
+      <if test="annualIncome != null">
+        annual_income,
+      </if>
+      <if test="consumptionHabits != null">
+        consumption_habits,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="customerDetailsId != null">
+        #{customerDetailsId,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsId != null">
+        #{contactsId,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsName != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null">
+        #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="corrCustomer != null">
+        #{corrCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="contactCategory != null">
+        #{contactCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="business != null">
+        #{business,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="appellation != null">
+        #{appellation,jdbcType=VARCHAR},
+      </if>
+      <if test="genre != null">
+        #{genre,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null">
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatName != null">
+        #{wechatName,jdbcType=VARCHAR},
+      </if>
+      <if test="qqName != null">
+        #{qqName,jdbcType=VARCHAR},
+      </if>
+      <if test="wangwang != null">
+        #{wangwang,jdbcType=VARCHAR},
+      </if>
+      <if test="mailingAddress != null">
+        #{mailingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="workPhone != null">
+        #{workPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhone != null">
+        #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null">
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null">
+        #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null">
+        #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null">
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="habit != null">
+        #{habit,jdbcType=VARCHAR},
+      </if>
+      <if test="interest != null">
+        #{interest,jdbcType=VARCHAR},
+      </if>
+      <if test="characters != null">
+        #{characters,jdbcType=VARCHAR},
+      </if>
+      <if test="socialCharacteristics != null">
+        #{socialCharacteristics,jdbcType=VARCHAR},
+      </if>
+      <if test="spouse != null">
+        #{spouse,jdbcType=VARCHAR},
+      </if>
+      <if test="children != null">
+        #{children,jdbcType=VARCHAR},
+      </if>
+      <if test="annualIncome != null">
+        #{annualIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="consumptionHabits != null">
+        #{consumptionHabits,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.crmproject.entity.hanwen.IxContactsDetails">
+    update ix_contacts_details
+    <set>
+      <if test="customerDetailsId != null">
+        customer_details_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsId != null">
+        contacts_id = #{contactsId,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsName != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null">
+        mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="corrCustomer != null">
+        corr_customer = #{corrCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="contactCategory != null">
+        contact_category = #{contactCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="business != null">
+        business = #{business,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="appellation != null">
+        appellation = #{appellation,jdbcType=VARCHAR},
+      </if>
+      <if test="genre != null">
+        genre = #{genre,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null">
+        wechat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatName != null">
+        wechat_name = #{wechatName,jdbcType=VARCHAR},
+      </if>
+      <if test="qqName != null">
+        qq_name = #{qqName,jdbcType=VARCHAR},
+      </if>
+      <if test="wangwang != null">
+        wangwang = #{wangwang,jdbcType=VARCHAR},
+      </if>
+      <if test="mailingAddress != null">
+        mailing_address = #{mailingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="workPhone != null">
+        work_phone = #{workPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhone != null">
+        home_phone = #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null">
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null">
+        home_address = #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null">
+        hobby = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null">
+        card_id = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="habit != null">
+        habit = #{habit,jdbcType=VARCHAR},
+      </if>
+      <if test="interest != null">
+        interest = #{interest,jdbcType=VARCHAR},
+      </if>
+      <if test="characters != null">
+        `characters` = #{characters,jdbcType=VARCHAR},
+      </if>
+      <if test="socialCharacteristics != null">
+        social_characteristics = #{socialCharacteristics,jdbcType=VARCHAR},
+      </if>
+      <if test="spouse != null">
+        spouse = #{spouse,jdbcType=VARCHAR},
+      </if>
+      <if test="children != null">
+        children = #{children,jdbcType=VARCHAR},
+      </if>
+      <if test="annualIncome != null">
+        annual_income = #{annualIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="consumptionHabits != null">
+        consumption_habits = #{consumptionHabits,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.crmproject.entity.hanwen.IxContactsDetails">
+    update ix_contacts_details
+    set customer_details_id = #{customerDetailsId,jdbcType=VARCHAR},
+      contacts_id = #{contactsId,jdbcType=VARCHAR},
+      contacts_name = #{contactsName,jdbcType=VARCHAR},
+      mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      corr_customer = #{corrCustomer,jdbcType=VARCHAR},
+      contact_category = #{contactCategory,jdbcType=VARCHAR},
+      business = #{business,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      appellation = #{appellation,jdbcType=VARCHAR},
+      genre = #{genre,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      job = #{job,jdbcType=VARCHAR},
+      wechat = #{wechat,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      wechat_name = #{wechatName,jdbcType=VARCHAR},
+      qq_name = #{qqName,jdbcType=VARCHAR},
+      wangwang = #{wangwang,jdbcType=VARCHAR},
+      mailing_address = #{mailingAddress,jdbcType=VARCHAR},
+      work_phone = #{workPhone,jdbcType=VARCHAR},
+      home_phone = #{homePhone,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      home_address = #{homeAddress,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      card_id = #{cardId,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      habit = #{habit,jdbcType=VARCHAR},
+      interest = #{interest,jdbcType=VARCHAR},
+      `characters` = #{characters,jdbcType=VARCHAR},
+      social_characteristics = #{socialCharacteristics,jdbcType=VARCHAR},
+      spouse = #{spouse,jdbcType=VARCHAR},
+      children = #{children,jdbcType=VARCHAR},
+      annual_income = #{annualIncome,jdbcType=VARCHAR},
+      consumption_habits = #{consumptionHabits,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

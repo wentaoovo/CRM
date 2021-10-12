@@ -22,17 +22,27 @@ public class IxCustomerDetails implements Serializable {
      * 客户名称
      */
     private String name;
+    /**
+     * 公司
+     */
+    private String company;
 
     /**
      * 种类
             
      */
     private String type;
+    /**
+     * 所有者
+
+     */
+    private String realName;
 
     /**
      * 生命周期
             
      */
+
     private String lifeCycle;
 
     /**

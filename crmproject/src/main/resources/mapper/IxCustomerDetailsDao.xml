@@ -5,6 +5,8 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
     <result column="life_cycle" jdbcType="VARCHAR" property="lifeCycle" />
     <result column="first_signing" jdbcType="TIMESTAMP" property="firstSigning" />
     <result column="source" jdbcType="VARCHAR" property="source" />
@@ -31,7 +33,7 @@
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, `name`, `type`, life_cycle, first_signing, `source`, credit_level,
+    id, `name`, `type`,company,real_name, life_cycle, first_signing, `source`, credit_level,
     stage, nexus_level, settlement_method, price_strategy, industry, personnel_size, 
     taobao_number, jingdong_number, tianmao_number, yidinghuo_number, company_profile, 
     telephone, mobile_phone, website, province, city, area, postcode, address, remarks
@@ -63,7 +65,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert"  parameterType="com.trkj.crmproject.entity.hanwen.IxCustomerDetails">
-    insert into ix_customer_details ( id,`name`, `type`,
+    insert into ix_customer_details ( id,`name`, `type`,company,real_name,
       life_cycle, first_signing, `source`, 
       credit_level, stage, nexus_level, 
       settlement_method, price_strategy, industry, 
@@ -73,7 +75,7 @@
       province, city, area, 
       postcode, address, remarks
       )
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},#{company,jdbcType=VARCHAR},#{realName,jdbcType=VARCHAR},
       #{lifeCycle,jdbcType=VARCHAR}, #{firstSigning,jdbcType=TIMESTAMP}, #{source,jdbcType=VARCHAR}, 
       #{creditLevel,jdbcType=VARCHAR}, #{stage,jdbcType=VARCHAR}, #{nexusLevel,jdbcType=VARCHAR}, 
       #{settlementMethod,jdbcType=VARCHAR}, #{priceStrategy,jdbcType=VARCHAR}, #{industry,jdbcType=VARCHAR}, 
@@ -92,6 +94,12 @@
       </if>
       <if test="type != null">
         `type`,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="realName != null">
+        real_name,
       </if>
       <if test="lifeCycle != null">
         life_cycle,
@@ -172,6 +180,12 @@
       </if>
       <if test="type != null">
         #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
       </if>
       <if test="lifeCycle != null">
         #{lifeCycle,jdbcType=VARCHAR},
@@ -256,6 +270,12 @@
       <if test="type != null">
         `type` = #{type,jdbcType=VARCHAR},
       </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
       <if test="lifeCycle != null">
         life_cycle = #{lifeCycle,jdbcType=VARCHAR},
       </if>
@@ -335,6 +355,8 @@
     update ix_customer_details
     set `name` = #{name,jdbcType=VARCHAR},
       `type` = #{type,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
       life_cycle = #{lifeCycle,jdbcType=VARCHAR},
       first_signing = #{firstSigning,jdbcType=TIMESTAMP},
       `source` = #{source,jdbcType=VARCHAR},
