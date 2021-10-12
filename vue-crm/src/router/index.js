@@ -77,23 +77,13 @@ export const constantRoutes = [
   {
     path: '/product',
     component: Layout,
-    children: [
-      {
+    children: [{
       path: 'index',
       name: 'index',
       component: () =>import('@/views/product/index'),
       meta: {title: '产品', icon: 'el-icon-menu'}
-    },
-    {
-      path: 'class',
-      name: 'class',
-      hidden:true,
-      component: () =>import('@/views/product/class'),
-      meta: {
-        title: '产品类别'}
-    },
-   ]
-  },
+    }]
+  }, 
   {
     path: '/xianwen',
     component: Layout,
@@ -113,6 +103,16 @@ export const constantRoutes = [
       name: 'xianwen',
       component: () => import('@/views/xianwen/custmenrt'),
       meta: { title: '客户', icon: 'table' }
+    }]
+  },
+  {
+    path: '/contacts',
+    component: Layout,
+    children: [{
+      path: 'contacts',
+      name: 'xianwen',
+      component: () => import('@/views/xianwen/contacts'),
+      meta: { title: '联系人', icon: 'table' }
     }]
   },
   // 404 page must be placed at the end !!!
