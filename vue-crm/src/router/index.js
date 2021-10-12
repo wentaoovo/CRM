@@ -77,22 +77,12 @@ export const constantRoutes = [
   {
     path: '/product',
     component: Layout,
-    children: [
-      {
+    children: [{
       path: 'index',
       name: 'index',
       component: () =>import('@/views/product/index'),
       meta: {title: '产品', icon: 'el-icon-menu'}
-    },
-    {
-      path: 'class',
-      name: 'class',
-      hidden:true,
-      component: () =>import('@/views/product/class'),
-      meta: {
-        title: '产品类别'}
-    },
-   ]
+    }]
   },
   {
     path: '/xianwen',

@@ -13,7 +13,8 @@
       </div>
     <div class="app-container">
       <div class="app-button"><el-button icon="el-icon-circle-plus" @click="handAdd()" size="small">新建</el-button>
-      <el-button icon="el-icon-s-tools" size="small">产品类别</el-button></div>
+         <el-button icon="el-icon-s-tools" @click="handclass()" size="small">产品类别</el-button>
+      </div>
       <div class="cont-bod-box">
         <el-table :data="tableData" style="width: 100%">
           <el-table-column type="index" width="50" label="序号"></el-table-column>
@@ -21,16 +22,17 @@
           <el-table-column prop="name" label="品名" width="110" sortable></el-table-column>
           <el-table-column prop="coding" label="编码" width="110" sortable></el-table-column>
           <el-table-column prop="model" label="型号" width="110" sortable></el-table-column>
-          <el-table-column prop="outline" label="SKU规格" width="110" sortable></el-table-column>
           <el-table-column prop="price" label="价格" width="110" sortable></el-table-column>
           <el-table-column prop="unit" label="单位" width="110" sortable></el-table-column>
-          <el-table-column prop="state" label="状态" width="110" sortable></el-table-column>
+          <el-table-column prop="state" label="状态" width="110" sortable>
+            <template #default="scope">
+               <el-tag :type="scope.row.state == 0? 'success':'danger'">{{scope.row.state == 0? '正常':'停售'}}</el-tag>
+            </template>
+          </el-table-column>
           <el-table-column prop="costPrice" label="成本价格" width="110" sortable></el-table-column>
           <el-table-column fixed="right" label="操作" align="center" width="100">
             <template slot-scope="scope">
-              <router-link :to="{'path':'/indent/viewIndex/' + scope.row.id}" class="el-button el-button--text el-button--small">
-                查看
-              </router-link>
+               <el-button @click="handUpdate(scope.row.id)" size="small" type="text">查看</el-button>
                <el-button @click="handDelete(scope.row.id)" size="small" type="text">删除</el-button>
             </template>
           </el-table-column>
@@ -47,22 +49,26 @@
         </div>
       </div>
     </div>
-    <!-- 新增订单组件 -->
+    <!-- 新增产品组件 -->
     <component v-bind:is="productadd" ref="productadd"></component>
+    <!-- 产品类别组件 -->
+    <component v-bind:is="productclass" ref="productclass"></component>
   </div>
 
 </template>
 
 <script>
-import {getList,deletebyid} from "@/api/product"
+import {getList,deletebyid,find} from "@/api/product"
 import productadd from '@/views/product/components/productadd'
+import productclass from '@/views/product/components/class'
 
 export default {
   name: 'product-index',
-  components:{productadd},
+  components:{productadd,productclass},
     data() {
         return {
             productadd: 'productadd',
+            productclass: 'productclass',
             tableData:[],
             total: 100,
             selectParams:{},
@@ -100,9 +106,16 @@ export default {
         handAdd(){
           this.$refs.productadd.dialogFormVisible=true;
         },
+        //查看产品
+        handUpdate(data){
+          find(data).then(res =>{
+            this.$refs.productadd.formData=res.data
+            this.$refs.productadd.dialogFormVisible=true;
+          });
+        },
         //删除产品
         handDelete(data){
-          this.$confirm('此操作将永久删除该订单, 是否继续?', '提示', {
+          this.$confirm('此操作将永久删除该产品, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
@@ -122,7 +135,18 @@ export default {
               message: '已取消删除',
             })
           })
-        }
+        },
+        //弹出产品类别框
+        handclass(){
+          this.$refs.productclass.dialogFormVisible = true
+        },
+        // stateFormat(row,column){
+        //   if(row.state ==0){
+        //     return '正常'
+        //   }else{
+        //     return '停售'
+        //   }
+        // },
     },
     created(){
         this.selectParams.pageNum = 1

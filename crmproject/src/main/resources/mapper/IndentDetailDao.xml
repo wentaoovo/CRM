@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.crmproject.dao.wentao.IndentDetailDao">
+  <resultMap id="BaseResultMap" type="com.trkj.crmproject.entity.wentao.IndentDetail">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="indent_id" jdbcType="VARCHAR" property="indentId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="discount" jdbcType="DECIMAL" property="discount" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, indent_id, product_id, product_name, unit_price, money, quantity, model, discount, 
+    remark, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+  </sql>
+  <select id="selectByPid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from indent_detail
+    where indent_id = #{indentId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.String">
+    delete from indent_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.trkj.crmproject.entity.wentao.IndentDetail">
+    insert into indent_detail (id,indent_id, product_id, product_name,
+      unit_price, money, quantity, 
+      model, discount, remark, 
+      AddName, AddTime, UpdateName, 
+      UpdateTime, DeleteName, DeleteTime, 
+      TimeLiness)
+    values (#{id,jdbcType=VARCHAR}, #{indentId,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR},
+      #{unitPrice,jdbcType=DECIMAL}, #{money,jdbcType=DECIMAL}, #{quantity,jdbcType=INTEGER}, 
+      #{model,jdbcType=VARCHAR}, #{discount,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
+      #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, 
+      #{timeliness,jdbcType=INTEGER})
+  </insert>
+  <update id="updateById" parameterType="com.trkj.crmproject.entity.wentao.IndentDetail">
+    update indent_detail
+    set indent_id = #{indentId,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      money = #{money,jdbcType=DECIMAL},
+      quantity = #{quantity,jdbcType=INTEGER},
+      model = #{model,jdbcType=VARCHAR},
+      discount = #{discount,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      AddName = #{addname,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

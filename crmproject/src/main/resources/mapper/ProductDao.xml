@@ -44,7 +44,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" parameterType="com.trkj.crmproject.vo.Indent.SearchListVo"
-          resultType="com.trkj.crmproject.entity.wentao.Product">
+          resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from product

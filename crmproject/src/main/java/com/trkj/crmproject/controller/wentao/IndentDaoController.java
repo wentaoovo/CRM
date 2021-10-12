@@ -35,7 +35,7 @@ public class IndentDaoController {
      * @return
      */
     @DeleteMapping("/delete/{id}")
-    public ResultVo add(@PathVariable("id") String id){
+    public ResultVo delete(@PathVariable("id") String id){
         if (indentService.deleteTl(id)){
             return ResultVoUtil.success();
         }
