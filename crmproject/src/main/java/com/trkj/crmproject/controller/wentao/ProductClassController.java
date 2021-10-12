@@ -33,7 +33,7 @@ public class ProductClassController {
      * @return
      */
     @DeleteMapping("/delete/{id}")
-    public ResultVo add(@PathVariable("id") String id){
+    public ResultVo delete(@PathVariable("id") String id){
         if (productClassService.deleteById(id)){
             return ResultVoUtil.success();
         }

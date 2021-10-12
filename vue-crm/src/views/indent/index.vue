@@ -2,7 +2,7 @@
      <div class="dashboard-container">
       <div class="lable-titi">
          <div>
-           <el-select v-model="value" @change="classChange" style="width:150px;left: 50px;top: 10px" placeholder="请选择">
+           <el-select v-model="value" @change="classChange" style="width:150px;left: 20px;top: 10px" placeholder="请选择">
             <el-option-group
               v-for="group in options"
               :key="group.label"
@@ -40,9 +40,13 @@
           <el-table-column prop="totalMoney" label="总金额" width="110" sortable></el-table-column>
           <el-table-column prop="outMoney" label="发货金额" width="110" sortable></el-table-column>
           <el-table-column prop="returnedMoney" label="回款金额" width="110" sortable></el-table-column>
-          <el-table-column prop="state" label="状态" width="110" sortable></el-table-column>
+          <el-table-column prop="state" label="状态" width="110" sortable>
+            <template #default="scope">
+               <el-tag :type="scope.row.state == 0? 'success':'danger'">{{scope.row.state == 0? '执行中':''}}{{scope.row.state == 1? '结束':''}}{{scope.row.state == 2? '意外中止':''}}</el-tag>
+            </template>
+          </el-table-column>
           <el-table-column prop="possessor" label="所有者" width="110" sortable></el-table-column>
-          <el-table-column prop="indentDate" label="开始时间" width="110" sortable></el-table-column>
+          <el-table-column prop="indentDate" label="开始时间" :formatter="frormatDate" width="110" sortable></el-table-column>
           <el-table-column prop="remark" label="备注" width="110" sortable></el-table-column>
           <el-table-column fixed="right" label="操作" align="center" width="100">
             <template slot-scope="scope">
@@ -67,6 +71,8 @@
     </div>
     <!-- 新增订单组件 -->
     <component v-bind:is="indexAdd" ref="indexAdd"></component>
+    <!-- 新增订单明细组件 -->
+    <component v-bind:is="detailadd" ref="detailadd"></component>
   </div>
 
 </template>
@@ -74,13 +80,16 @@
 <script>
 import {getList,deletebyid} from "@/api/indent"
 import indexAdd from '@/views/indent/components/indexadd'
+import detailadd from '@/views/indent/components/indent_detailadd'
+import moment from "moment"
 
 export default {
   name: 'indent-index',
-  components:{indexAdd},
+  components:{indexAdd,detailadd},
     data() {
         return {
             indexAdd: 'indexAdd',
+            detailadd: 'detailadd',
             tableData:[],
             total: 100,
             selectParams:{},
@@ -203,8 +212,8 @@ export default {
               message: res.message,
               type:res.success?'success':'error'
             });
+            this.init()
           })
-          this.init()
         })
         .catch(() => {
             this.$message({
@@ -212,6 +221,11 @@ export default {
               message: '已取消删除',
             })
           })
+        },
+        frormatDate(row,column){
+        var date = row[column.property];
+          if(date === undefined){ return ''}
+          return moment(date).format("YYYY-MM-DD")
         }
     },
     created(){
@@ -244,8 +258,8 @@ export default {
 }
 .lable-input{
   position: absolute;
-  left: 250px;
-    top: 0.5px;
+  left: 220px;
+    top: 0.1px;
 }
 .app-button{
   position: absolute;

@@ -1,5 +1,6 @@
 <template>
-  <el-dialog title="订单" :visible.sync="dialogFormVisible" width="1000px">
+  <el-dialog title="订单" :visible.sync="dialogFormVisible" top="20px" width="1000px">
+    <el-divider></el-divider>
     <el-row :gutter="15">
     <el-form ref="elForm" :model="formData" size="medium" label-width="100px">
        <el-col :span="24">
@@ -75,7 +76,7 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="收货人/地址">
-              <el-button type="text" @click="show()">详细信息</el-button>
+               <el-link @click="show()"  icon="el-icon-edit">详细信息</el-link>
             </el-form-item>
           </el-col>
           <el-col :span="24" v-show="showOrHide == true"><b>收货人</b></el-col>
