@@ -19,4 +19,6 @@ public interface IxCustomerDetailsDao {
     int updateByPrimaryKey(IxCustomerDetails record);
 
     List<IxCustomerDetails> selectByAll(CosmerSearch cosmerSearch);
+
+    List<IxCustomerDetails> selectByTomer();
 }

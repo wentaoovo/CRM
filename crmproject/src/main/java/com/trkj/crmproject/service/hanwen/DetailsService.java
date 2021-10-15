@@ -13,4 +13,5 @@ public interface DetailsService {
     int insert(IxDetails record);
     int updateByPrimaryKeySelective(IxDetails record);
     int deleteByPrimaryKey(String id);
+    List<String> selectDtmer();
 }

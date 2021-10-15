@@ -47,5 +47,11 @@ public class ContactsController {
         int i = contactsDetailsService.deleteByPrimaryKey(id);
         return ResultVoUtil.success(i);
     }
+    //联系人接口（订单）
+    @GetMapping("/selectYomer")
+    public ResultVo selectyomer(){
+        List<String> strings = contactsDetailsService.selectYomer();
+        return ResultVoUtil.success(strings);
+    }
 
 }

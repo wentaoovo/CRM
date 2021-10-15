@@ -51,4 +51,9 @@ public class QuatationController {
         quatationService.deleteByPrimaryKey(id);
         return ResultVoUtil.success();
     }
+    @GetMapping("/selectOne/{id}")
+    public ResultVo selectone(@PathVariable("id")String id){
+        quatationService.selectByPrimaryKey(id);
+        return ResultVoUtil.success();
+    }
 }

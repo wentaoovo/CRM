@@ -14,4 +14,5 @@ public interface QuatationService {
     int insert(IxQuotation record);
     int updateByPrimaryKeySelective(IxQuotation record);
     int deleteByPrimaryKey(String id);
+    IxQuotation selectByPrimaryKey(String id);
 }

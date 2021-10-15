@@ -6,7 +6,6 @@ import com.trkj.crmproject.service.hanwen.DetailsService;
 import com.trkj.crmproject.util.ResultVoUtil;
 import com.trkj.crmproject.vo.Indexes.DetailsSearchVo;
 import com.trkj.crmproject.vo.ResultVo;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +33,9 @@ public class DetailsController {
     }
     @PostMapping("/save")
     public ResultVo save(@RequestBody IxDetails ixDetails){
+        if(ixDetails.getRealName()==null){
+            ixDetails.setRealName("xxw");
+        }
         int insert = detailsService.insert(ixDetails);
         return ResultVoUtil.success(insert);
     }
@@ -46,5 +48,11 @@ public class DetailsController {
     public ResultVo delete(@PathVariable("id")String id){
          detailsService.deleteByPrimaryKey(id);
          return ResultVoUtil.success();
+    }
+    //销售机会接口（订单）
+    @GetMapping("/selectDtmer")
+    public ResultVo selectdtmer(){
+        List<String> strings = detailsService.selectDtmer();
+        return ResultVoUtil.success(strings);
     }
 }

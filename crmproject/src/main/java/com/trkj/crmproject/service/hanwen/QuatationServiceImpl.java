@@ -63,4 +63,9 @@ public class QuatationServiceImpl implements QuatationService {
     public int deleteByPrimaryKey(String id) {
         return ixQuotationDao.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public IxQuotation selectByPrimaryKey(String id) {
+        return ixQuotationDao.selectByPrimaryKey(id);
+    }
 }

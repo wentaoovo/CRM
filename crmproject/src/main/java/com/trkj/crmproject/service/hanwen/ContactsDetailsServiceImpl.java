@@ -57,4 +57,9 @@ public class ContactsDetailsServiceImpl implements ContactsDetailsService {
     public int deleteByPrimaryKey(String id) {
         return ixContactsDetailsDao.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public List<String> selectYomer() {
+        return ixContactsDetailsDao.selectYomer();
+    }
 }

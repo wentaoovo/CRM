@@ -23,4 +23,6 @@ public interface IxContactsDetailsDao {
     List<IxContactsDetails> selectAll(ContactsSearchVo contactsSearchVo);
 
     List<String> selectByOne();
+
+    List<String> selectYomer();
 }

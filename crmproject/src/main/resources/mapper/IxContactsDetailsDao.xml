@@ -52,6 +52,12 @@
   <sql id="all">
     `name`
   </sql>
+  <select id="selectYomer" parameterType="string" resultMap="BaseResultMap">
+    select
+    id,contacts_name
+    from
+    ix_contacts_details
+  </select>
   <select id="selectByOne" resultType="string">
      select
      <include refid="all"></include>

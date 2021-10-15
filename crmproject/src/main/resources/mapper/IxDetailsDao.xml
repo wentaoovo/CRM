@@ -41,6 +41,11 @@
 <sql id="all">
     `name`
   </sql>
+  <select id="selectDtmer" parameterType="string" resultMap="BaseResultMap">
+    select
+    id,opportunity_theme
+    from ix_details
+  </select>
 <select id="selecttwo" resultType="string">
 select
 <include refid="slectone"></include>

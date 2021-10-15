@@ -25,4 +25,6 @@ public interface IxDetailsDao {
     List<String> selecttwo();
 
     List<String> selectthree();
+
+    List<String> selectDtmer();
 }

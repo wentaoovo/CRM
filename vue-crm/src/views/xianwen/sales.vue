@@ -152,7 +152,7 @@
         </el-col>
           <el-col :span="12">
 					<el-form-item label="发现时间" prop="findDate">
-					   <el-date-picker v-model="form.findDate" value-format="yyyy-MM-dd" type="date" placeholder="选择日期" disabled  clearable></el-date-picker>
+					   <el-date-picker v-model="form.findDate" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"   clearable></el-date-picker>
 					</el-form-item>
           </el-col>
            <el-col :span="12">
@@ -183,7 +183,7 @@
         </el-col>
           <el-col :span="12">
 					<el-form-item label="预计签单时间" prop="signingDate">
-					   <el-date-picker v-model="form.signingDate" value-format="yyyy-MM-dd" type="date" placeholder="预计签单时间" disabled  clearable></el-date-picker>
+					   <el-date-picker v-model="form.signingDate" value-format="yyyy-MM-dd" type="date" placeholder="预计签单时间" clearable></el-date-picker>
 					</el-form-item>
           </el-col>
           <el-col :span="12">

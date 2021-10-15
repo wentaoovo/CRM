@@ -12,4 +12,5 @@ public interface CoustomerDetailsService {
     int updateByPrimaryKeySelective(IxCustomerDetails record);
     IxCustomerDetails selectByPrimaryKey(String id);
     int deleteByPrimaryKey(String id);
+    List<IxCustomerDetails> selectByTomer();
 }

@@ -96,6 +96,16 @@ export const constantRoutes = [
     }]
   },
   {
+    path: '/offer',
+    component: Layout,
+    children: [{
+      path: 'offier',
+      name: 'xianwen5',
+      component: () => import('@/views/xianwen/offer'),
+      meta: { title: '报价明细', icon: 'el-icon-document' }
+    }]
+  },
+  {
     path: '/quatation',
     component: Layout,
     children: [{

@@ -60,4 +60,9 @@ public class DetailsServiceImpl implements DetailsService {
     public int deleteByPrimaryKey(String id) {
         return ixDetailsDao.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public List<String> selectDtmer() {
+        return ixDetailsDao.selectDtmer();
+    }
 }

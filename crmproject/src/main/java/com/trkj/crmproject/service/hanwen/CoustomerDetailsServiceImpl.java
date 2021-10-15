@@ -50,4 +50,9 @@ public class CoustomerDetailsServiceImpl implements CoustomerDetailsService {
     public int deleteByPrimaryKey(String id) {
         return ixCustomerDetailsDao.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public List<IxCustomerDetails> selectByTomer() {
+        return ixCustomerDetailsDao.selectByTomer();
+    }
 }

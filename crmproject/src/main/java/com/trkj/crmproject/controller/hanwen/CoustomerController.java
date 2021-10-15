@@ -9,6 +9,7 @@ import com.trkj.crmproject.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.concurrent.CompletionService;
 
 @RestController
@@ -43,5 +44,11 @@ public class CoustomerController {
     public ResultVo delete(@PathVariable("id")String id){
         coustomerDetailsService.deleteByPrimaryKey(id);
         return ResultVoUtil.success();
+    }
+    //客户接口（订单）
+    @GetMapping("/selectTomer")
+    public ResultVo selecttomer(){
+        List<IxCustomerDetails> ixCustomerDetails = coustomerDetailsService.selectByTomer();
+        return ResultVoUtil.success(ixCustomerDetails);
     }
 }

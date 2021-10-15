@@ -38,6 +38,14 @@
     taobao_number, jingdong_number, tianmao_number, yidinghuo_number, company_profile, 
     telephone, mobile_phone, website, province, city, area, postcode, address, remarks
   </sql>
+  <sql id="Base_Column_T">
+    id, `name`
+  </sql>
+  <select id="selectByTomer" resultType="string" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_T"></include>
+    from ix_customer_details
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
