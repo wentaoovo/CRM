@@ -23,13 +23,13 @@
     <include refid="Base_Column_List" />
     from ix_indexes
     <where>
-      <if test="corrCustomers != null and corrCustomers!=''">
+      <if test="corrCustomers != null ">
         and corr_customers like concat(concat('%',#{corrCustomers}),'%')
       </if>
-      <if test="realName != null and corrCustomers!=''">
+      <if test="realName != null ">
         and real_name like concat(concat('%',#{realName}),'%')
       </if>
-      <if test="contacts != null and state!=''">
+      <if test="contacts != null ">
         and state like concat(concat('%',#{contacts}),'%')
       </if>
     </where>

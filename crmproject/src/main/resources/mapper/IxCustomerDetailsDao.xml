@@ -49,13 +49,13 @@
     <include refid="Base_Column_List"></include>
     from ix_customer_details
     <where>
-      <if test="type!=null and type!=''">
+      <if test="type!=null ">
         and type like concat(concat('%',#{type}),'%')
       </if>
-      <if test="lifeCycle!=null and type!=''">
+      <if test="lifeCycle!=null ">
         and life_cycle like concat(concat('%',#{lifeCycle}),'%')
       </if>
-      <if test="name!=null and type!=''">
+      <if test="name!=null ">
         and name like concat(concat('%',#{name}),'%')
       </if>
     </where>
