@@ -2,23 +2,11 @@
 <div style="padding:10px;"> 
         	 <div class="lable-titi">
          <div>
-           <el-select v-model="value" @change="classChange"  placeholder="请选择">
-            <el-option-group
-              v-for="group in options"
-              :key="group.label"
-              :label="group.label"
-            >
-              <el-option
-                v-for="item in group.options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              >
-              </el-option>
-            </el-option-group>
-          </el-select>
-          <div class="lable-input">
+          <div class="lable-input-x">
           <el-form :inline="true" v-model="selectParams">
+            <el-form-item label="联系人分类">
+              <el-input v-model="selectParams.contactCategory" placeholder="联系人分类" size="medium" style="width:140px" clearable></el-input>
+            </el-form-item>
             <el-form-item label="联系人姓名">
 							<el-input v-model="selectParams.contactsName" placeholder="联系人姓名" size="medium" style="width:140px" clearable></el-input>
 						</el-form-item>
@@ -65,10 +53,10 @@
 	      <template #default="scope">
 					<el-row :gutter="20">
 						<el-col :span="12" :offset="0">
-					<el-button size="mini" type="danger" @click="handleDelete(scope.row.id)">删除</el-button>
+					<el-button size="mini" icon="el-icon-delete-solid" @click="handle(scope.row.id)"></el-button>
 						</el-col>
 						<el-col :span="12" :offset="0">
-								<el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
+								<el-button size="mini"  icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
 						</el-col>
 					</el-row>
 					
@@ -114,9 +102,13 @@
             <el-input v-model="form.mobilePhone"  placeholder="移动电话"></el-input>
           </el-form-item>
         </el-col>
-            <el-col :span="24">
+            <el-col :span="12">
           <el-form-item label="对应客户:" prop="corrCustomer">
-            <el-input v-model="form.corrCustomer"  placeholder="对应客户"></el-input>
+            <el-select v-model="form.corrCustomer"
+            value-key="id"
+            placeholder="请选择对应客户">
+            <el-option v-for="item in name" :key="item" :label="item" :value="item"></el-option>
+            </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -266,7 +258,16 @@
         </el-col>
          <el-col :span="24">
           <el-form-item label="爱好:" prop="hobby">
-            <el-input v-model="form.hobby"  placeholder="爱好"></el-input>
+                      <el-select v-model="form.hobby">
+                <el-option
+                  v-for="item in aihao"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.disabled"
+                >
+                </el-option>
+              </el-select>
           </el-form-item>
         </el-col>
          <el-col :span="12">
@@ -276,7 +277,16 @@
         </el-col>
          <el-col :span="12">
           <el-form-item label="习惯:" prop="habit">
-            <el-input v-model="form.habit"  placeholder="习惯"></el-input>
+                     <el-select v-model="form.habit">
+                <el-option
+                  v-for="item in xiguan"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.disabled"
+                >
+                </el-option>
+              </el-select>
           </el-form-item>
         </el-col>
          <el-col :span="24">
@@ -293,17 +303,44 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="兴趣:" prop="interest">
-            <el-input v-model="form.interest"  placeholder="兴趣"></el-input>
+                     <el-select v-model="form.interest">
+                <el-option
+                  v-for="item in xingqu"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.disabled"
+                >
+                </el-option>
+              </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="性格:" prop="characters">
-            <el-input v-model="form.characters"  placeholder="性格"></el-input>
+              <el-select v-model="form.characters">
+                <el-option
+                  v-for="item in xingge"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.disabled"
+                >
+                </el-option>
+              </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="社交特点:" prop="socialCharacteristics">
-            <el-input v-model="form.socialCharacteristics"  placeholder="社交特点"></el-input>
+                      <el-select v-model="form.socialCharacteristics">
+                <el-option
+                  v-for="item in tedian"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.disabled"
+                >
+                </el-option>
+              </el-select>
           </el-form-item>
         </el-col>
           <el-col :span="12">
@@ -359,7 +396,7 @@
       <div slot="footer" class="dialog-footer">
       <span class="dialog-footer">
         <el-button @click="dialogFormVisible= false">Cancel</el-button>
-        <el-button type="primary" @click="updata()">OK</el-button>
+        <el-button type="primary" @click="save()">OK</el-button>
       </span>
       </div>
     </el-dialog>
@@ -367,31 +404,22 @@
     </div>
 </template>
 <script>
+import { getList,addall,enit,delect,selectOne} from "@/api/contacts.js";
 export default {
    name:"contacts",
    data(){
         return{
           selectParams:{},
+          tableData:[],
           form:{},
+          total:0,
+          name:[],
           dialogFormVisible:false,
            options:[{
              options:[{
                 value: '全部数据',
                 label: '全部数据',
              }]
-           },
-           {
-             label:"性别",
-             options:[
-               {
-                 value:'男',
-                 label:'男'
-               },
-               {
-                 value:'女',
-                 label:'女'
-               }
-             ]
            },
            ],
           value:'全部数据',
@@ -492,14 +520,347 @@ export default {
               value:'偏好奢侈',
               label:'偏好奢侈'
             }
+          ],
+          aihao:[
+            {
+              value:'',
+              label:''
+            },
+             {
+              value:'足球',
+              label:'足球'
+            },
+            {
+              value:'篮球',
+              label:'篮球'
+            },
+            {
+              value:'看书',
+              label:'看书'
+            },
+            {
+              value:'手表',
+              label:'手表'
+            },
+            {
+              value:'鞋',
+              label:'鞋'
+            },
+            {
+              value:'吉他',
+              label:'吉他'
+            },
+            {
+              value:'钢琴',
+              label:'钢琴'
+            },
+            {
+              value:'萨克斯',
+              label:'萨克斯'
+            },
+            {
+              value:'游戏',
+              label:'游戏'
+            },
+            {
+              value:'其他',
+              label:'其他'
+            },
+
+          ],
+          xingqu:[
+            {
+              value:'',
+              label:''
+            },
+            {
+              value:'书法',
+              label:'书法'
+            },
+            {
+              value:'作画',
+              label:'作画'
+            },
+            {
+              value:'摄影',
+              label:'摄影'
+            },
+            {
+              value:'户外运动',
+              label:'户外运动'
+            },
+            {
+              value:'跑步',
+              label:'跑步'
+            },
+            {
+              value:'旅行',
+              label:'旅行'
+            },
+            {
+              value:'音乐',
+              label:'音乐'
+            },
+            {
+              value:'影视',
+              label:'影视'
+            },
+            {
+              value:'书籍',
+              label:'书籍'
+            },
+            {
+              value:'烹饪',
+              label:'烹饪'
+            },
+            {
+              value:'美食',
+              label:'美食'
+            },
+            {
+              value:'其他',
+              label:'其他'
+            }
+          ],
+          xiguan:[
+            {
+              value:'',
+              label:''
+            },
+            {
+              value:'抽烟',
+              label:'抽烟'
+            },
+            {
+              value:'红酒',
+              label:'红酒'
+            },
+            {
+              value:'白酒',
+              label:'白酒'
+            },
+            {
+              value:'雪茄',
+              label:'雪茄'
+            },
+            {
+              value:'其他',
+              label:'其他'
+            },
+          ],
+          tedian:[
+            {
+              value:'',
+              label:''
+            },
+            {
+              value:'对新事物感兴趣',
+              label:'对新事物感兴趣'
+            },
+            {
+              value:'接受新事物能力强',
+              label:'接受新事物能力强'
+            },
+            {
+              value:'不易接受新事物',
+              label:'不易接受新事物'
+            },
+            {
+              value:'理解力弱',
+              label:'理解力弱'
+            },
+            {
+              value:'理解力强',
+              label:'理解力强'
+            },
+            {
+              value:'新技能掌握快',
+              label:'新技能掌握快'
+            },
+            {
+              value:'新技能掌握满',
+              label:'新技能掌握满'
+            },
+            {
+              value:'自学意识强',
+              label:'自学意识强'
+            },
+            {
+              value:'自学意识弱',
+              label:'自学意识弱'
+            },
+            {
+              value:'容易沟通',
+              label:'容易沟通'
+            },
+            {
+              value:'不易沟通',
+              label:'不易沟通'
+            },
+            {
+              value:'其他',
+              label:'其他'
+            },
+          ],
+          xingge:[
+            {
+              value:'',
+              label:''
+            },
+            {
+              value:'内向',
+              label:'内向'
+            },
+            {
+              value:'外向',
+              label:'外向'
+            },
+            {
+              value:'理智型',
+              label:'理智型'
+            },
+            {
+              value:'疑虑型',
+              label:'疑虑型'
+            },
+            {
+              value:'情绪型',
+              label:'情绪型'
+            },
+            {
+              value:'急脾气',
+              label:'急脾气'
+            },
+            {
+              value:'慢性子',
+              label:'慢性子'
+            },
+            {
+              value:'其他',
+              label:'其他'
+            },
           ]
         }
    },
+  created() {
+    this.selectParams.pageNum = 1;
+    this.selectParams.pageSize = 10;
+    this.load();
+    this.find();
+  },
    methods:{
+     		handleEdit(row){
+			this.form= JSON.parse(JSON.stringify(row))
+			this.dialogFormVisible=true
+		},
      add(){
       this.dialogFormVisible = true;
 			this.form={}
-     }
+     },
+   async load(){
+       let{
+        pageNum,
+        pageSize,
+        keyword,
+        contactCategory,
+        contactsName
+       }=this.selectParams;
+       const{data:ListRes}=await getList({
+         pageNum:pageNum,
+         pageSize:pageSize,
+         keyword:keyword,
+         contactCategory:contactCategory,
+         contactsName:contactsName
+       });
+       this.tableData=ListRes.list;
+       this.total=ListRes.total;
+     },
+         handleSizeChange(pageSize) {
+      this.selectParams.pageSize = pageSize;
+      this.load();
+    },
+     handleCurrentChange(pageNum) {
+      this.selectParams.pageNum = pageNum;
+      this.load();
+    },
+          checkChange(keyword){
+          this.selectParams.keyword = keyword
+          this.load()
+        },
+    onsumbit(){
+      this.load();
+    },
+    save(){
+      if(this.form.id){
+        enit(this.form).then(res=>{
+          if(res.code==200){
+          this.$message({
+            message:'修改成功',
+            type:'success'
+          })
+          }else{
+							this.$message({
+							message:res.message,
+							type:'error'
+						})
+          }
+        this.dialogFormVisible=false
+        this.load()
+        })
+      }else{
+      addall(this.form).then(res=>{
+        if(res.code==200){
+          this.$message({
+            message:'新增成功',
+            type:'success'
+          })
+        }else{
+          this.$message({
+            message:res.message,
+            type:'error'
+          })
+        }
+        this.dialogFormVisible=false
+        this.load()
+      })
+      }
+
+    },
+    handle(data){
+      this.$confirm('此操作将永久删除该联系人, 是否继续?', '提示',{
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+      }).then(()=>{
+        delect(data).then(res=>{
+          if(res.code==200){
+            this.$message({
+           message:'删除成功',
+           type:'success'
+          });
+          }else
+          this.$message({
+          message:res.message,
+          type:'error'
+          })
+        })
+        this.load()
+      }).catch(()=>{
+            this.$message({
+              type: 'info',
+              message: '已取消删除',
+            })
+      })
+    },
+    find(){
+      selectOne().then(res=>{
+        this.name=res.data
+        console.log(res.data)
+      })
+    },
+    mounted(){
+      this.find();
+    }
    }
 }
 </script>
@@ -508,10 +869,9 @@ export default {
   color: #606266;
   font-size: 14px;
 }
-.lable-input{
+.lable-input-x{
   position: absolute;
   margin-top: 10px;
-  left: 250px;
     top: 0.5px;
 }
 .dashboard-container{

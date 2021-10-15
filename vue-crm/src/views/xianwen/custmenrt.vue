@@ -667,7 +667,7 @@ methods:{
       })
     },
     handleDelete(data){
-      this.$confirm('此操作将永久删除该订单, 是否继续?', '提示',{
+      this.$confirm('此操作将永久删除该客户, 是否继续?', '提示',{
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
@@ -676,7 +676,7 @@ methods:{
           if(res.code==200){
             this.$message({
            message:'删除成功',
-           type:'succes'
+           type:'success'
           });
           }else
           this.$message({
@@ -691,7 +691,6 @@ methods:{
               message: '已取消删除',
             })
       })
-
     }
         }
 }

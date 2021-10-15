@@ -127,17 +127,14 @@
 						</el-radio-group>
 						
 					</el-form-item> -->
-					<el-form-item label="负责人" style="width: 80%">
+					<!-- <el-form-item label="负责人" style="width: 80%">
 				<el-select v-model="form.realName" placeholder="请选择负责人">
       <el-option label="xxw" value="xxw"></el-option>
       <el-option label="hwt" value="hwt"></el-option>
     </el-select>
-					</el-form-item>
+					</el-form-item> -->
 				<el-form-item label="联系人" style="width: 80%">
-				 <el-select v-model="form.contacts" placeholder="请选择联系人" style="80%">
-      <el-option label="xxw" value="xxw"></el-option>
-      <el-option label="xxwww" value="xxwww"></el-option>
-    </el-select>
+					 <el-input v-model="form.contacts"></el-input>
 					</el-form-item>
 					<el-form-item label="联系方式" style="width: 80%">
 					  <el-input v-model="form.contactsInformation"></el-input>

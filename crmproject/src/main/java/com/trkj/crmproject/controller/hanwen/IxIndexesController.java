@@ -22,6 +22,9 @@ public class IxIndexesController {
    IxIndexesService ixIndexesService;
    @PostMapping("/save")
     public ResultVo save( @RequestBody IxIndexes ixIndexes){
+       if(ixIndexes.getRealName()==null){
+           ixIndexes.setRealName("xxw");
+       }
        ixIndexesService.insert(ixIndexes);
            return ResultVoUtil.success();
    }

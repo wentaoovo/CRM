@@ -3,7 +3,7 @@
 <mapper namespace="com.trkj.crmproject.dao.hanwen.IxContactsDetailsDao">
   <resultMap id="BaseResultMap" type="com.trkj.crmproject.entity.hanwen.IxContactsDetails">
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="customer_details_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="customer_details_id" jdbcType="VARCHAR" property="customerDetailsId" />
     <result column="contacts_id" jdbcType="VARCHAR" property="contactsId" />
     <result column="contacts_name" jdbcType="VARCHAR" property="contactsName" />
     <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
@@ -43,24 +43,45 @@
     </association>
   </resultMap>
   <sql id="Base_Column_List">
-    id, customer_details_id, contacts_id, contacts_name, mobile_phone, corr_customer, contact_category,
-    business, sex, appellation, genre, department, job, wechat, qq, wechat_name, qq_name, 
-    wangwang, mailing_address, work_phone, home_phone, fax, postcode, home_address, hobby, 
-    card_id, remarks, habit, interest, `characters`, social_characteristics, spouse, 
-    children, annual_income, consumption_habits
+    id, customer_details_id, contacts_id, contacts_name, mobile_phone, corr_customer, 
+    contact_category, business, sex, appellation, genre, department, job, wechat, qq, 
+    wechat_name, qq_name, wangwang, mailing_address, work_phone, home_phone, fax, postcode, 
+    home_address, hobby, card_id, remarks, habit, interest, `characters`, social_characteristics, 
+    spouse, children, annual_income, consumption_habits
   </sql>
+  <sql id="all">
+    `name`
+  </sql>
+  <select id="selectByOne" resultType="string">
+     select
+     <include refid="all"></include>
+     from ix_customer_details
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from ix_contacts_details
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectAll" parameterType="com.trkj.crmproject.vo.Indexes.ContactsSearchVo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from ix_contacts_details
+    <where>
+      <if test="contactCategory !=null">
+        and contact_category like concat(concat('%',#{contactCategory}),'%')
+      </if>
+      <if test="contactsName != null">
+        and contacts_name like concat(concat('%',#{contactsName}),'%')
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from ix_contacts_details
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.trkj.crmproject.entity.hanwen.IxContactsDetails" useGeneratedKeys="true">
-    insert into ix_contacts_details (customer_details_id, contacts_id, contacts_name,
+    insert into ix_contacts_details (id, customer_details_id, contacts_id, contacts_name,
       mobile_phone, corr_customer, contact_category, 
       business, sex, appellation, 
       genre, department, job, 
@@ -72,7 +93,7 @@
       interest, `characters`, social_characteristics, 
       spouse, children, annual_income, 
       consumption_habits)
-    values (#{customerDetailsId,jdbcType=VARCHAR}, #{contactsId,jdbcType=VARCHAR}, #{contactsName,jdbcType=VARCHAR},
+    values (#{id,jdbcType=VARCHAR},#{customerDetailsId,jdbcType=VARCHAR}, #{contactsId,jdbcType=VARCHAR}, #{contactsName,jdbcType=VARCHAR},
       #{mobilePhone,jdbcType=VARCHAR}, #{corrCustomer,jdbcType=VARCHAR}, #{contactCategory,jdbcType=VARCHAR}, 
       #{business,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{appellation,jdbcType=VARCHAR}, 
       #{genre,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, 
@@ -95,7 +116,7 @@
         contacts_id,
       </if>
       <if test="contactsName != null">
-        `contacts_name`,
+        contacts_name,
       </if>
       <if test="mobilePhone != null">
         mobile_phone,
@@ -199,7 +220,7 @@
         #{contactsId,jdbcType=VARCHAR},
       </if>
       <if test="contactsName != null">
-        #{name,jdbcType=VARCHAR},
+        #{contactsName,jdbcType=VARCHAR},
       </if>
       <if test="mobilePhone != null">
         #{mobilePhone,jdbcType=VARCHAR},
@@ -300,13 +321,13 @@
     update ix_contacts_details
     <set>
       <if test="customerDetailsId != null">
-        customer_details_id = #{customerId,jdbcType=VARCHAR},
+        customer_details_id = #{customerDetailsId,jdbcType=VARCHAR},
       </if>
       <if test="contactsId != null">
         contacts_id = #{contactsId,jdbcType=VARCHAR},
       </if>
       <if test="contactsName != null">
-        `name` = #{name,jdbcType=VARCHAR},
+        contacts_name = #{contactsName,jdbcType=VARCHAR},
       </if>
       <if test="mobilePhone != null">
         mobile_phone = #{mobilePhone,jdbcType=VARCHAR},

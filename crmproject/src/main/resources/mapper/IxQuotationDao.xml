@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.crmproject.dao.hanwen.IxQuotationDao">
+  <resultMap id="BaseResultMap" type="com.trkj.crmproject.entity.hanwen.IxQuotation">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="sales_id" jdbcType="VARCHAR" property="salesId" />
+    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="contacts_id" jdbcType="VARCHAR" property="contactsId" />
+    <result column="employee_id" jdbcType="VARCHAR" property="employeeId" />
+    <result column="quotation_theme" jdbcType="VARCHAR" property="quotationTheme" />
+    <result column="order_concert" jdbcType="VARCHAR" property="orderConcert" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="time_now" jdbcType="TIMESTAMP" property="timeNow" />
+    <result column="total_quotation" jdbcType="DECIMAL" property="totalQuotation" />
+    <result column="sales_name" jdbcType="VARCHAR" property="salesName" />
+    <result column="gross_profit" jdbcType="DECIMAL" property="grossProfit" />
+    <result column="detailed" jdbcType="VARCHAR" property="detailed" />
+    <result column="contacts_name" jdbcType="VARCHAR" property="contactsName" />
+    <result column="employee_name" jdbcType="VARCHAR" property="employeeName" />
+    <result column="employee_contact_way" jdbcType="VARCHAR" property="employeeContactWay" />
+    <result column="deliver_instructions" jdbcType="VARCHAR" property="deliverInstructions" />
+    <result column="payment_instructions" jdbcType="VARCHAR" property="paymentInstructions" />
+    <result column="packing_instructions" jdbcType="VARCHAR" property="packingInstructions" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <association property="detailscontacts" javaType="com.trkj.crmproject.entity.hanwen.IxContactsDetails">
+      <id column="id" property="id"></id>
+      <result column="contacts_name" property="contactsName"></result>
+    </association>
+    <association property="name" javaType="com.trkj.crmproject.entity.hanwen.IxCustomerDetails">
+      <id column="id" property="id"></id>
+      <result column="name" property="name"></result>
+    </association>
+    <association property="sales" javaType="com.trkj.crmproject.entity.hanwen.IxDetails">
+      <id column="id" property="id"></id>
+      <result column="opportunity_theme" property="opportunityTheme"></result>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sales_id, customer_id, contacts_id, employee_id, quotation_theme, order_concert, 
+    customer_name, time_now, total_quotation, sales_name, gross_profit, detailed, contacts_name, 
+    employee_name, employee_contact_way, deliver_instructions, payment_instructions, 
+    packing_instructions, remarks
+  </sql>
+  <sql id="slectone">
+    contacts_name
+  </sql>
+  <sql id="all">
+    `name`
+  </sql>
+  <sql id="the">
+    opportunity_theme
+  </sql>
+  <select id="selecttwo" resultType="string">
+    select
+    <include refid="slectone"></include>
+    from ix_contacts_details
+  </select>
+<select id="selectthree" resultType="string">
+  select
+  <include refid="all"></include>
+  from ix_customer_details
+</select>
+  <select id="selectfive" resultType="string">
+    select
+    <include refid="the"></include>
+    from ix_details
+  </select>
+  <select id="selectAll" parameterType="com.trkj.crmproject.vo.Indexes.QuatationSearchVo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from ix_quotation
+    <where>
+      <if test="orderConcert != null">
+        and order_concert like concat(concat('%',#{orderConcert}),'%')
+      </if>
+      <if test="quotationTheme!=null">
+        and quotation_theme like concat(concat('%',#{quotationTheme}),'%')
+      </if>
+    </where>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ix_quotation
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ix_quotation
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.trkj.crmproject.entity.hanwen.IxQuotation" useGeneratedKeys="true">
+    insert into ix_quotation (id,sales_id, customer_id, contacts_id,
+      employee_id, quotation_theme, order_concert, 
+      customer_name, time_now, total_quotation, 
+      sales_name, gross_profit, detailed, 
+      contacts_name, employee_name, employee_contact_way, 
+      deliver_instructions, payment_instructions, 
+      packing_instructions, remarks)
+    values (#{id,jdbcType=VARCHAR},#{salesId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{contactsId,jdbcType=VARCHAR},
+      #{employeeId,jdbcType=VARCHAR}, #{quotationTheme,jdbcType=VARCHAR}, #{orderConcert,jdbcType=VARCHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{timeNow,jdbcType=TIMESTAMP}, #{totalQuotation,jdbcType=DECIMAL}, 
+      #{salesName,jdbcType=VARCHAR}, #{grossProfit,jdbcType=DECIMAL}, #{detailed,jdbcType=VARCHAR}, 
+      #{contactsName,jdbcType=VARCHAR}, #{employeeName,jdbcType=VARCHAR}, #{employeeContactWay,jdbcType=VARCHAR}, 
+      #{deliverInstructions,jdbcType=VARCHAR}, #{paymentInstructions,jdbcType=VARCHAR}, 
+      #{packingInstructions,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.trkj.crmproject.entity.hanwen.IxQuotation" useGeneratedKeys="true">
+    insert into ix_quotation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="salesId != null">
+        sales_id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="contactsId != null">
+        contacts_id,
+      </if>
+      <if test="employeeId != null">
+        employee_id,
+      </if>
+      <if test="quotationTheme != null">
+        quotation_theme,
+      </if>
+      <if test="orderConcert != null">
+        order_concert,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="timeNow != null">
+        time_now,
+      </if>
+      <if test="totalQuotation != null">
+        total_quotation,
+      </if>
+      <if test="salesName != null">
+        sales_name,
+      </if>
+      <if test="grossProfit != null">
+        gross_profit,
+      </if>
+      <if test="detailed != null">
+        detailed,
+      </if>
+      <if test="contactsName != null">
+        contacts_name,
+      </if>
+      <if test="employeeName != null">
+        employee_name,
+      </if>
+      <if test="employeeContactWay != null">
+        employee_contact_way,
+      </if>
+      <if test="deliverInstructions != null">
+        deliver_instructions,
+      </if>
+      <if test="paymentInstructions != null">
+        payment_instructions,
+      </if>
+      <if test="packingInstructions != null">
+        packing_instructions,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="salesId != null">
+        #{salesId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsId != null">
+        #{contactsId,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null">
+        #{employeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="quotationTheme != null">
+        #{quotationTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="orderConcert != null">
+        #{orderConcert,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="timeNow != null">
+        #{timeNow,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalQuotation != null">
+        #{totalQuotation,jdbcType=DECIMAL},
+      </if>
+      <if test="salesName != null">
+        #{salesName,jdbcType=VARCHAR},
+      </if>
+      <if test="grossProfit != null">
+        #{grossProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="detailed != null">
+        #{detailed,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsName != null">
+        #{contactsName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeName != null">
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeContactWay != null">
+        #{employeeContactWay,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverInstructions != null">
+        #{deliverInstructions,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentInstructions != null">
+        #{paymentInstructions,jdbcType=VARCHAR},
+      </if>
+      <if test="packingInstructions != null">
+        #{packingInstructions,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.crmproject.entity.hanwen.IxQuotation">
+    update ix_quotation
+    <set>
+      <if test="salesId != null">
+        sales_id = #{salesId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsId != null">
+        contacts_id = #{contactsId,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null">
+        employee_id = #{employeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="quotationTheme != null">
+        quotation_theme = #{quotationTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="orderConcert != null">
+        order_concert = #{orderConcert,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="timeNow != null">
+        time_now = #{timeNow,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalQuotation != null">
+        total_quotation = #{totalQuotation,jdbcType=DECIMAL},
+      </if>
+      <if test="salesName != null">
+        sales_name = #{salesName,jdbcType=VARCHAR},
+      </if>
+      <if test="grossProfit != null">
+        gross_profit = #{grossProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="detailed != null">
+        detailed = #{detailed,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsName != null">
+        contacts_name = #{contactsName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeName != null">
+        employee_name = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeContactWay != null">
+        employee_contact_way = #{employeeContactWay,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverInstructions != null">
+        deliver_instructions = #{deliverInstructions,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentInstructions != null">
+        payment_instructions = #{paymentInstructions,jdbcType=VARCHAR},
+      </if>
+      <if test="packingInstructions != null">
+        packing_instructions = #{packingInstructions,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.crmproject.entity.hanwen.IxQuotation">
+    update ix_quotation
+    set sales_id = #{salesId,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      contacts_id = #{contactsId,jdbcType=VARCHAR},
+      employee_id = #{employeeId,jdbcType=VARCHAR},
+      quotation_theme = #{quotationTheme,jdbcType=VARCHAR},
+      order_concert = #{orderConcert,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      time_now = #{timeNow,jdbcType=TIMESTAMP},
+      total_quotation = #{totalQuotation,jdbcType=DECIMAL},
+      sales_name = #{salesName,jdbcType=VARCHAR},
+      gross_profit = #{grossProfit,jdbcType=DECIMAL},
+      detailed = #{detailed,jdbcType=VARCHAR},
+      contacts_name = #{contactsName,jdbcType=VARCHAR},
+      employee_name = #{employeeName,jdbcType=VARCHAR},
+      employee_contact_way = #{employeeContactWay,jdbcType=VARCHAR},
+      deliver_instructions = #{deliverInstructions,jdbcType=VARCHAR},
+      payment_instructions = #{paymentInstructions,jdbcType=VARCHAR},
+      packing_instructions = #{packingInstructions,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
