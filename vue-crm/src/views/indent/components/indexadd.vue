@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="订单" :visible.sync="dialogFormVisible" top="20px" width="1000px">
+  <el-dialog title="订单" @close="closeck()" :close-on-click-modal="false" :close-on-press-escape="false" :visible.sync="dialogFormVisible" top="20px" width="1000px">
     <el-divider></el-divider>
     <el-row :gutter="15">
     <el-form ref="elForm" :model="formData" size="medium" label-width="100px">
@@ -70,8 +70,8 @@
           </el-col>            
           <el-col :span="12">
             <el-form-item label="最晚发货日期" prop="latestDeliveryDate">
-              <el-date-picker v-model="formData.latestDeliveryDate" format="yyyy-MM-dd" value-format="yyyy-MM-dd"
-                              :style="{width: '100%'}" placeholder="请选择发货日期" clearable></el-date-picker>
+              <el-date-picker v-model="formData.latestDeliveryDate" type="date" value-format="yyyy-MM-dd" 
+              :style="{width: '100%'}" placeholder="请选择发货日期" clearable></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -175,9 +175,14 @@ import {addOrupdate,add} from "@/api/indent"
           if(res.success){
             this.dialogFormVisible=false
             this.$parent.init();
-            //location.reload();
+            if(res.data != null){
+               this.$parent.detailsAdd(res.data);   
+            }
           }
         })
+      },
+       closeck(){
+        Object.assign(this.$data,this.$options.data.call(this))
       }
     }
   } 

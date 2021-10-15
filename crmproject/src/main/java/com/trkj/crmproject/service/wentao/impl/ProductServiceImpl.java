@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -51,6 +52,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product selectById(String id) {
         return productDao.selectById(id);
+    }
+
+    /**
+     * 查询所以在售产品
+     * @return
+     */
+    @Override
+    public List<Product> findAll() {
+        return productDao.findAll();
     }
 
     /**

@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class IndentServiceImpl implements IndentService {
@@ -42,7 +44,7 @@ public class IndentServiceImpl implements IndentService {
      * @return
      */
     @Override
-    public boolean insert(Indent indent) {
+    public Map insert(Indent indent) {
         indent.setId(idWorker.nextId()+"");
         indent.setAddtime(new Date());
         indent.setIndentDate(new Date());
@@ -58,10 +60,14 @@ public class IndentServiceImpl implements IndentService {
         indent.setUpdatetime(new Date());
         indent.setState(0);
         int i = indentDao.insert(indent);
+        Map map=new HashMap();
         if (i>0){
-            return true;
+            map.put("boolean",true);
+            map.put("id",indent.getId());
+            return map;
         }
-        return false;
+        map.put("boolean",false);
+        return map;
     }
 
     /**
@@ -88,6 +94,16 @@ public class IndentServiceImpl implements IndentService {
         }
         PageHelper.startPage(vo.getPageNum(),vo.getPageSize());
         return new PageInfo<Indent>(indentDao.selectAll(vo));
+    }
+
+    /**
+     * 订单,明细连接查询
+     * @param id
+     * @return
+     */
+    @Override
+    public Indent selectJoin(String id) {
+        return indentDao.selectJoin(id);
     }
 
     /**

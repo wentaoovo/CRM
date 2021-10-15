@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="产品信息" before-close="closeDialog" :visible.sync="dialogFormVisible" width="1000px">
+  <el-dialog title="产品信息" @close="closeck()" :close-on-click-modal="false" :close-on-press-escape="false" :visible.sync="dialogFormVisible" width="1000px">
     <el-divider></el-divider>
     <el-row :gutter="15">
     <el-form ref="elForm" :model="formData" size="medium" label-width="100px">
@@ -116,10 +116,6 @@ import {addOrupdate,getclassList} from "@/api/product"
         options:[]
       }
     },
-    closeDialog(done){
-        this.formData={};
-        done();
-      },
     methods: {
       //保存或更新方法
       save(){
@@ -129,8 +125,7 @@ import {addOrupdate,getclassList} from "@/api/product"
             type: res.success?'success':'error'
           });
           if(res.success){
-            this.formData={}
-            this.dialogFormVisible=false
+            Object.assign(this.$data,this.$options.data.call(this))
             this.$parent.init();
             //location.reload();
           }
@@ -140,10 +135,12 @@ import {addOrupdate,getclassList} from "@/api/product"
         getclassList().then(res =>{
           this.options =res.data
         })
+      },
+      closeck(){
+        Object.assign(this.$data,this.$options.data.call(this))
       }
     },
     created(){
-      this.init()
     }
   } 
 </script>

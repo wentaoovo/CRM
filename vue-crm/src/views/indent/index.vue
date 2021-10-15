@@ -18,7 +18,7 @@
             </el-option-group>
           </el-select>
          </div>
-          <div class="lable-input">
+          <div class="div-lable-input">
             <el-input
                 placeholder="搜索一下"
                 suffix-icon="el-icon-search"
@@ -29,8 +29,7 @@
           </div>
       </div>
     <div class="app-container">
-      <div class="app-button"><el-button icon="el-icon-circle-plus" @click="handAdd()" size="small">新建订单</el-button>
-      <el-button icon="el-icon-position" size="small">导出</el-button></div>
+      <div class="app-button"><el-button icon="el-icon-circle-plus" @click="handAdd()" size="small">新建订单</el-button></div>
       <div class="cont-bod-box">
         <el-table :data="tableData" style="width: 100%">
           <el-table-column type="index" width="50" label="序号"></el-table-column>
@@ -199,6 +198,12 @@ export default {
         handAdd(){
           this.$refs.indexAdd.dialogFormVisible = true;
         },
+        //新增详细
+        detailsAdd(data){
+          this.$refs.detailadd.init();
+          this.$refs.detailadd.indentsId = data;
+          this.$refs.detailadd.dialogFormVisible = true;
+        },
         //删除订单
         handDelete(data){
           this.$confirm('此操作将永久删除该订单, 是否继续?', '提示', {
@@ -256,7 +261,7 @@ export default {
   color: #606266;
   font-size: 14px;
 }
-.lable-input{
+.div-lable-input{
   position: absolute;
   left: 220px;
     top: 0.1px;

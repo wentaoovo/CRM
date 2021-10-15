@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/indent")
@@ -24,8 +25,10 @@ public class IndentDaoController {
      */
     @PostMapping("/add")
     public ResultVo add(@Validated @RequestBody Indent indent){
-        if (indentService.insert(indent)){
-            return ResultVoUtil.success();
+        Map map = indentService.insert(indent);
+
+        if ((boolean) map.get("boolean")){
+            return ResultVoUtil.success(map.get("id"));
         }
         return ResultVoUtil.error("新增订单失败");
     }
@@ -71,5 +74,14 @@ public class IndentDaoController {
     public ResultVo findAll( @RequestBody SearchListVo searchListVo){
         PageInfo<Indent> all = indentService.selectAll(searchListVo);
         return ResultVoUtil.success(all);
+    }
+    /**
+     * 根据id查询订单和明细
+     * @return
+     */
+    @GetMapping("findJoin/{id}")
+    public ResultVo findJoin(@PathVariable("id") String id){
+        Indent indent = indentService.selectJoin(id);
+        return ResultVoUtil.success(indent);
     }
 }

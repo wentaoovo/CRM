@@ -43,6 +43,12 @@
     from product
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="findAll" resultMap="BaseResultMap">
+    select
+    id,`name`,price,model
+    from product
+    where `state` = 0
+  </select>
   <select id="selectAll" parameterType="com.trkj.crmproject.vo.Indent.SearchListVo"
           resultMap="BaseResultMap">
     select

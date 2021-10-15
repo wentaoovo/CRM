@@ -35,3 +35,51 @@ export function deletebyid(data) {
   })
 }  
   
+// 查询全部在售产品
+export function getSaleList() {
+  return request({
+    url: '/product/findSale',
+    method: 'get',
+  })
+}
+
+//批量新增订单详细
+export function addDetailList(data) {
+  return request({
+    url: '/indentdetail/add',
+    method: 'post',
+    data
+  })
+}
+//根据id删除订单详细
+export function deleteDetail(data) {
+  return request({
+    url: `/indentdetail/delete/${data}`,
+    method: 'delete',
+  })
+}
+//批量修改订单详细
+export function updateDetailList(data) {
+  return request({
+    url: '/indentdetail/update',
+    method: 'put',
+    data
+  })
+}
+//根据订单id查询订单详细
+export function findDetailList(data) {
+  return request({
+    url: `/indentdetail/find/${data}`,
+    method: 'get',
+  })
+}
+//批量新增或修改订单详细
+export const addOrUpDetail = data => { return data[0].id ? updateDetailList(data) : addDetailList(data) }
+
+//根据id查询订单与明细
+export function findIndentAnddetail(data){
+  return request({
+    url: `/indent/findJoin/${data}`,
+    method: 'get',
+  })
+}

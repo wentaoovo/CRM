@@ -104,11 +104,13 @@ export default {
         },
         // 新增产品
         handAdd(){
+          this.$refs.productadd.init();
           this.$refs.productadd.dialogFormVisible=true;
         },
         //查看产品
         handUpdate(data){
           find(data).then(res =>{
+            this.$refs.productadd.init();
             this.$refs.productadd.formData=res.data
             this.$refs.productadd.dialogFormVisible=true;
           });
