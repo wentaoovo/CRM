@@ -53,36 +53,6 @@ export const constantRoutes = [
       component: () => import('@/views/dashboard/index'),
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
-  },
-  {
-    path: '/indent',
-    component: Layout,
-    children: [
-      {
-      path: 'index',
-      name: 'indent',
-      component: () =>import('@/views/indent/index'),
-      meta: {title: '订单', icon: 'el-icon-s-order'}
-    },
-    {
-      path: 'viewindex/:id',
-      component: () =>import('@/views/indent/viewIndex'),
-      name: 'viewindex',
-      hidden:true,
-      meta: {
-        title: '订单-详情'}
-    },
-   ]
-  },
-  {
-    path: '/product',
-    component: Layout,
-    children: [{
-      path: 'index',
-      name: 'index',
-      component: () =>import('@/views/product/index'),
-      meta: {title: '产品', icon: 'el-icon-menu'}
-    }]
   }, 
   {
     path: '/xianwen',
@@ -113,6 +83,36 @@ export const constantRoutes = [
       name: 'xianwen',
       component: () => import('@/views/xianwen/contacts'),
       meta: { title: '联系人', icon: 'table' }
+    }]
+  },
+  {
+    path: '/indent',
+    component: Layout,
+    children: [
+      {
+      path: 'index',
+      name: 'indent',
+      component: () =>import('@/views/indent/index'),
+      meta: {title: '订单', icon: 'el-icon-s-order'}
+    },
+    {
+      path: 'viewindex/:id',
+      component: () =>import('@/views/indent/viewIndex'),
+      name: 'viewindex',
+      hidden:true,
+      meta: {
+        title: '订单-详情'}
+    },
+   ]
+  },
+  {
+    path: '/product',
+    component: Layout,
+    children: [{
+      path: 'index',
+      name: 'index',
+      component: () =>import('@/views/product/index'),
+      meta: {title: '产品', icon: 'el-icon-menu'}
     }]
   },
   // 404 page must be placed at the end !!!

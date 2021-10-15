@@ -4,7 +4,6 @@ import com.trkj.crmproject.entity.wentao.IndentDetail;
 import com.trkj.crmproject.service.wentao.IndentDetailService;
 import com.trkj.crmproject.util.ResultVoUtil;
 import com.trkj.crmproject.vo.ResultVo;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,14 +14,13 @@ import java.util.List;
 public class IndentDetailController {
     @Resource
     private IndentDetailService indentDetailService;
-
     /**
-     * 新增订单详细
+     * 批量新增订单详细
      * @param indentDetail
      * @return
      */
     @PostMapping("/add")
-    public ResultVo add(@RequestBody IndentDetail indentDetail){
+    public ResultVo add(@RequestBody List<IndentDetail> indentDetail){
         if (indentDetailService.insert(indentDetail)){
             return ResultVoUtil.success();
         }
@@ -43,14 +41,12 @@ public class IndentDetailController {
     }
 
     /**
-     * 修改订单详细
-     * @param id
+     * 批量修改订单详细
      * @param indentDetail
      * @return
      */
-    @PutMapping("/update/{id}")
-    public ResultVo update(@PathVariable("id") String id,@RequestBody IndentDetail indentDetail){
-        indentDetail.setId(id);
+    @PutMapping("/update")
+    public ResultVo update(@RequestBody List<IndentDetail> indentDetail){
         if (indentDetailService.updateById(indentDetail)){
             return ResultVoUtil.success();
         }

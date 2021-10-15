@@ -13,6 +13,8 @@ public interface ProductService {
 
     Product selectById(String id);
 
+    List<Product> findAll();
+
     PageInfo<Product> selectAll(SearchListVo vo);
 
     boolean update(Product record);

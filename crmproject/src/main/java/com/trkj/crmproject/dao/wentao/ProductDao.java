@@ -12,6 +12,8 @@ public interface ProductDao {
 
     Product selectById(String id);
 
+    List<Product> findAll();
+
     List<Product> selectAll(SearchListVo vo);
 
     int update(Product record);

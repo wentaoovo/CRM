@@ -7,9 +7,9 @@ import java.util.List;
 public interface IndentDetailService {
     Boolean deleteById(String id);
 
-    Boolean insert(IndentDetail record);
+    Boolean insert(List<IndentDetail> record);
 
     List<IndentDetail> selectByPid(String indentId);
 
-    Boolean updateById(IndentDetail record);
+    Boolean updateById(List<IndentDetail> record);
 }

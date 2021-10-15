@@ -7,9 +7,9 @@ import java.util.List;
 public interface IndentDetailDao {
     int deleteById(String id);
 
-    int insert(IndentDetail record);
+    int insert(List<IndentDetail> list);
 
     List<IndentDetail> selectByPid(String indentId);
 
-    int updateById(IndentDetail record);
+    int updateById(List<IndentDetail> list);
 }

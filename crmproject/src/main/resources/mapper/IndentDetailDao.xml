@@ -34,38 +34,37 @@
     delete from indent_detail
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.trkj.crmproject.entity.wentao.IndentDetail">
+  <insert id="insert" parameterType="java.util.List">
     insert into indent_detail (id,indent_id, product_id, product_name,
       unit_price, money, quantity, 
       model, discount, remark, 
       AddName, AddTime, UpdateName, 
       UpdateTime, DeleteName, DeleteTime, 
       TimeLiness)
-    values (#{id,jdbcType=VARCHAR}, #{indentId,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR},
-      #{unitPrice,jdbcType=DECIMAL}, #{money,jdbcType=DECIMAL}, #{quantity,jdbcType=INTEGER}, 
-      #{model,jdbcType=VARCHAR}, #{discount,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
-      #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, 
-      #{updatetime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, 
-      #{timeliness,jdbcType=INTEGER})
+    values
+     <foreach collection="list" item="item" separator=",">
+     (#{item.id,jdbcType=VARCHAR}, #{item.indentId,jdbcType=VARCHAR}, #{item.productId,jdbcType=VARCHAR}, #{item.productName,jdbcType=VARCHAR},
+      #{item.unitPrice,jdbcType=DECIMAL}, #{item.money,jdbcType=DECIMAL}, #{item.quantity,jdbcType=INTEGER},
+      #{item.model,jdbcType=VARCHAR}, #{item.discount,jdbcType=DECIMAL}, #{item.remark,jdbcType=VARCHAR},
+      #{item.addname,jdbcType=VARCHAR}, #{item.addtime,jdbcType=TIMESTAMP}, #{item.updatename,jdbcType=VARCHAR},
+      #{item.updatetime,jdbcType=TIMESTAMP}, #{item.deletename,jdbcType=VARCHAR}, #{item.deletetime,jdbcType=TIMESTAMP},
+      #{item.timeliness,jdbcType=INTEGER})
+     </foreach>
   </insert>
-  <update id="updateById" parameterType="com.trkj.crmproject.entity.wentao.IndentDetail">
+  <update id="updateById" parameterType="java.util.List">
+    <foreach collection="list" item="item" index="index" separator=";">
     update indent_detail
-    set indent_id = #{indentId,jdbcType=VARCHAR},
-      product_id = #{productId,jdbcType=VARCHAR},
-      product_name = #{productName,jdbcType=VARCHAR},
-      unit_price = #{unitPrice,jdbcType=DECIMAL},
-      money = #{money,jdbcType=DECIMAL},
-      quantity = #{quantity,jdbcType=INTEGER},
-      model = #{model,jdbcType=VARCHAR},
-      discount = #{discount,jdbcType=DECIMAL},
-      remark = #{remark,jdbcType=VARCHAR},
-      AddName = #{addname,jdbcType=VARCHAR},
-      AddTime = #{addtime,jdbcType=TIMESTAMP},
-      UpdateName = #{updatename,jdbcType=VARCHAR},
-      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
-      DeleteName = #{deletename,jdbcType=VARCHAR},
-      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
-      TimeLiness = #{timeliness,jdbcType=INTEGER}
-    where id = #{id,jdbcType=VARCHAR}
+    set indent_id = #{item.indentId,jdbcType=VARCHAR},
+      product_id = #{item.productId,jdbcType=VARCHAR},
+      product_name = #{item.productName,jdbcType=VARCHAR},
+      unit_price = #{item.unitPrice,jdbcType=DECIMAL},
+      money = #{item.money,jdbcType=DECIMAL},
+      quantity = #{item.quantity,jdbcType=INTEGER},
+      model = #{item.model,jdbcType=VARCHAR},
+      discount = #{item.discount,jdbcType=DECIMAL},
+      remark = #{item.remark,jdbcType=VARCHAR},
+      UpdateTime = #{item.updatetime,jdbcType=TIMESTAMP}
+    where id = #{item.id,jdbcType=VARCHAR}
+    </foreach>
   </update>
 </mapper>

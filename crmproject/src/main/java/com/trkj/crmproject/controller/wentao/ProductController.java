@@ -58,7 +58,7 @@ public class ProductController {
      * 根据id查询产品
      * @return
      */
-    @GetMapping("find/{id}")
+    @GetMapping("/find/{id}")
     public ResultVo find(@PathVariable("id") String id){
         Product product = productService.selectById(id);
         return ResultVoUtil.success(product);
@@ -67,9 +67,18 @@ public class ProductController {
      * 查询全部产品
      * @return
      */
-    @PostMapping("findAll")
+    @PostMapping("/findAll")
     public ResultVo findAll(@RequestBody SearchListVo vo){
         PageInfo<Product> all = productService.selectAll(vo);
+        return ResultVoUtil.success(all);
+    }
+    /**
+     * 查询所以在售产品
+     * @return
+     */
+    @GetMapping("/findSale")
+    public ResultVo findSale(){
+        List<Product> all = productService.findAll();
         return ResultVoUtil.success(all);
     }
 }

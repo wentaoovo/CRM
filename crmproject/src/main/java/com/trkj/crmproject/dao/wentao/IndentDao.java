@@ -16,5 +16,7 @@ public interface IndentDao {
 
     List<Indent> selectAll(SearchListVo searchListVo);
 
+    Indent selectJoin(String id);
+
     int update(Indent record);
 }

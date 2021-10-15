@@ -41,6 +41,25 @@
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    <collection property="indentDetail" ofType="com.trkj.crmproject.entity.wentao.IndentDetail">
+      <id column="l_id" jdbcType="VARCHAR" property="id" />
+      <result column="indent_id" jdbcType="VARCHAR" property="indentId" />
+      <result column="product_id" jdbcType="VARCHAR" property="productId" />
+      <result column="product_name" jdbcType="VARCHAR" property="productName" />
+      <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+      <result column="money" jdbcType="DECIMAL" property="money" />
+      <result column="quantity" jdbcType="INTEGER" property="quantity" />
+      <result column="model" jdbcType="VARCHAR" property="model" />
+      <result column="l_discount" jdbcType="DECIMAL" property="discount" />
+      <result column="l_remark" jdbcType="VARCHAR" property="remark" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    </collection>
   </resultMap>
   <sql id="Base_Column_List">
     id, theme, classify, customer_id, customer_name, chance_id, chance_name, total_money, 
@@ -49,6 +68,15 @@
     possessor_id, possessor, `state`, addressee, addressee_telephone, addressee_phone, 
     province, city, address_type, addressee_site, postcode, AddName, AddTime, UpdateName, 
     UpdateTime, DeleteName, DeleteTime, TimeLiness
+  </sql>
+  <sql id="Base_Column_List2">
+    e.id, e.theme, e.classify, e.customer_id, e.customer_name, e.chance_id, e.chance_name, e.total_money,
+    e.indent_date, e.latest_delivery_date, e.contacts_id, e.contacts_name, e.remark, e.out_money,
+    e.returned_money, e.cost, e.discount, e.gross_margin, e.forgross_margin, e.invoice_value, e.freight,
+    e.possessor_id, e.possessor, e.`state`, e.addressee, e.addressee_telephone, e.addressee_phone,
+    e.province, e.city, e.address_type, e.addressee_site, e.postcode,
+    l.id l_id, l.indent_id, l.product_id, l.product_name, l.unit_price, l.money, l.quantity, l.model, l.discount l_discount,
+    l.remark l_remark
   </sql>
   <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -71,6 +99,13 @@
       </if>
       and timeliness = 0
     </where>
+  </select>
+<!-- 订单,明细连接查询 -->
+  <select id="selectJoin" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List2" />
+    from indent e left join indent_detail l on e.id=l.indent_id
+    where e.id = #{id,jdbcType=VARCHAR}
   </select>
   <insert id="insert" parameterType="com.trkj.crmproject.entity.wentao.Indent">
     insert into indent (id,theme, classify, customer_id,
@@ -139,13 +174,7 @@
       address_type = #{addressType,jdbcType=VARCHAR},
       addressee_site = #{addresseeSite,jdbcType=VARCHAR},
       postcode = #{postcode,jdbcType=VARCHAR},
-      AddName = #{addname,jdbcType=VARCHAR},
-      AddTime = #{addtime,jdbcType=TIMESTAMP},
-      UpdateName = #{updatename,jdbcType=VARCHAR},
-      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
-      DeleteName = #{deletename,jdbcType=VARCHAR},
-      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
-      TimeLiness = #{timeliness,jdbcType=INTEGER}
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

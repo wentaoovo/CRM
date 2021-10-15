@@ -3,6 +3,9 @@ package com.trkj.crmproject.entity.wentao;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -57,11 +60,13 @@ public class Indent implements Serializable {
     /**
      * 订单日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date indentDate;
 
     /**
      * 最晚发货日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date latestDeliveryDate;
 
     /**
@@ -208,6 +213,9 @@ public class Indent implements Serializable {
      * 时效性
      */
     private Integer timeliness;
-
+    /**
+     * 订单明细
+     */
+    List<IndentDetail> indentDetail;
     private static final long serialVersionUID = 1L;
 }
