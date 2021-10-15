@@ -54,36 +54,6 @@ export const constantRoutes = [
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
-  {
-    path: '/indent',
-    component: Layout,
-    children: [
-      {
-      path: 'index',
-      name: 'indent',
-      component: () =>import('@/views/indent/index'),
-      meta: {title: '订单', icon: 'el-icon-s-order'}
-    },
-    {
-      path: 'viewindex/:id',
-      component: () =>import('@/views/indent/viewIndex'),
-      name: 'viewindex',
-      hidden:true,
-      meta: {
-        title: '订单-详情'}
-    },
-   ]
-  },
-  {
-    path: '/product',
-    component: Layout,
-    children: [{
-      path: 'index',
-      name: 'index',
-      component: () =>import('@/views/product/index'),
-      meta: {title: '产品', icon: 'el-icon-menu'}
-    }]
-  }, 
   // {
   //   path: '/xianwen',
   //   component: Layout,
@@ -144,6 +114,36 @@ export const constantRoutes = [
   }
   ]
   },
+  {
+    path: '/indent',
+    component: Layout,
+    children: [
+      {
+      path: 'index',
+      name: 'indent',
+      component: () =>import('@/views/indent/index'),
+      meta: {title: '订单', icon: 'el-icon-s-order'}
+    },
+    {
+      path: 'viewindex/:id',
+      component: () =>import('@/views/indent/viewIndex'),
+      name: 'viewindex',
+      hidden:true,
+      meta: {
+        title: '订单-详情'}
+    },
+   ]
+  },
+  {
+    path: '/product',
+    component: Layout,
+    children: [{
+      path: 'index',
+      name: 'index',
+      component: () =>import('@/views/product/index'),
+      meta: {title: '产品', icon: 'el-icon-menu'}
+    }]
+  }, 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
