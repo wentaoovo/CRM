@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.crmproject.dao.hanwen.IxOfferDetailsDao">
+  <resultMap id="BaseResultMap" type="com.trkj.crmproject.entity.hanwen.IxOfferDetails">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="quotation_id" jdbcType="VARCHAR" property="quotationId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="employee_id" jdbcType="VARCHAR" property="employeeId" />
+    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="product" jdbcType="VARCHAR" property="product" />
+    <result column="quantity" jdbcType="VARCHAR" property="quantity" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="amount_money" jdbcType="DECIMAL" property="amountMoney" />
+    <result column="employee_name" jdbcType="VARCHAR" property="employeeName" />
+    <result column="creation_time" jdbcType="TIMESTAMP" property="creationTime" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="quotation_theme" jdbcType="VARCHAR" property="quotationTheme" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, quotation_id, product_id, employee_id, customer_id, product, quantity, unit_price, 
+    amount_money, employee_name, creation_time, customer_name, quotation_theme
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ix_offer_details
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ix_offer_details
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.trkj.crmproject.entity.hanwen.IxOfferDetails" useGeneratedKeys="true">
+    insert into ix_offer_details (quotation_id, product_id, employee_id, 
+      customer_id, product, quantity, 
+      unit_price, amount_money, employee_name, 
+      creation_time, customer_name, quotation_theme
+      )
+    values (#{quotationId,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, #{employeeId,jdbcType=VARCHAR}, 
+      #{customerId,jdbcType=VARCHAR}, #{product,jdbcType=VARCHAR}, #{quantity,jdbcType=VARCHAR}, 
+      #{unitPrice,jdbcType=DECIMAL}, #{amountMoney,jdbcType=DECIMAL}, #{employeeName,jdbcType=VARCHAR}, 
+      #{creationTime,jdbcType=TIMESTAMP}, #{customerName,jdbcType=VARCHAR}, #{quotationTheme,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.trkj.crmproject.entity.hanwen.IxOfferDetails" useGeneratedKeys="true">
+    insert into ix_offer_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="quotationId != null">
+        quotation_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="employeeId != null">
+        employee_id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="product != null">
+        product,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="unitPrice != null">
+        unit_price,
+      </if>
+      <if test="amountMoney != null">
+        amount_money,
+      </if>
+      <if test="employeeName != null">
+        employee_name,
+      </if>
+      <if test="creationTime != null">
+        creation_time,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="quotationTheme != null">
+        quotation_theme,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="quotationId != null">
+        #{quotationId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null">
+        #{employeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null">
+        #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="amountMoney != null">
+        #{amountMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="employeeName != null">
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTime != null">
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="quotationTheme != null">
+        #{quotationTheme,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.crmproject.entity.hanwen.IxOfferDetails">
+    update ix_offer_details
+    <set>
+      <if test="quotationId != null">
+        quotation_id = #{quotationId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null">
+        employee_id = #{employeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null">
+        product = #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="amountMoney != null">
+        amount_money = #{amountMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="employeeName != null">
+        employee_name = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTime != null">
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="quotationTheme != null">
+        quotation_theme = #{quotationTheme,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.crmproject.entity.hanwen.IxOfferDetails">
+    update ix_offer_details
+    set quotation_id = #{quotationId,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=VARCHAR},
+      employee_id = #{employeeId,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      product = #{product,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=VARCHAR},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      amount_money = #{amountMoney,jdbcType=DECIMAL},
+      employee_name = #{employeeName,jdbcType=VARCHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      quotation_theme = #{quotationTheme,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ContactsDetailsServiceImpl implements ContactsDetailsService {
@@ -32,8 +33,8 @@ public class ContactsDetailsServiceImpl implements ContactsDetailsService {
     }
 
     @Override
-    public List<String> selectByOne() {
-        List<String> ixCustomerDetails = ixContactsDetailsDao.selectByOne();
+    public List<Map> selectByOne() {
+        List<Map> ixCustomerDetails = ixContactsDetailsDao.selectByOne();
         return ixCustomerDetails;
     }
 

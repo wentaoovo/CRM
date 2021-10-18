@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/three")
@@ -24,7 +25,7 @@ public class ContactsController {
     }
     @GetMapping("/selectname")
     public ResultVo selectOne(){
-        List<String> list = contactsDetailsService.selectByOne();
+        List<Map> list = contactsDetailsService.selectByOne();
         return ResultVoUtil.success(list);
     }
     @PostMapping("/insert")
@@ -52,6 +53,7 @@ public class ContactsController {
     public ResultVo selectyomer(){
         List<String> strings = contactsDetailsService.selectYomer();
         return ResultVoUtil.success(strings);
+
     }
 
 }

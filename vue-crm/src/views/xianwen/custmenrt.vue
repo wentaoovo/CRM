@@ -101,7 +101,7 @@
     </div>
     <el-dialog title="创建客户" :visible.sync="dialogFormVisible" width="1200px">
       <el-row :gutter="15">
-      <el-form :model="form" label-width="100px">
+      <el-form :model="form" label-width="100px" :rules="rules">
         <el-col :span="24" >
           <el-form-item label="客户名称:" prop="name">
             <el-input v-model="form.name"  placeholder="客户姓名"></el-input>
@@ -377,6 +377,11 @@ export default {
     name:"custmenrt",
     data(){
         return{
+          rules:{
+            name:[
+              {required: true, message: '请输入客户名称', trigger: 'blur'}
+            ]
+          },
             tableData:[],
             total:0,
             selectParams:{},

@@ -84,7 +84,7 @@
         <span>联系人</span>
       </div> -->
       <el-row :gutter="15">
-        <el-form :model="form"  label-width="100px">
+        <el-form :model="form"  label-width="100px" :rules="rules">
          <el-col :span="24">
         <el-form-item>
         <div class="aaa"> 
@@ -104,10 +104,10 @@
         </el-col>
             <el-col :span="12">
           <el-form-item label="对应客户:" prop="corrCustomer">
-            <el-select v-model="form.corrCustomer"
+            <el-select v-model="form.customerDetailsId"
             value-key="id"
             placeholder="请选择对应客户">
-            <el-option v-for="item in name" :key="item" :label="item" :value="item"></el-option>
+            <el-option v-for="item in name" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -409,6 +409,18 @@ export default {
    name:"contacts",
    data(){
         return{
+          rules:{
+            contactsName:[
+              {required:true,message:'请输入姓名',trigger:'blur'},
+            ],
+            corrCustomer:[
+              {required:true,message:'请选择对应客户',trigger:'change'},
+            ],
+            mobilePhone:[
+              {required:true,message:'请输入电话号码',trigger:'blur'},
+               { min: 11, max: 11, message: '长度在11字符', trigger: 'blur' }
+            ]
+          },
           selectParams:{},
           tableData:[],
           form:{},

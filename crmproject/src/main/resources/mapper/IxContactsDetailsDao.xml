@@ -50,7 +50,7 @@
     spouse, children, annual_income, consumption_habits
   </sql>
   <sql id="all">
-    `name`
+    id,`name`
   </sql>
   <select id="selectYomer" parameterType="string" resultMap="BaseResultMap">
     select
@@ -58,7 +58,7 @@
     from
     ix_contacts_details
   </select>
-  <select id="selectByOne" resultType="string">
+  <select id="selectByOne" resultType="map">
      select
      <include refid="all"></include>
      from ix_customer_details
