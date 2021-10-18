@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletionService;
 
 @RestController
@@ -48,7 +49,7 @@ public class CoustomerController {
     //客户接口（订单）
     @GetMapping("/selectTomer")
     public ResultVo selecttomer(){
-        List<IxCustomerDetails> ixCustomerDetails = coustomerDetailsService.selectByTomer();
+        List<Map> ixCustomerDetails = coustomerDetailsService.selectByTomer();
         return ResultVoUtil.success(ixCustomerDetails);
     }
 }

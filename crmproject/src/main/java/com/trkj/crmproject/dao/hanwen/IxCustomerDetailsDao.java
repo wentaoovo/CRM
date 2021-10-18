@@ -4,6 +4,7 @@ import com.trkj.crmproject.entity.hanwen.IxCustomerDetails;
 import com.trkj.crmproject.vo.Indexes.CosmerSearch;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IxCustomerDetailsDao {
     int deleteByPrimaryKey(String id);
@@ -20,5 +21,5 @@ public interface IxCustomerDetailsDao {
 
     List<IxCustomerDetails> selectByAll(CosmerSearch cosmerSearch);
 
-    List<IxCustomerDetails> selectByTomer();
+    List<Map> selectByTomer();
 }

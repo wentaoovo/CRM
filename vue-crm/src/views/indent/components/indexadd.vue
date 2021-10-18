@@ -11,8 +11,9 @@
        </el-col>
        <el-col :span="24">
             <el-form-item label="对应客户" prop="customerName">
-              <el-input v-model="formData.customerName" show-word-limit
-                        clearable :style="{width: '100%'}"></el-input>
+              <el-select v-model="formData.customerName" @change="clientCk($event)" :style="{width: '100%'}" filterable>
+              <el-option v-for="item in ClientList" :key="item.id" :label="item.name" :value="{name:item.name,id:item.id}"></el-option>
+             </el-select>
             </el-form-item>
        </el-col>
        <el-col :span="12">
@@ -23,8 +24,9 @@
           </el-col>
        <el-col :span="12">
             <el-form-item label="对应机会" prop="chanceId">
-              <el-input v-model="formData.chanceId" show-word-limit
-                        clearable :style="{width: '100%'}"></el-input>
+              <el-select v-model="formData.chanceName" @change="ChanceCk($event)" :style="{width: '100%'}" filterable>
+              <el-option v-for="item in ChanceList" :key="item.id" :label="item.opportunity_theme" :value="{name:item.opportunity_theme,id:item.id}"></el-option>
+              </el-select>
             </el-form-item>
        </el-col>
           <el-col :span="12">
@@ -49,13 +51,14 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="客户签约人" prop="contactsId">
-              <el-input v-model="formData.contactsId" show-word-limit
-                        clearable :style="{width: '100%'}"></el-input>
+              <el-select v-model="formData.contactsName" @change="ContactCk($event)" :style="{width: '100%'}" filterable>
+              <el-option v-for="item in ContactsList" :key="item.id" :label="item.contacts_name" :value="{name:item.contacts_name,id:item.id}"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="所有者" prop="possessorId">
-              <el-input v-model="formData.possessorId" show-word-limit
+            <el-form-item label="所有者" prop="possessor">
+              <el-input v-model="formData.possessor" show-word-limit
                         clearable :style="{width: '100%'}"></el-input>
             </el-form-item>
           </el-col>
@@ -132,12 +135,15 @@
 </template>
 
 <script>
-import {addOrupdate,add} from "@/api/indent"
+import {addOrupdate,add,getClientList,getContactsList,getChanceList} from "@/api/indent"
   export default {
     data() {
       return {
         showOrHide:false,
         dialogFormVisible: false,
+        ClientList:[],
+        ContactsList:[],
+        ChanceList:[],
         formData: {
           state:0
         },
@@ -162,6 +168,14 @@ import {addOrupdate,add} from "@/api/indent"
       }
     },
     methods: {
+      init(){
+        getClientList().then(res=>{
+          this.ClientList = res.data;
+        });
+        getChanceList().then(res=>{
+          this.ChanceList = res.data;
+        })
+      },
       show(){
         this.showOrHide=!this.showOrHide
       },
@@ -174,15 +188,40 @@ import {addOrupdate,add} from "@/api/indent"
           });
           if(res.success){
             this.dialogFormVisible=false
-            this.$parent.init();
             if(res.data != null){
                this.$parent.detailsAdd(res.data);   
             }
           }
         })
       },
+      clientCk(event){
+        this.formData.customerId = event.id;
+        this.formData.customerName = event.name;
+
+        const item = this.ClientList.find(item1 => item1.id === event.id);
+        this.$set(this.formData,'addressee',item.name)
+        this.$set(this.formData,'addresseeTelephone',item.telephone)
+        this.$set(this.formData,'addresseePhone',item.mobile_phone)
+        this.$set(this.formData,'province',item.province)
+        this.$set(this.formData,'city',item.city)
+        this.$set(this.formData,'addresseeSite',item.address)
+        this.$set(this.formData,'postcode',item.postcode)
+
+        getContactsList(event.id).then(res =>{
+          this.ContactsList = res.data
+        })
+      },
+      ContactCk(event){
+        this.formData.contactsId = event.id;
+        this.formData.contactsName = event.name;
+      },
+      ChanceCk(event){
+        this.formData.chanceId = event.id;
+        this.formData.chanceName = event.name;
+      },
        closeck(){
         Object.assign(this.$data,this.$options.data.call(this))
+        this.$parent.init();
       }
     }
   } 

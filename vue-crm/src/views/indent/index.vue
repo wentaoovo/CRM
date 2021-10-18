@@ -196,6 +196,7 @@ export default {
         },
         // 新增订单
         handAdd(){
+          this.$refs.indexAdd.init();
           this.$refs.indexAdd.dialogFormVisible = true;
         },
         //新增详细

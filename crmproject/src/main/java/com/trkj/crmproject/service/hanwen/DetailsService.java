@@ -5,6 +5,7 @@ import com.trkj.crmproject.entity.hanwen.IxDetails;
 import com.trkj.crmproject.vo.Indexes.DetailsSearchVo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DetailsService {
     PageInfo<IxDetails> selectAll(DetailsSearchVo detailsSearchVo);
@@ -13,5 +14,5 @@ public interface DetailsService {
     int insert(IxDetails record);
     int updateByPrimaryKeySelective(IxDetails record);
     int deleteByPrimaryKey(String id);
-    List<String> selectDtmer();
+    List<Map> selectDtmer();
 }

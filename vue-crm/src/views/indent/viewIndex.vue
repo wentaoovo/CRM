@@ -82,6 +82,7 @@ export default {
     },
     // 编辑订单
     handAdd(){
+      this.$refs.indexAdd.init();
       this.$refs.indexAdd.formData = this.findData;
       this.$refs.indexAdd.dialogFormVisible = true;
     },

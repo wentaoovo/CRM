@@ -45,7 +45,7 @@
   </select>
   <select id="findAll" resultMap="BaseResultMap">
     select
-    id,`name`,price,model
+    id,`name`,price,model,cost_price
     from product
     where `state` = 0
   </select>

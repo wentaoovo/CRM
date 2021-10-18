@@ -6,6 +6,7 @@ import com.trkj.crmproject.vo.Indexes.ContactsSearchVo;
 
 
 import java.util.List;
+import java.util.Map;
 
 public interface IxContactsDetailsDao {
     int deleteByPrimaryKey(String id);
@@ -24,5 +25,5 @@ public interface IxContactsDetailsDao {
 
     List<String> selectByOne();
 
-    List<String> selectYomer();
+    List<Map> selectYomer(String id);
 }

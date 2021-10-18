@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ContactsDetailsServiceImpl implements ContactsDetailsService {
@@ -59,7 +60,7 @@ public class ContactsDetailsServiceImpl implements ContactsDetailsService {
     }
 
     @Override
-    public List<String> selectYomer() {
-        return ixContactsDetailsDao.selectYomer();
+    public List<Map> selectYomer(String id) {
+        return ixContactsDetailsDao.selectYomer(id);
     }
 }

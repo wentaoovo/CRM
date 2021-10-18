@@ -6,6 +6,7 @@ import com.trkj.crmproject.entity.hanwen.IxCustomerDetails;
 import com.trkj.crmproject.vo.Indexes.ContactsSearchVo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ContactsDetailsService {
     PageInfo<IxContactsDetails> selectAll(ContactsSearchVo contactsSearchVo);
@@ -14,6 +15,6 @@ public interface ContactsDetailsService {
     int updateByPrimaryKeySelective(IxContactsDetails record);
     IxContactsDetails selectByPrimaryKey(String id);
     int deleteByPrimaryKey(String id);
-    List<String> selectYomer();
+    List<Map> selectYomer(String id);
 
 }

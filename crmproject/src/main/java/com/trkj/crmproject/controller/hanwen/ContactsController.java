@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/three")
@@ -48,9 +49,9 @@ public class ContactsController {
         return ResultVoUtil.success(i);
     }
     //联系人接口（订单）
-    @GetMapping("/selectYomer")
-    public ResultVo selectyomer(){
-        List<String> strings = contactsDetailsService.selectYomer();
+    @GetMapping("/selectYomer/{id}")
+    public ResultVo selectyomer(@PathVariable("id") String id){
+        List<Map> strings = contactsDetailsService.selectYomer(id);
         return ResultVoUtil.success(strings);
     }
 

@@ -39,9 +39,9 @@
     telephone, mobile_phone, website, province, city, area, postcode, address, remarks
   </sql>
   <sql id="Base_Column_T">
-    id, `name`
+    id,`name`,telephone,mobile_phone,province,city,area,postcode,address
   </sql>
-  <select id="selectByTomer" resultType="string" resultMap="BaseResultMap">
+  <select id="selectByTomer" resultType="map">
     select
     <include refid="Base_Column_T"></include>
     from ix_customer_details

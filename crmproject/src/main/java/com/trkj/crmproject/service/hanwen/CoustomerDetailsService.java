@@ -5,6 +5,7 @@ import com.trkj.crmproject.entity.hanwen.IxCustomerDetails;
 import com.trkj.crmproject.vo.Indexes.CosmerSearch;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CoustomerDetailsService {
     PageInfo<IxCustomerDetails> selectByAll(CosmerSearch cosmerSearch);
@@ -12,5 +13,5 @@ public interface CoustomerDetailsService {
     int updateByPrimaryKeySelective(IxCustomerDetails record);
     IxCustomerDetails selectByPrimaryKey(String id);
     int deleteByPrimaryKey(String id);
-    List<IxCustomerDetails> selectByTomer();
+    List<Map> selectByTomer();
 }

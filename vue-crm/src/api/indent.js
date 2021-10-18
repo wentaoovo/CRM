@@ -42,6 +42,27 @@ export function getSaleList() {
     method: 'get',
   })
 }
+// 查询全部联系人
+export function getContactsList(data) {
+  return request({
+    url: `/three/selectYomer/${data}`,
+    method: 'get',
+  })
+}
+// 查询全部客户
+export function getClientList() {
+  return request({
+    url: '/send/selectTomer',
+    method: 'get',
+  })
+}
+// 查询全部销售机会
+export function getChanceList() {
+  return request({
+    url: '/five/selectDtmer',
+    method: 'get',
+  })
+}
 
 //批量新增订单详细
 export function addDetailList(data) {
