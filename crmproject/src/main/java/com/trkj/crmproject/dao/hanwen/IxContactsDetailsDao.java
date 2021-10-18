@@ -25,5 +25,5 @@ public interface IxContactsDetailsDao {
 
     List<Map> selectByOne();
 
-    List<String> selectYomer();
+    List<Map> selectYomer(String id);
 }

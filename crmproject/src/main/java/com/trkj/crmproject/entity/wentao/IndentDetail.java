@@ -95,6 +95,10 @@ public class IndentDetail implements Serializable {
      * 时效性
      */
     private Integer timeliness;
+    /**
+     * 成本价格
+     */
+    private BigDecimal costPrice;
 
     private static final long serialVersionUID = 1L;
 }

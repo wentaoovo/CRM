@@ -41,7 +41,7 @@
 <sql id="all">
     `name`
   </sql>
-  <select id="selectDtmer" parameterType="string" resultMap="BaseResultMap">
+  <select id="selectDtmer" parameterType="string" resultType="map">
     select
     id,opportunity_theme
     from ix_details

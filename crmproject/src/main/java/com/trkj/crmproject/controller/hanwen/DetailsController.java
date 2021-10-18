@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/five")
@@ -52,7 +53,7 @@ public class DetailsController {
     //销售机会接口（订单）
     @GetMapping("/selectDtmer")
     public ResultVo selectdtmer(){
-        List<String> strings = detailsService.selectDtmer();
+        List<Map> strings = detailsService.selectDtmer();
         return ResultVoUtil.success(strings);
     }
 }

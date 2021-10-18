@@ -52,7 +52,7 @@
         </el-table-column>
         <el-table-column  label="操作">
           <template slot-scope="scope">
-            <el-button type="danger" size="mini" @click="del(scope.$index)" icon='el-icon-delete'></el-button>
+            <el-button type="danger" size="mini" @click="del(scope.$index,scope.row.id)" icon='el-icon-delete'></el-button>
             <el-button type="primary" size="mini" @click="add()" icon='el-icon-plus'></el-button>
           </template>
         </el-table-column>
@@ -89,8 +89,15 @@ import {getSaleList,addOrUpDetail,findDetailList,deleteDetail} from "@/api/inden
         getSaleList().then(res =>{
           this.saleData=res.data
         });
-        if(this.formData.tableData==null){
-          this.formData.tableData = {discount:100}
+        if(this.formData.tableData[0]==null){
+          this.formData.tableData.push({
+            productId:'',
+            discount:100,
+            quantity:'',
+            unitPrice:'',
+            money:'',
+            remark:'',
+        })
         }
       },
       //保存或更新方法
@@ -107,7 +114,6 @@ import {getSaleList,addOrUpDetail,findDetailList,deleteDetail} from "@/api/inden
             //this.formData = this.$options.data.call(this).formData
             //Object.assign(this.$data,this.$options.data.call(this))
             this.dialogFormVisible=false;
-            this.$parent.init();
           }
         })
       },
@@ -126,6 +132,7 @@ import {getSaleList,addOrUpDetail,findDetailList,deleteDetail} from "@/api/inden
         this.$set(this.formData.tableData[index],'model',item.model)
         this.$set(this.formData.tableData[index],'productName',item.name)
         this.$set(this.formData.tableData[index],'indentId',this.indentsId)
+        this.$set(this.formData.tableData[index],'costPrice',item.costPrice)
       },
       countck(a,b,c,index){
         const count = a*b*(c/100);
@@ -136,7 +143,15 @@ import {getSaleList,addOrUpDetail,findDetailList,deleteDetail} from "@/api/inden
           discount:100,
         })
       },
-      del(index){
+      del(index,id){
+        if(id){
+          deleteDetail(id).then(res =>{
+            this.$message({
+            message: res.message,
+            type: res.success?'success':'error'
+          });
+          })
+        }
         this.formData.tableData.splice(index,1);
       },
       //总计
@@ -167,6 +182,7 @@ import {getSaleList,addOrUpDetail,findDetailList,deleteDetail} from "@/api/inden
       },
       closeck(){
         Object.assign(this.$data,this.$options.data.call(this))
+        this.$parent.init();
       }
     },
     created(){

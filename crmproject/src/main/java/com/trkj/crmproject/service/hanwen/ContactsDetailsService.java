@@ -15,6 +15,6 @@ public interface ContactsDetailsService {
     int updateByPrimaryKeySelective(IxContactsDetails record);
     IxContactsDetails selectByPrimaryKey(String id);
     int deleteByPrimaryKey(String id);
-    List<String> selectYomer();
+    List<Map> selectYomer(String id);
 
 }

@@ -6,6 +6,7 @@ import com.trkj.crmproject.vo.Indexes.CosmerSearch;
 import com.trkj.crmproject.vo.Indexes.DetailsSearchVo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IxDetailsDao {
     int deleteByPrimaryKey(String id);
@@ -26,5 +27,5 @@ public interface IxDetailsDao {
 
     List<String> selectthree();
 
-    List<String> selectDtmer();
+    List<Map> selectDtmer();
 }

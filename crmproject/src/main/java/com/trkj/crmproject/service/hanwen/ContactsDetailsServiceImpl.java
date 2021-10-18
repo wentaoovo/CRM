@@ -60,7 +60,7 @@ public class ContactsDetailsServiceImpl implements ContactsDetailsService {
     }
 
     @Override
-    public List<String> selectYomer() {
-        return ixContactsDetailsDao.selectYomer();
+    public List<Map> selectYomer(String id) {
+        return ixContactsDetailsDao.selectYomer(id);
     }
 }

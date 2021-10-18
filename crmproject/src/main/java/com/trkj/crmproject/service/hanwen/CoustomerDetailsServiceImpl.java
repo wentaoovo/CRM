@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class CoustomerDetailsServiceImpl implements CoustomerDetailsService {
     @Autowired
@@ -52,7 +54,7 @@ public class CoustomerDetailsServiceImpl implements CoustomerDetailsService {
     }
 
     @Override
-    public List<IxCustomerDetails> selectByTomer() {
+    public List<Map> selectByTomer() {
         return ixCustomerDetailsDao.selectByTomer();
     }
 }

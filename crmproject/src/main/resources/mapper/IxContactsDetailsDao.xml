@@ -52,11 +52,12 @@
   <sql id="all">
     id,`name`
   </sql>
-  <select id="selectYomer" parameterType="string" resultMap="BaseResultMap">
+  <select id="selectYomer" parameterType="string" resultType="map">
     select
     id,contacts_name
     from
     ix_contacts_details
+    where customer_details_id = #{id}
   </select>
   <select id="selectByOne" resultType="map">
      select
