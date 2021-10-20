@@ -105,14 +105,6 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="转成订单" prop="orderConcert">
-              <el-radio-group v-model="form.orderConcert">
-              <el-radio :label="'0'">可见</el-radio>
-              <el-radio :label="'1'">转成订单</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
           <el-form-item label="客户:" prop="customerName">
             <el-select v-model="form.customerName"
             value-key="id"
@@ -203,14 +195,6 @@
             </el-form-item>
           </el-col>
             <el-col :span="12">
-            <el-form-item label="转成订单" prop="orderConcert">
-              <el-radio-group v-model="formData.orderConcert" disabled>
-              <el-radio :label="'0'">可见</el-radio>
-              <el-radio :label="'1'">转成订单</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
-            <el-col :span="12">
             <el-form-item label="客户" prop="customerName">
               <el-input v-model="formData.customerName" placeholder="客户" disabled></el-input>
             </el-form-item>
@@ -295,9 +279,6 @@ export default {
         timeNow:[
           { required: true,message:'请选择日期', trigger:'change'}
         ],
-        orderConcert:[
-          {required: true,message:'请选择转成订单类型',trigger:'change'}
-        ],
         totalQuotation:[
           {required: true,message:'请输入报价', trigger:'blur'}
         ],
@@ -312,7 +293,7 @@ export default {
       formVisible:false,
       dialogFormVisible:false,
       form:{
-        orderConcert:0
+  
       },
       options:[
         {
@@ -345,14 +326,12 @@ methods:{
         pageNum,
         pageSize,
         keyword,
-        orderConcert,
         quotationTheme
        }=this.selectParams;
        const{data:ListRes}=await getList({
          pageNum:pageNum,
          pageSize:pageSize,
          keyword:keyword,
-         orderConcert:orderConcert,
          quotationTheme:quotationTheme
        });
        this.tableData=ListRes.list;

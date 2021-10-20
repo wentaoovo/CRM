@@ -48,14 +48,13 @@ public class IndentServiceImpl implements IndentService {
         indent.setId(idWorker.nextId()+"");
         indent.setAddtime(new Date());
         indent.setIndentDate(new Date());
-//        indent.setOutMoney(BigDecimal.valueOf(0));
-//        indent.setReturnedMoney(BigDecimal.valueOf(0));
-//        indent.setCost(BigDecimal.valueOf(0));
-//        indent.setDiscount(BigDecimal.valueOf(0));
-//        indent.setGrossMargin(BigDecimal.valueOf(0));
-//        indent.setForgrossMargin(BigDecimal.valueOf(0));
-//        indent.setInvoiceValue(BigDecimal.valueOf(0));
-//        indent.setFreight(BigDecimal.valueOf(0));
+        indent.setOutMoney(BigDecimal.valueOf(0));
+        indent.setReturnedMoney(BigDecimal.valueOf(0));
+        indent.setCost(BigDecimal.valueOf(0));
+        indent.setDiscount(BigDecimal.valueOf(1));
+        indent.setGrossMargin(BigDecimal.valueOf(0));
+        indent.setInvoiceValue(BigDecimal.valueOf(0));
+        indent.setFreight(BigDecimal.valueOf(0));
         indent.setTimeliness(0);
         indent.setUpdatetime(new Date());
         indent.setState(0);
@@ -104,6 +103,11 @@ public class IndentServiceImpl implements IndentService {
     @Override
     public Indent selectJoin(String id) {
         return indentDao.selectJoin(id);
+    }
+
+    @Override
+    public Indent selectJoine(String id) {
+        return indentDao.selectJoine(id);
     }
 
     /**

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.crmproject.dao.wentao.ReturnedMoneyPlanDao">
+  <resultMap id="BaseResultMap" type="com.trkj.crmproject.entity.wentao.ReturnedMoneyPlan">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="indent_id" jdbcType="VARCHAR" property="indentId" />
+    <result column="indent_theme" jdbcType="VARCHAR" property="indentTheme" />
+    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="date_plan" jdbcType="DATE" property="datePlan" />
+    <result column="issue" jdbcType="INTEGER" property="issue" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="whether" jdbcType="INTEGER" property="whether" />
+    <result column="possessor" jdbcType="VARCHAR" property="possessor" />
+    <result column="principal" jdbcType="VARCHAR" property="principal" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, indent_id, indent_theme, customer_id, customer_name, date_plan, issue, money, 
+    whether, possessor, principal, `state`, remark, AddName, AddTime, UpdateName, UpdateTime, 
+    DeleteName, DeleteTime, TimeLiness
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from returned_money_plan
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from returned_money_plan
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert"  parameterType="java.util.List">
+    insert into returned_money_plan (id, indent_id, indent_theme, customer_id,
+      customer_name, date_plan, issue, 
+      money, whether, possessor, 
+      principal, `state`, remark, 
+      AddName, AddTime, UpdateName, 
+      UpdateTime, DeleteName, DeleteTime, 
+      TimeLiness)
+    values
+    <foreach collection="list" item="item" separator=",">
+     (#{item.id,jdbcType=VARCHAR},#{item.indentId,jdbcType=VARCHAR}, #{item.indentTheme,jdbcType=VARCHAR}, #{item.customerId,jdbcType=VARCHAR},
+      #{item.customerName,jdbcType=VARCHAR}, #{item.datePlan,jdbcType=DATE}, #{item.issue,jdbcType=INTEGER},
+      #{item.money,jdbcType=DECIMAL}, #{item.whether,jdbcType=INTEGER}, #{item.possessor,jdbcType=VARCHAR},
+      #{item.principal,jdbcType=VARCHAR}, #{item.state,jdbcType=INTEGER}, #{item.remark,jdbcType=VARCHAR},
+      #{item.addname,jdbcType=VARCHAR}, #{item.addtime,jdbcType=TIMESTAMP}, #{item.updatename,jdbcType=VARCHAR},
+      #{item.updatetime,jdbcType=TIMESTAMP}, #{item.deletename,jdbcType=VARCHAR}, #{item.deletetime,jdbcType=TIMESTAMP},
+      #{item.timeliness,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.trkj.crmproject.entity.wentao.ReturnedMoneyPlan" useGeneratedKeys="true">
+    insert into returned_money_plan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="indentId != null">
+        indent_id,
+      </if>
+      <if test="indentTheme != null">
+        indent_theme,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="datePlan != null">
+        date_plan,
+      </if>
+      <if test="issue != null">
+        issue,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="whether != null">
+        whether,
+      </if>
+      <if test="possessor != null">
+        possessor,
+      </if>
+      <if test="principal != null">
+        principal,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        AddTime,
+      </if>
+      <if test="updatename != null">
+        UpdateName,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="indentId != null">
+        #{indentId,jdbcType=VARCHAR},
+      </if>
+      <if test="indentTheme != null">
+        #{indentTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="datePlan != null">
+        #{datePlan,jdbcType=DATE},
+      </if>
+      <if test="issue != null">
+        #{issue,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="whether != null">
+        #{whether,jdbcType=INTEGER},
+      </if>
+      <if test="possessor != null">
+        #{possessor,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null">
+        #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.crmproject.entity.wentao.ReturnedMoneyPlan">
+    update returned_money_plan
+    <set>
+      <if test="indentId != null">
+        indent_id = #{indentId,jdbcType=VARCHAR},
+      </if>
+      <if test="indentTheme != null">
+        indent_theme = #{indentTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="datePlan != null">
+        date_plan = #{datePlan,jdbcType=DATE},
+      </if>
+      <if test="issue != null">
+        issue = #{issue,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="whether != null">
+        whether = #{whether,jdbcType=INTEGER},
+      </if>
+      <if test="possessor != null">
+        possessor = #{possessor,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null">
+        principal = #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        AddName = #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        AddTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        UpdateName = #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.crmproject.entity.wentao.ReturnedMoneyPlan">
+    update returned_money_plan
+    set indent_id = #{indentId,jdbcType=VARCHAR},
+      indent_theme = #{indentTheme,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      date_plan = #{datePlan,jdbcType=DATE},
+      issue = #{issue,jdbcType=INTEGER},
+      money = #{money,jdbcType=DECIMAL},
+      whether = #{whether,jdbcType=INTEGER},
+      possessor = #{possessor,jdbcType=VARCHAR},
+      principal = #{principal,jdbcType=VARCHAR},
+      `state` = #{state,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      AddName = #{addname,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -104,3 +104,37 @@ export function findIndentAnddetail(data){
     method: 'get',
   })
 }
+
+//根据id查询订单与明细2
+export function findIndentAnddetaile(data){
+  return request({
+    url: `/indent/findJoine/${data}`,
+    method: 'get',
+  })
+}
+
+//新增发货单  
+export function addShipments(data) {
+  return request({
+    url: '/shipments/add',
+    method: 'post',
+    data
+  })
+}
+
+//根据订单id查询发货单与明细  
+export function findShipmentsD(data) {
+  return request({
+    url: `/shipments/find/${data}`,
+    method: 'get',
+  })
+}
+
+//新增回款计划
+export function addPlan(data) {
+  return request({
+    url: '/plan/add',
+    method: 'post',
+    data
+  })
+}

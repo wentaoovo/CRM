@@ -102,7 +102,8 @@ import {getSaleList,addOrUpDetail,findDetailList,deleteDetail} from "@/api/inden
       },
       //保存或更新方法
       save(){
-        addOrUpDetail(this.formData.tableData).then(res =>{
+        if(this.formData.tableData.length >0){
+          addOrUpDetail(this.formData.tableData).then(res =>{
           this.$message({
             message: res.message,
             type: res.success?'success':'error'
@@ -116,6 +117,13 @@ import {getSaleList,addOrUpDetail,findDetailList,deleteDetail} from "@/api/inden
             this.dialogFormVisible=false;
           }
         })
+        }else{
+          this.$message({
+            message: '成功',
+            type: 'success'
+          });
+          this.dialogFormVisible=false;
+        }
       },
       switchck(value){        
         if(value){
@@ -137,6 +145,13 @@ import {getSaleList,addOrUpDetail,findDetailList,deleteDetail} from "@/api/inden
       countck(a,b,c,index){
         const count = a*b*(c/100);
           this.formData.tableData[index].money=count;
+          if(this.formData.tableData[index].costPrice>(count/a)){
+             this.$notify({
+              title: '警告',
+              message: '当前售价低于成本',
+              type: 'warning',
+        })
+          }
       },
       add(){
         this.formData.tableData.push({

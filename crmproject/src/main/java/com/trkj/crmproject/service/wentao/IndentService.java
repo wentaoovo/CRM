@@ -17,5 +17,7 @@ public interface IndentService {
 
     Indent selectJoin(String id);
 
+    Indent selectJoine(String id);
+
     boolean update(Indent record);
 }

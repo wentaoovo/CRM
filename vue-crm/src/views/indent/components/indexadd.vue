@@ -1,8 +1,8 @@
 <template>
-  <el-dialog title="订单" @close="closeck()" :close-on-click-modal="false" :close-on-press-escape="false" :visible.sync="dialogFormVisible" top="20px" width="1000px">
+  <el-dialog title="订单" @close="closeck()" @open="openck()" :close-on-click-modal="false" :close-on-press-escape="false" :visible.sync="dialogFormVisible" top="20px" width="1000px">
     <el-divider></el-divider>
     <el-row :gutter="15">
-    <el-form ref="elForm" :model="formData" size="medium" label-width="100px">
+    <el-form ref="elForm" :rules="rule" :model="formData" size="medium" label-width="100px">
        <el-col :span="24">
             <el-form-item label="主题" prop="theme">
               <el-input v-model="formData.theme" placeholder="可不录入" show-word-limit
@@ -23,7 +23,7 @@
             </el-form-item>
           </el-col>
        <el-col :span="12">
-            <el-form-item label="对应机会" prop="chanceId">
+            <el-form-item label="对应机会" prop="chanceName">
               <el-select v-model="formData.chanceName" @change="ChanceCk($event)" :style="{width: '100%'}" filterable>
               <el-option v-for="item in ChanceList" :key="item.id" :label="item.opportunity_theme" :value="{name:item.opportunity_theme,id:item.id}"></el-option>
               </el-select>
@@ -31,12 +31,12 @@
        </el-col>
           <el-col :span="12">
             <el-form-item label="总金额" prop="totalMoney">
-              <el-input v-model="formData.totalMoney" placeholder="请输入金额" clearable
+              <el-input v-model="formData.totalMoney" placeholder="金额" :disabled="true" clearable
                         prefix-icon='el-icon-s-finance' :style="{width: '100%'}"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="分类">
+            <el-form-item label="分类" prop="classify">
               <el-select v-model="formData.classify">
                 <el-option
                   v-for="item in options"
@@ -50,7 +50,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="客户签约人" prop="contactsId">
+            <el-form-item label="客户签约人" prop="contactsName">
               <el-select v-model="formData.contactsName" @change="ContactCk($event)" :style="{width: '100%'}" filterable>
               <el-option v-for="item in ContactsList" :key="item.id" :label="item.contacts_name" :value="{name:item.contacts_name,id:item.id}"></el-option>
               </el-select>
@@ -127,7 +127,7 @@
             </el-form-item>
           </el-col>
         <el-col :span="6" :offset="21">
-        <el-button type="primary" plain size="medium" @click="save()">保存</el-button>
+        <el-button type="primary" plain size="medium" @click="save('elForm')">保存</el-button>
         </el-col>
     </el-form>        
     </el-row>  
@@ -146,6 +146,29 @@ import {addOrupdate,add,getClientList,getContactsList,getChanceList} from "@/api
         ChanceList:[],
         formData: {
           state:0
+        },
+        rule:{
+          customerName:[
+            { required: true, message: '请输入客户', trigger: 'change' },
+          ],
+          classify:[
+            { required: true, message: '请选择类别', trigger: 'change' },
+          ],
+          contactsName:[
+            { required: true, message: '请输入客户签约人', trigger: 'change' },
+          ],
+          possessor:[
+            { required: true, message: '请输入所有者', trigger: 'blur' },
+          ],
+          latestDeliveryDate:[
+            { required: true, message: '请选择日期', trigger: 'change' },
+          ],
+          addresseePhone:[
+            { pattern: /^[1][3,4,5,7,8][0-9]{9}$/, message: '请输入正确的手机号码', trigger: 'blur' },
+          ],
+          postcode:[
+            { pattern: /^[0-9]*$/, message: '请输入数字', trigger: 'blur' },
+          ]
         },
         options:[
               {
@@ -180,17 +203,23 @@ import {addOrupdate,add,getClientList,getContactsList,getChanceList} from "@/api
         this.showOrHide=!this.showOrHide
       },
       //保存或更新方法
-      save(){
-        addOrupdate(this.formData).then(res =>{
-          this.$message({
-            message: res.message,
-            type: res.success?'success':'error'
-          });
-          if(res.success){
-            this.dialogFormVisible=false
-            if(res.data != null){
-               this.$parent.detailsAdd(res.data);   
+      save(elForm){
+        this.$refs[elForm].validate((valid) => {
+          if (valid) {
+            addOrupdate(this.formData).then(res =>{
+            this.$message({
+              message: res.message,
+              type: res.success?'success':'error'
+            });
+            if(res.success){
+              this.dialogFormVisible=false
+              if(res.data != null){
+                this.$parent.detailsAdd(res.data);   
+              }
             }
+          })  
+          } else {
+            return false
           }
         })
       },
@@ -222,6 +251,11 @@ import {addOrupdate,add,getClientList,getContactsList,getChanceList} from "@/api
        closeck(){
         Object.assign(this.$data,this.$options.data.call(this))
         this.$parent.init();
+      },
+      openck(){
+        this.$nextTick(()=>{
+        this.$refs['elForm'].clearValidate();
+        })
       }
     }
   } 

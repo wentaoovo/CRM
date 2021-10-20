@@ -78,6 +78,12 @@
     l.id l_id, l.indent_id, l.product_id, l.product_name, l.unit_price, l.money, l.quantity, l.model, l.discount l_discount,
     l.remark l_remark
   </sql>
+  <sql id="Base_Column_List3">
+    e.id, e.customer_name, e.addressee, e.addressee_telephone, e.addressee_phone,
+    e.province, e.city, e.address_type, e.addressee_site, e.postcode,
+    l.product_id, l.product_name, l.unit_price, l.money, l.quantity, l.model,
+    l.remark l_remark
+  </sql>
   <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -104,6 +110,12 @@
   <select id="selectJoin" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List2" />
+    from indent e left join indent_detail l on e.id=l.indent_id
+    where e.id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectJoine" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List3" />
     from indent e left join indent_detail l on e.id=l.indent_id
     where e.id = #{id,jdbcType=VARCHAR}
   </select>
@@ -139,7 +151,12 @@
     update indent
     set TimeLiness = 1,
     DeleteTime = #{deletetime}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR};
+
+    update indent_detail
+    set TimeLiness = 1,
+    DeleteTime = now()
+    where indent_id = #{id,jdbcType=VARCHAR};
   </update>
   <update id="update" parameterType="com.trkj.crmproject.entity.wentao.Indent">
     update indent

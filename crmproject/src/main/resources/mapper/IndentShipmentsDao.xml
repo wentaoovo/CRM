@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.crmproject.dao.wentao.IndentShipmentsDao">
+  <resultMap id="BaseResultMap" type="com.trkj.crmproject.entity.wentao.IndentShipments">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="indent_id" jdbcType="VARCHAR" property="indentId" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="shdate" jdbcType="DATE" property="shdate" />
+    <result column="mode" jdbcType="VARCHAR" property="mode" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="Packets" jdbcType="INTEGER" property="packets" />
+    <result column="weight" jdbcType="VARCHAR" property="weight" />
+    <result column="logistics_company" jdbcType="VARCHAR" property="logisticsCompany" />
+    <result column="tracking_number" jdbcType="VARCHAR" property="trackingNumber" />
+    <result column="freight" jdbcType="DECIMAL" property="freight" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="addressee" jdbcType="VARCHAR" property="addressee" />
+    <result column="addressee_telephone" jdbcType="VARCHAR" property="addresseeTelephone" />
+    <result column="addressee_phone" jdbcType="VARCHAR" property="addresseePhone" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="address_type" jdbcType="VARCHAR" property="addressType" />
+    <result column="addressee_site" jdbcType="VARCHAR" property="addresseeSite" />
+    <result column="postcode" jdbcType="VARCHAR" property="postcode" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    <collection property="indentDetail" ofType="com.trkj.crmproject.entity.wentao.IndentShipmentsDetail">
+      <id column="l_id" jdbcType="VARCHAR" property="id" />
+      <result column="indent_shipments_id" jdbcType="VARCHAR" property="indentShipmentsId" />
+      <result column="product_id" jdbcType="VARCHAR" property="productId" />
+      <result column="product_name" jdbcType="VARCHAR" property="productName" />
+      <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+      <result column="money" jdbcType="DECIMAL" property="money" />
+      <result column="quantity" jdbcType="INTEGER" property="quantity" />
+      <result column="remark" jdbcType="VARCHAR" property="remark" />
+      <result column="model" jdbcType="VARCHAR" property="model" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, shdate, `mode`, `state`, Packets, weight, logistics_company,
+    tracking_number, freight, remark, addressee, addressee_telephone, addressee_phone,
+    province, city, addressee_site, postcode
+  </sql>
+  <sql id="Base_Column_List2">
+    e.id, e.shdate, e.`mode`, e.`state`, e.Packets, e.weight, e.logistics_company,
+    e.tracking_number, e.freight, e.remark, e.addressee, e.addressee_telephone, e.addressee_phone,
+    e.province, e.city, e.addressee_site, e.postcode,
+    l.id l_id, l.indent_shipments_id, l.product_id, l.product_name, l.unit_price, l.money, l.quantity, l.remark,
+    l.model
+  </sql>
+  <select id="selectByIid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List2" />
+    from indent_shipments e left join indent_shipments_detail l on e.id = l.indent_shipments_id
+    where e.indent_id = #{id,jdbcType=VARCHAR}
+  </select>
+  <insert id="insert" parameterType="com.trkj.crmproject.entity.wentao.IndentShipments">
+    insert into indent_shipments (id,indent_id, customer_name, shdate,
+      `mode`, `state`, Packets, 
+      weight, logistics_company, tracking_number, 
+      freight, remark, addressee, 
+      addressee_telephone, addressee_phone, province, 
+      city, address_type, addressee_site, 
+      postcode, AddName, AddTime, 
+      UpdateName, UpdateTime, DeleteName, 
+      DeleteTime, TimeLiness)
+    values (#{id,jdbcType=VARCHAR},#{indentId,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{shdate,jdbcType=DATE},
+      #{mode,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{packets,jdbcType=INTEGER}, 
+      #{weight,jdbcType=VARCHAR}, #{logisticsCompany,jdbcType=VARCHAR}, #{trackingNumber,jdbcType=VARCHAR}, 
+      #{freight,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{addressee,jdbcType=VARCHAR}, 
+      #{addresseeTelephone,jdbcType=VARCHAR}, #{addresseePhone,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{addressType,jdbcType=VARCHAR}, #{addresseeSite,jdbcType=VARCHAR}, 
+      #{postcode,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, 
+      #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER})
+  </insert>
+</mapper>

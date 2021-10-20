@@ -26,7 +26,6 @@ public class IndentDaoController {
     @PostMapping("/add")
     public ResultVo add(@Validated @RequestBody Indent indent){
         Map map = indentService.insert(indent);
-
         if ((boolean) map.get("boolean")){
             return ResultVoUtil.success(map.get("id"));
         }
@@ -82,6 +81,15 @@ public class IndentDaoController {
     @GetMapping("findJoin/{id}")
     public ResultVo findJoin(@PathVariable("id") String id){
         Indent indent = indentService.selectJoin(id);
+        return ResultVoUtil.success(indent);
+    }
+    /**
+     * 根据id查询订单和明细2
+     * @return
+     */
+    @GetMapping("findJoine/{id}")
+    public ResultVo findJoine(@PathVariable("id") String id){
+        Indent indent = indentService.selectJoine(id);
         return ResultVoUtil.success(indent);
     }
 }

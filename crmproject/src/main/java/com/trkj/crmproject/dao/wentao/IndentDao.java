@@ -18,5 +18,7 @@ public interface IndentDao {
 
     Indent selectJoin(String id);
 
+    Indent selectJoine(String id);
+
     int update(Indent record);
 }

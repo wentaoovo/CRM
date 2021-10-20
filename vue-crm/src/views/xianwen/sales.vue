@@ -33,7 +33,6 @@
       </div>
             <div style="margin: 10px  0; text-align: right;">
 			 <el-button  @click="add()">新增</el-button>
-       <el-button>更多</el-button>
        
 		</div>
     <el-table  :data="tableData" style="width: 100%">
@@ -81,7 +80,7 @@
 		      :total="total">
 		    </el-pagination>
     </div>
-    <el-dialog title="创建报价" :visible.sync="dialogFormVisible" width="1200px">
+    <el-dialog title="创建机会" :visible.sync="dialogFormVisible" width="1200px">
       <el-row :gutter="15">
         <el-form :model="form" label-width="100px" :rules="rules" ref="form">
        <el-col :span="24">
