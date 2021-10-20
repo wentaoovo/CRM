@@ -67,10 +67,10 @@
 					<el-button size="mini"  icon="el-icon-view" @click="selecto(scope.row.id)"></el-button>
 					</el-col>
 						<el-col :span="6" :offset="0">
-					<el-button size="mini"  icon="el-icon-delete-solid" @click="Delete(scope.row.id)"></el-button>
+					<el-button size="mini"  icon="el-icon-delete-solid" @click="Delete(scope.row.id)" ></el-button>
 						</el-col>
-						<el-col :span="6" :offset="0" >
-								<el-button size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
+						<el-col :span="6" :offset="0">
+								<el-button size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)" v-if="scope.row.orderConcert=='0'||scope.row.orderConcert=='1'" ></el-button>
 						</el-col>
 					</el-row>
 					
@@ -104,14 +104,14 @@
               <el-input v-model="form.quotationTheme" placeholder="主题"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <!-- <el-col :span="12">
             <el-form-item label="转成订单" prop="orderConcert">
               <el-radio-group v-model="form.orderConcert">
               <el-radio :label="'0'">可见</el-radio>
               <el-radio :label="'1'">转成订单</el-radio>
               </el-radio-group>
             </el-form-item>
-          </el-col>
+          </el-col> -->
           <el-col :span="12">
           <el-form-item label="客户:" prop="customerName">
             <el-select v-model="form.customerName"
@@ -284,6 +284,7 @@ export default {
       CanAddTip:false,
       selectParams:{},
       tableData:[],
+      hide:'',
       total:0,
       rules:{
         customerName:[
@@ -295,9 +296,9 @@ export default {
         timeNow:[
           { required: true,message:'请选择日期', trigger:'change'}
         ],
-        orderConcert:[
-          {required: true,message:'请选择转成订单类型',trigger:'change'}
-        ],
+        // orderConcert:[
+        //   {required: true,message:'请选择转成订单类型',trigger:'change'}
+        // ],
         totalQuotation:[
           {required: true,message:'请输入报价', trigger:'blur'}
         ],
@@ -338,6 +339,7 @@ export default {
     // this.first();
     this.find();
     // this.tosous();
+    this.fend()
   },
 methods:{
      async load(){
@@ -368,6 +370,15 @@ methods:{
     },
         onsumbit(){
       this.load();
+    },
+    fend(){
+      // console.log(row);
+      // if(row.orderConcert=='0'){
+      //   return true
+      // }else if(row.orderConcert=='1'){
+      //   return false
+      // }
+      
     },
         save(){
       if(this.form.id){
@@ -415,6 +426,8 @@ methods:{
         this.curr=res.data
         console.log(res.data)
       })
+      console.log(row);
+      
 			this.form= JSON.parse(JSON.stringify(row))
 			this.dialogFormVisible=true
     },
@@ -472,6 +485,9 @@ methods:{
             })
           }
         })
+        // if(this.$index.orderConcert==='1'){
+        //   this.$index.hide=true
+        // }
         this.$router.push({name:'indent'})
       }).catch(()=>{
         this.$message({
