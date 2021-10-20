@@ -23,9 +23,9 @@ public interface IxDetailsDao {
 
     List<IxDetails> selectAll(DetailsSearchVo detailsSearchVo);
 
-    List<String> selecttwo();
+    List<Map> selecttwo(String id);
 
-    List<String> selectthree();
+    List<Map> selectthree();
 
     List<Map> selectDtmer();
 }

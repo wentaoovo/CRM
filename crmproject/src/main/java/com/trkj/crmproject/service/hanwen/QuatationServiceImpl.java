@@ -9,16 +9,20 @@ import com.trkj.crmproject.util.IdWorker;
 import com.trkj.crmproject.vo.Indexes.QuatationSearchVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
+@Transactional
 public class QuatationServiceImpl implements QuatationService {
     @Autowired
     private IxQuotationDao ixQuotationDao;
     @Autowired
     private IdWorker idWorker;
     @Override
+    //分页查询
     public PageInfo<IxQuotation> selectAll(QuatationSearchVo QuatationSearchVo) {
         if (QuatationSearchVo.getPageNum()==null){
             QuatationSearchVo.setPageNum(1);
@@ -31,25 +35,27 @@ public class QuatationServiceImpl implements QuatationService {
     }
 
     @Override
-    public List<String> selecttwo() {
-        List<String> selecttwo = ixQuotationDao.selecttwo();
+    public List<Map> selecttwo(String id) {
+        List<Map> selecttwo = ixQuotationDao.selecttwo(id);
         return selecttwo;
     }
 
     @Override
-    public List<String> selectthree() {
-        List<String> selectthree = ixQuotationDao.selectthree();
+    public List<Map> selectthree() {
+        List<Map> selectthree = ixQuotationDao.selectthree();
         return selectthree;
     }
 
     @Override
-    public List<String> selectfive() {
-        List<String> selectfive=ixQuotationDao.selectfive();
+    public List<Map> selectfive(String id) {
+        List<Map> selectfive=ixQuotationDao.selectfive(id);
         return selectfive;
     }
 
     @Override
+    //新增报价
     public int insert(IxQuotation record) {
+        //雪花算法自动生成id
         record.setId(idWorker.nextId()+"");
         return ixQuotationDao.insert(record);
     }

@@ -4,6 +4,7 @@ import com.trkj.crmproject.entity.hanwen.IxQuotation;
 import com.trkj.crmproject.vo.Indexes.QuatationSearchVo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IxQuotationDao {
     int deleteByPrimaryKey(String id);
@@ -20,10 +21,10 @@ public interface IxQuotationDao {
 
     List<IxQuotation> selectAll(QuatationSearchVo QuatationSearchVo);
 
-    List<String> selecttwo();
+    List<Map> selecttwo(String id);
 
-    List<String> selectthree();
+    List<Map> selectthree();
 
-    List<String> selectfive();
+    List<Map> selectfive(String id);
 
 }

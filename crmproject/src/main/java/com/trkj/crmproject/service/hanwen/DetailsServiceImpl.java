@@ -9,18 +9,21 @@ import com.trkj.crmproject.util.IdWorker;
 import com.trkj.crmproject.vo.Indexes.DetailsSearchVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional
 public class DetailsServiceImpl implements DetailsService {
     @Autowired
     private IxDetailsDao ixDetailsDao;
     @Autowired
     private IdWorker idWorker;
     @Override
+    //分页查询
     public PageInfo<IxDetails> selectAll(DetailsSearchVo detailsSearchVo) {
         if (detailsSearchVo.getPageNum()==null){
             detailsSearchVo.setPageNum(1);
@@ -33,19 +36,21 @@ public class DetailsServiceImpl implements DetailsService {
     }
 
     @Override
-    public List<String> selecttwo() {
-        List<String> selecttwo = ixDetailsDao.selecttwo();
+    public List<Map> selecttwo(String id) {
+        List<Map> selecttwo = ixDetailsDao.selecttwo(id);
         return selecttwo;
     }
 
     @Override
-    public List<String> selectthree() {
-        List<String> selectthree = ixDetailsDao.selectthree();
+    public List<Map> selectthree() {
+        List<Map> selectthree = ixDetailsDao.selectthree();
         return selectthree;
     }
 
     @Override
+    //新增销售机会
     public int insert(IxDetails record) {
+        //雪花算法自动生成id
         record.setId(idWorker.nextId()+"");
         record.getUpdateDate();
         record.setUpdateDate(new Date());

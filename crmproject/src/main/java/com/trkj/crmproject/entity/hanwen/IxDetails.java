@@ -18,11 +18,9 @@ public class IxDetails implements Serializable {
      */
     private String id;
 
-    /**
-     * 机会id
-            
-     */
-    private String salesId;
+    private String contactsDetailsId;
+
+    private String customerDetailsId;
 
     /**
      * 机会主题

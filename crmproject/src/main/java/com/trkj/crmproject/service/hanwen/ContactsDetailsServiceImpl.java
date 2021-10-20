@@ -9,11 +9,13 @@ import com.trkj.crmproject.util.IdWorker;
 import com.trkj.crmproject.vo.Indexes.ContactsSearchVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional
 public class ContactsDetailsServiceImpl implements ContactsDetailsService {
     @Autowired
     private IxContactsDetailsDao ixContactsDetailsDao;
@@ -21,6 +23,7 @@ public class ContactsDetailsServiceImpl implements ContactsDetailsService {
     private IdWorker idWorker;
 
     @Override
+    //分页查询
     public PageInfo<IxContactsDetails> selectAll(ContactsSearchVo contactsSearchVo) {
         if (contactsSearchVo.getPageNum()==null){
             contactsSearchVo.setPageNum(1);
@@ -39,7 +42,9 @@ public class ContactsDetailsServiceImpl implements ContactsDetailsService {
     }
 
     @Override
+    //新增联系人
     public int insert(IxContactsDetails record) {
+        //雪花算法自动生成id
         record.setId(idWorker.nextId()+"");
         return ixContactsDetailsDao.insert(record);
     }

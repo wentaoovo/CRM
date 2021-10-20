@@ -9,11 +9,13 @@ import com.trkj.crmproject.util.IdWorker;
 import com.trkj.crmproject.vo.Indexes.CosmerSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional
 public class CoustomerDetailsServiceImpl implements CoustomerDetailsService {
     @Autowired
     private IxCustomerDetailsDao ixCustomerDetailsDao;
@@ -21,6 +23,7 @@ public class CoustomerDetailsServiceImpl implements CoustomerDetailsService {
     private IdWorker idWorker;
 
     @Override
+    //分页查询
     public PageInfo<IxCustomerDetails> selectByAll(CosmerSearch cosmerSearch) {
         if (cosmerSearch.getPageNum()==null){
             cosmerSearch.setPageNum(1);
@@ -33,7 +36,9 @@ public class CoustomerDetailsServiceImpl implements CoustomerDetailsService {
     }
 
     @Override
+    //新增客户
     public int insert(IxCustomerDetails record) {
+        //雪花算法自动生成id
         record.setId(idWorker.nextId()+"");
         return ixCustomerDetailsDao.insert(record);
     }

@@ -83,7 +83,7 @@
     </div>
     <el-dialog title="创建报价" :visible.sync="dialogFormVisible" width="1200px">
       <el-row :gutter="15">
-        <el-form :model="form" label-width="100px">
+        <el-form :model="form" label-width="100px" :rules="rules" ref="form">
        <el-col :span="24">
         <el-form-item>
         <div class="aaa"> 
@@ -105,16 +105,18 @@
           <el-form-item label="客户:" prop="customerName">
             <el-select v-model="form.customerName"
             value-key="id"
-            placeholder="请选择对应客户">
-            <el-option v-for="item in curr" :key="item" :label="item" :value="item"></el-option>
+            placeholder="请选择对应客户" @change="changee($event)">
+            <el-option v-for="item in curr" :key="item.id" :label="item.name" :value="{name:item.name,id:item.id}"></el-option>
             </el-select>
           </el-form-item>
           </el-col>
             <el-col :span="12">
             <el-form-item label="状态" prop="state">
-              <el-radio v-model="form.state" label="1">跟踪</el-radio>
-              <el-radio v-model="form.state" label="2">成功</el-radio>
-              <el-radio v-model="form.state" label="3">失败</el-radio>
+              <el-radio-group v-model="form.state">
+              <el-radio :label="0">跟踪</el-radio>
+              <el-radio :label="1">成功</el-radio>
+              <el-radio :label="2">失败</el-radio>
+              </el-radio-group>
             </el-form-item>
           </el-col>
         <el-col :span="24">
@@ -128,11 +130,11 @@
             <!-- <el-form-item label="接收人" prop="contactsName">
               <el-input v-model="form.contactsName" placeholder="接收人"></el-input>
             </el-form-item> -->
-            <el-form-item label="联系人:" prop="contactsName">
+            <el-form-item label="联系人:" prop="contactsDetailsId">
             <el-select v-model="form.contactsName"
             value-key="id"
-            placeholder="选择联系人">
-            <el-option v-for="item in name" :key="item" :label="item" :value="item"></el-option>
+            placeholder="选择联系人" @change="changes($event)">
+            <el-option v-for="item in name" :key="item.id" :label="item.contacts_name" :value="{name:item.contacts_name,id:item.id}"></el-option>
             </el-select>
           </el-form-item>
           </el-col>
@@ -224,13 +226,23 @@ export default {
     data(){
       return{
      tableData:[],
+     rules:{
+       opportunityTheme:[
+         {required: true,message:'请输入机会主题',trigger:'blur'},
+       ],
+       customerName:[
+         {required:true,message:'请选择客户',trigger:'blur'}
+       ]
+     },
      dialogFormVisible:false,
     selectParams:{},
       total:0,
       curr:[],
       input:'',
       name:[],
-      form:{},
+      form:{
+        state:0
+      },
       options:[
         {
           options:[
@@ -384,7 +396,7 @@ export default {
     this.selectParams.pageNum = 1;
     this.selectParams.pageSize = 10;
     this.load();
-    this.first();
+    // this.first();
     this.find();
   },
     methods:{
@@ -449,7 +461,9 @@ export default {
         this.load()
         })
       }else{
-      addall(this.form).then(res=>{
+        this.$refs['form'].validate((valid)=>{
+          if(valid){
+                 addall(this.form).then(res=>{
         if(res.code==200){
           this.$message({
             message:'新增成功',
@@ -464,12 +478,31 @@ export default {
         this.dialogFormVisible=false
         this.load()
       })
+          }
+        })
+ 
       }
 
     },
     handleEdit(row){
 			this.form= JSON.parse(JSON.stringify(row))
 			this.dialogFormVisible=true
+    },
+    changes(event){
+      this.form.contactsDetailsId=event.id
+      this.form.contactsName=event.name
+    },
+    changee(event){
+      console.log(1111111111111111);
+      
+
+            this.form.customerDetailsId=event.id,
+      this.form.customerName=event.name
+      var a = event.id
+       selectt(a).then(res=>{
+        this.name=res.data
+        console.log(res.data)
+      })
     },
     Delete(data){
       this.$confirm('此操作将永久删除该报价单, 是否继续?', '提示',{
@@ -483,11 +516,12 @@ export default {
            message:'删除成功',
            type:'success'
           });
-          }else
+          }else{
           this.$message({
           message:res.message,
           type:'error'
           })
+          }
         })
         this.load()
       }).catch(()=>{
@@ -501,12 +535,12 @@ export default {
     this.dialogFormVisible=true
     this.form={}
   },
-      first(){
-      selectt().then(res=>{
-        this.name=res.data
-        console.log(res.data)
-      })
-  },
+  //     first(){
+  //     selectt().then(res=>{
+  //       this.name=res.data
+  //       console.log(res.data)
+  //     })
+  // },
     find(){
       selects().then(res=>{
         this.curr=res.data

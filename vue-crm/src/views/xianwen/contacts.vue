@@ -19,7 +19,6 @@
          </div>
     <div style="margin: 10px  0; text-align: right;">
 			 <el-button  @click="add()">新增</el-button>
-       <el-button>更多</el-button>
        
 		</div>
      <el-table
@@ -84,7 +83,7 @@
         <span>联系人</span>
       </div> -->
       <el-row :gutter="15">
-        <el-form :model="form"  label-width="100px" :rules="rules">
+        <el-form :model="form"  label-width="100px" :rules="rules" ref="form">
          <el-col :span="24">
         <el-form-item>
         <div class="aaa"> 
@@ -104,10 +103,10 @@
         </el-col>
             <el-col :span="12">
           <el-form-item label="对应客户:" prop="corrCustomer">
-            <el-select v-model="form.customerDetailsId"
+            <el-select v-model="form.corrCustomer"
             value-key="id"
-            placeholder="请选择对应客户">
-            <el-option v-for="item in name" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            placeholder="请选择对应客户" @change="changes($event)">
+            <el-option v-for="item in name" :key="item.id" :label="item.name" :value="{name:item.name,id:item.id}"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -413,12 +412,12 @@ export default {
             contactsName:[
               {required:true,message:'请输入姓名',trigger:'blur'},
             ],
-            corrCustomer:[
-              {required:true,message:'请选择对应客户',trigger:'change'},
-            ],
             mobilePhone:[
               {required:true,message:'请输入电话号码',trigger:'blur'},
                { min: 11, max: 11, message: '长度在11字符', trigger: 'blur' }
+            ],
+            corrCustomer:[
+              {required: true,message:'请选择对应客户',trigger:'blur'}
             ]
           },
           selectParams:{},
@@ -820,6 +819,8 @@ export default {
         this.load()
         })
       }else{
+        this.$refs['form'].validate((valid)=>{
+          if(valid){
       addall(this.form).then(res=>{
         if(res.code==200){
           this.$message({
@@ -835,8 +836,15 @@ export default {
         this.dialogFormVisible=false
         this.load()
       })
+          }
+        })
+
       }
 
+    },
+    changes(event){
+    this.form.customerDetailsId=event.id,
+    this.form.corrCustomer=event.name
     },
     handle(data){
       this.$confirm('此操作将永久删除该联系人, 是否继续?', '提示',{
@@ -850,11 +858,13 @@ export default {
            message:'删除成功',
            type:'success'
           });
-          }else
+          this.load()
+          }else{
           this.$message({
           message:res.message,
           type:'error'
           })
+          }
         })
         this.load()
       }).catch(()=>{

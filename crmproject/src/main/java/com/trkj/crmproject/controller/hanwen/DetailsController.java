@@ -17,21 +17,25 @@ import java.util.Map;
 public class DetailsController {
     @Autowired
     private DetailsService detailsService;
+    //分页查询销售机会列表信息
     @PostMapping("/select")
     public ResultVo select(@RequestBody DetailsSearchVo detailsSearchVo){
         PageInfo<IxDetails> ixDetailsPageInfo = detailsService.selectAll(detailsSearchVo);
         return ResultVoUtil.success(ixDetailsPageInfo);
     }
-    @GetMapping("/selectt")
-    public ResultVo selectt(){
-        List<String> selecttwo = detailsService.selecttwo();
+    //根据客户id查询客户下的所有联系人
+    @GetMapping("/selectt/{id}")
+    public ResultVo selectt(@PathVariable("id")String id){
+        List<Map> selecttwo = detailsService.selecttwo(id);
         return ResultVoUtil.success(selecttwo);
     }
+    //查询所有客户
     @GetMapping("/selects")
     public ResultVo selects(){
-        List<String> selectthree = detailsService.selectthree();
+        List<Map> selectthree = detailsService.selectthree();
         return ResultVoUtil.success(selectthree);
     }
+    //新增销售机会
     @PostMapping("/save")
     public ResultVo save(@RequestBody IxDetails ixDetails){
         if(ixDetails.getRealName()==null){
@@ -40,11 +44,13 @@ public class DetailsController {
         int insert = detailsService.insert(ixDetails);
         return ResultVoUtil.success(insert);
     }
+    //修改销售机会
     @PutMapping("/updata")
     public ResultVo updata(@RequestBody IxDetails ixDetails){
         int i = detailsService.updateByPrimaryKeySelective(ixDetails);
         return ResultVoUtil.success(i);
     }
+    //删除销售机会
     @DeleteMapping("/delete/{id}")
     public ResultVo delete(@PathVariable("id")String id){
          detailsService.deleteByPrimaryKey(id);

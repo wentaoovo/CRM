@@ -14,15 +14,16 @@ export function addall(data){
     data
   })
 }
-// export function selectOne(){
-//   return request({
-//     url:'/four/selectname',
-//     method:'get',
-//   })
-// }
-export function selectt(){
+export function selectOne(data){
   return request({
-    url:'/four/selectt',
+    url:`/four/selectOne/${data}`,
+    method:'get',
+    data
+  })
+}
+export function selectt(data){
+  return request({
+    url:`/four/selectt/${data}`,
     method:'get'
   })
 }
@@ -32,9 +33,9 @@ export function selects(){
     method:'get'
   })
 }
-export function selectd(){
+export function selectd(data){
   return request({
-    url:'/four/selectd',
+    url:`/four/selectd/${data}`,
     method:'get'
   })
 }
@@ -49,6 +50,22 @@ export function delect(data){
   return request({
     url: `/four/delete/${data}`,
     method:'delete',
+    data
+  })
+}
+  //转成订单
+export function add(data) {
+    return request({
+      url: '/indent/add',
+      method: 'post',
+      data
+    })
+  }
+//改变转成订单状态
+export function change(data){
+  return request({
+    url:'/four/change',
+    method:'post',
     data
   })
 }

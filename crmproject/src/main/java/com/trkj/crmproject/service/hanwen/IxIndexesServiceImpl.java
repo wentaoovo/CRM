@@ -9,10 +9,12 @@ import com.trkj.crmproject.util.IdWorker;
 import com.trkj.crmproject.vo.Indexes.IndexesSearchVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class IxIndexesServiceImpl implements IxIndexesService {
 @Autowired
 private IxIndexesDao indexesDao;

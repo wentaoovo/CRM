@@ -9,8 +9,8 @@ import java.util.Map;
 
 public interface DetailsService {
     PageInfo<IxDetails> selectAll(DetailsSearchVo detailsSearchVo);
-    List<String> selecttwo();
-    List<String> selectthree();
+    List<Map> selecttwo(String id);
+    List<Map> selectthree();
     int insert(IxDetails record);
     int updateByPrimaryKeySelective(IxDetails record);
     int deleteByPrimaryKey(String id);

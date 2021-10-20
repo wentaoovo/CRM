@@ -36,7 +36,11 @@ public class IxQuotation implements Serializable {
             
      */
     private String contactsId;
-
+   /*
+   *机会id
+   *
+   * */
+    private String chanceId;
     /**
      * 员工id
             
@@ -78,7 +82,7 @@ public class IxQuotation implements Serializable {
      * 销售机会
             
      */
-    private String salesName;
+    private String chanceName;
 
     /**
      * 预估毛利

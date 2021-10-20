@@ -18,11 +18,13 @@ import java.util.concurrent.CompletionService;
 public class CoustomerController {
     @Autowired
     private CoustomerDetailsService coustomerDetailsService;
+    //分页查询客户列表信息
     @PostMapping("/select")
     public ResultVo select(@RequestBody CosmerSearch cosmerSearch){
         PageInfo<IxCustomerDetails> all = coustomerDetailsService.selectByAll(cosmerSearch);
         return ResultVoUtil.success(all);
     }
+    //新增客户
     @PostMapping("/save")
     public ResultVo save(@RequestBody IxCustomerDetails ixCustomerDetails){
         if(ixCustomerDetails.getRealName()==null){
@@ -31,16 +33,19 @@ public class CoustomerController {
         coustomerDetailsService.insert(ixCustomerDetails);
         return ResultVoUtil.success();
     }
+    //修改客户
     @PutMapping("/updata")
     public ResultVo updata(@RequestBody IxCustomerDetails ixCustomerDetails){
         int i = coustomerDetailsService.updateByPrimaryKeySelective(ixCustomerDetails);
         return ResultVoUtil.success(i);
     }
+    //根据id查询客户
     @GetMapping("/byone/{id}")
     public ResultVo selectOne(@PathVariable("id")String id){
         IxCustomerDetails ixCustomerDetails = coustomerDetailsService.selectByPrimaryKey(id);
         return ResultVoUtil.success(ixCustomerDetails);
     }
+    //根据id删除客户
     @DeleteMapping("/delete/{id}")
     public ResultVo delete(@PathVariable("id")String id){
         coustomerDetailsService.deleteByPrimaryKey(id);

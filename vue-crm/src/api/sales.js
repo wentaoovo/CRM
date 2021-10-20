@@ -20,9 +20,9 @@ export function addall(data){
 //     method:'get',
 //   })
 // }
-export function selectt(){
+export function selectt(data){
   return request({
-    url:'/five/selectt',
+    url:`/five/selectt/${data}`,
     method:'get'
   })
 }
@@ -30,7 +30,7 @@ export function selects(){
   return request({
     url:'/five/selects',
     method:'get'
-  })
+  }) 
 }
 export function enit(data){
   return request({

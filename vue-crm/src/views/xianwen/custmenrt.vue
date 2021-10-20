@@ -101,7 +101,7 @@
     </div>
     <el-dialog title="创建客户" :visible.sync="dialogFormVisible" width="1200px">
       <el-row :gutter="15">
-      <el-form :model="form" label-width="100px" :rules="rules">
+      <el-form :model="form" label-width="100px" :rules="rules" ref="form">
         <el-col :span="24" >
           <el-form-item label="客户名称:" prop="name">
             <el-input v-model="form.name"  placeholder="客户姓名"></el-input>
@@ -174,7 +174,7 @@
 </el-dialog>
   <el-dialog title="基本信息" :visible.sync="dialogVisible" width="80%">
     <el-row :gutter="15">
-      <el-form :model="form" label-width="100px">
+      <el-form :model="form" label-width="100px" :rules="rules">
         <el-col :span="24" >
           <el-form-item label="客户名称:" prop="name">
             <el-input v-model="form.name"  placeholder="客户姓名"></el-input>
@@ -380,6 +380,15 @@ export default {
           rules:{
             name:[
               {required: true, message: '请输入客户名称', trigger: 'blur'}
+            ],
+            telephone:[
+              {min:11,max:11,message:'请输入正确的电话号码'}
+            ],
+            mobilePhone:[
+              {min:11,max:11,message:'请输入正确的手机号码'}
+            ],
+            source:[
+              {required: true,message:'请选择种类', trigger:'blur'}
             ]
           },
             tableData:[],
@@ -404,17 +413,9 @@ export default {
                     label:'客户'
                   },
                   {
-                    value:'供应商',
-                    label:'供应商'
-                  },
-                  {
                     value:'合作伙伴',
                     label:'合作伙伴'
                   },
-                  {
-                    value:'媒体',
-                    label:'媒体'
-                  }
                 ]
               },
               // {
@@ -475,14 +476,6 @@ export default {
                 value:'供应商',
                 label:'供应商'
               },
-              {
-                value:'合作伙伴',
-                label:'合作伙伴'
-              },
-              {
-                value:'媒体',
-                label:'媒体'
-              }
             ],
             settle:[
              {
@@ -638,6 +631,8 @@ methods:{
         this.load();
     },
     save(){
+      this.$refs['form'].validate((valid)=>{
+        if(valid){
       addall(this.form).then(res=>{
         if(res.code==200){
           this.$message({
@@ -652,6 +647,8 @@ methods:{
         }
         this.dialogFormVisible=false
         this.load()
+      })
+        }
       })
     },
     updata(){
@@ -683,11 +680,12 @@ methods:{
            message:'删除成功',
            type:'success'
           });
-          }else
+          }else{
           this.$message({
           message:res.message,
           type:'error'
           })
+          }
         })
         this.load()
       }).catch(()=>{

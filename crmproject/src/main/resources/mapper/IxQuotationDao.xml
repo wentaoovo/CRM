@@ -6,13 +6,14 @@
     <result column="sales_id" jdbcType="VARCHAR" property="salesId" />
     <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
     <result column="contacts_id" jdbcType="VARCHAR" property="contactsId" />
+    <result column="chance_id" jdbcType="VARCHAR" property="chanceId"></result>
     <result column="employee_id" jdbcType="VARCHAR" property="employeeId" />
     <result column="quotation_theme" jdbcType="VARCHAR" property="quotationTheme" />
     <result column="order_concert" jdbcType="VARCHAR" property="orderConcert" />
     <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
     <result column="time_now" jdbcType="TIMESTAMP" property="timeNow" />
     <result column="total_quotation" jdbcType="DECIMAL" property="totalQuotation" />
-    <result column="sales_name" jdbcType="VARCHAR" property="salesName" />
+    <result column="chance_name" jdbcType="VARCHAR" property="chanceName" />
     <result column="gross_profit" jdbcType="DECIMAL" property="grossProfit" />
     <result column="detailed" jdbcType="VARCHAR" property="detailed" />
     <result column="contacts_name" jdbcType="VARCHAR" property="contactsName" />
@@ -36,34 +37,36 @@
     </association>
   </resultMap>
   <sql id="Base_Column_List">
-    id, sales_id, customer_id, contacts_id, employee_id, quotation_theme, order_concert, 
-    customer_name, time_now, total_quotation, sales_name, gross_profit, detailed, contacts_name, 
+    id, sales_id, customer_id,chance_id, contacts_id, employee_id, quotation_theme, order_concert,
+    customer_name, time_now, total_quotation, chance_name, gross_profit, detailed, contacts_name,
     employee_name, employee_contact_way, deliver_instructions, payment_instructions, 
     packing_instructions, remarks
   </sql>
   <sql id="slectone">
-    contacts_name
+   id, contacts_name
   </sql>
   <sql id="all">
-    `name`
+   id, `name`,telephone,mobile_phone,province,city,area,postcode,address
   </sql>
   <sql id="the">
-    opportunity_theme
+   id, opportunity_theme
   </sql>
-  <select id="selecttwo" resultType="string">
+  <select id="selecttwo" parameterType="string" resultType="map">
     select
     <include refid="slectone"></include>
     from ix_contacts_details
+    where customer_details_id = #{id}
   </select>
-<select id="selectthree" resultType="string">
+<select id="selectthree" resultType="map">
   select
   <include refid="all"></include>
   from ix_customer_details
 </select>
-  <select id="selectfive" resultType="string">
+  <select id="selectfive" parameterType="string" resultType="map">
     select
     <include refid="the"></include>
     from ix_details
+    where customer_details_id = #{id}
   </select>
   <select id="selectAll" parameterType="com.trkj.crmproject.vo.Indexes.QuatationSearchVo" resultMap="BaseResultMap">
     select
@@ -89,17 +92,17 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.trkj.crmproject.entity.hanwen.IxQuotation" useGeneratedKeys="true">
-    insert into ix_quotation (id,sales_id, customer_id, contacts_id,
+    insert into ix_quotation (id,sales_id,chance_id, customer_id, contacts_id,
       employee_id, quotation_theme, order_concert, 
       customer_name, time_now, total_quotation, 
-      sales_name, gross_profit, detailed, 
+      chance_name, gross_profit, detailed,
       contacts_name, employee_name, employee_contact_way, 
       deliver_instructions, payment_instructions, 
       packing_instructions, remarks)
-    values (#{id,jdbcType=VARCHAR},#{salesId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{contactsId,jdbcType=VARCHAR},
+    values (#{id,jdbcType=VARCHAR},#{salesId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR},#{chanceId,jdbcType=VARCHAR}, #{contactsId,jdbcType=VARCHAR},
       #{employeeId,jdbcType=VARCHAR}, #{quotationTheme,jdbcType=VARCHAR}, #{orderConcert,jdbcType=VARCHAR}, 
       #{customerName,jdbcType=VARCHAR}, #{timeNow,jdbcType=TIMESTAMP}, #{totalQuotation,jdbcType=DECIMAL}, 
-      #{salesName,jdbcType=VARCHAR}, #{grossProfit,jdbcType=DECIMAL}, #{detailed,jdbcType=VARCHAR}, 
+      #{chanceName,jdbcType=VARCHAR}, #{grossProfit,jdbcType=DECIMAL}, #{detailed,jdbcType=VARCHAR},
       #{contactsName,jdbcType=VARCHAR}, #{employeeName,jdbcType=VARCHAR}, #{employeeContactWay,jdbcType=VARCHAR}, 
       #{deliverInstructions,jdbcType=VARCHAR}, #{paymentInstructions,jdbcType=VARCHAR}, 
       #{packingInstructions,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
@@ -112,6 +115,9 @@
       </if>
       <if test="customerId != null">
         customer_id,
+      </if>
+      <if test="chanceId !=null">
+        chance_id,
       </if>
       <if test="contactsId != null">
         contacts_id,
@@ -134,8 +140,8 @@
       <if test="totalQuotation != null">
         total_quotation,
       </if>
-      <if test="salesName != null">
-        sales_name,
+      <if test="chanceName != null">
+        chance_name,
       </if>
       <if test="grossProfit != null">
         gross_profit,
@@ -172,6 +178,9 @@
       <if test="customerId != null">
         #{customerId,jdbcType=VARCHAR},
       </if>
+      <if test="chanceId != null">
+        #{chanceId,jdbcType=VARCHAR},
+      </if>
       <if test="contactsId != null">
         #{contactsId,jdbcType=VARCHAR},
       </if>
@@ -193,8 +202,8 @@
       <if test="totalQuotation != null">
         #{totalQuotation,jdbcType=DECIMAL},
       </if>
-      <if test="salesName != null">
-        #{salesName,jdbcType=VARCHAR},
+      <if test="chanceName != null">
+        #{chanceName,jdbcType=VARCHAR},
       </if>
       <if test="grossProfit != null">
         #{grossProfit,jdbcType=DECIMAL},
@@ -234,6 +243,9 @@
       <if test="customerId != null">
         customer_id = #{customerId,jdbcType=VARCHAR},
       </if>
+      <if test="chanceId != null">
+        chance_Id = #{chanceId,jdbcType=VARCHAR},
+      </if>
       <if test="contactsId != null">
         contacts_id = #{contactsId,jdbcType=VARCHAR},
       </if>
@@ -255,8 +267,8 @@
       <if test="totalQuotation != null">
         total_quotation = #{totalQuotation,jdbcType=DECIMAL},
       </if>
-      <if test="salesName != null">
-        sales_name = #{salesName,jdbcType=VARCHAR},
+      <if test="chanceName != null">
+        chance_name = #{chanceName,jdbcType=VARCHAR},
       </if>
       <if test="grossProfit != null">
         gross_profit = #{grossProfit,jdbcType=DECIMAL},
@@ -292,6 +304,7 @@
     update ix_quotation
     set sales_id = #{salesId,jdbcType=VARCHAR},
       customer_id = #{customerId,jdbcType=VARCHAR},
+      chance_id = #{chanceId,jdbcType=VARCHAR},
       contacts_id = #{contactsId,jdbcType=VARCHAR},
       employee_id = #{employeeId,jdbcType=VARCHAR},
       quotation_theme = #{quotationTheme,jdbcType=VARCHAR},
@@ -299,7 +312,7 @@
       customer_name = #{customerName,jdbcType=VARCHAR},
       time_now = #{timeNow,jdbcType=TIMESTAMP},
       total_quotation = #{totalQuotation,jdbcType=DECIMAL},
-      sales_name = #{salesName,jdbcType=VARCHAR},
+      chance_name = #{chanceName,jdbcType=VARCHAR},
       gross_profit = #{grossProfit,jdbcType=DECIMAL},
       detailed = #{detailed,jdbcType=VARCHAR},
       contacts_name = #{contactsName,jdbcType=VARCHAR},

@@ -3,6 +3,8 @@
 <mapper namespace="com.trkj.crmproject.dao.hanwen.IxDetailsDao">
   <resultMap id="BaseResultMap" type="com.trkj.crmproject.entity.hanwen.IxDetails">
     <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="contacts_details_id" jdbcType="VARCHAR" property="contactsDetailsId" />
+    <result column="customer_details_id" jdbcType="VARCHAR" property="customerDetailsId" />
     <result column="opportunity_theme" jdbcType="VARCHAR" property="opportunityTheme" />
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
     <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
@@ -30,38 +32,42 @@
     </association>
   </resultMap>
   <sql id="Base_Column_List">
-    id, opportunity_theme, update_date, customer_name, `state`, contacts_name,
-    sales_type, find_date, `source`, real_name, provider, customer_demand, signing_date, 
-    possibility, estimated_amount, stage, stage_remarks, stay_phase
+    id, contacts_details_id, customer_details_id, opportunity_theme, update_date, customer_name, 
+    `state`, contacts_name, sales_type, find_date, `source`, real_name, provider, customer_demand, 
+    signing_date, possibility, estimated_amount, stage, stage_remarks, stay_phase
   </sql>
-
-<sql id="slectone">
-    contacts_name
+  <sql id="slectone">
+    id,contacts_name
   </sql>
-<sql id="all">
-    `name`
+  <sql id="all">
+    id,`name`
   </sql>
   <select id="selectDtmer" parameterType="string" resultType="map">
     select
     id,opportunity_theme
     from ix_details
   </select>
-<select id="selecttwo" resultType="string">
-select
-<include refid="slectone"></include>
-from ix_contacts_details
-</select>
-<select id="selectthree" resultType="string">
-select
-<include refid="all"></include>
-from ix_customer_details
-</select>
+  <select id="selecttwo" parameterType="string" resultType="map">
+    select
+    <include refid="slectone"></include>
+    from ix_contacts_details
+    where customer_details_id = #{id}
+  </select>
+  <select id="selectthree" resultType="map">
+    select
+    <include refid="all"></include>
+    from ix_customer_details
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from ix_details
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ix_details
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
   <select id="selectAll" parameterType="com.trkj.crmproject.vo.Indexes.DetailsSearchVo" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"></include>
@@ -71,36 +77,38 @@ from ix_customer_details
         and `state` like concat(concat('%',#{state}),'%')
       </if>
       <if test="opportunityTheme!=null">
-          and opportunity_theme like concat(concat('%',#{opportunityTheme}),'%')
+        and opportunity_theme like concat(concat('%',#{opportunityTheme}),'%')
       </if>
       <if test="keyword!=null">
         and CONCAT(IFNULL(id,''),IFNULL(opportunity_theme,''),IFNULL(customer_name,''),IFNULL(sales_type),'') LIKE "%"#{keyword}"%"
       </if>
     </where>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from ix_details
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.trkj.crmproject.entity.hanwen.IxDetails" useGeneratedKeys="true">
-    insert into ix_details (id, opportunity_theme, update_date,
-      customer_name, `state`, contacts_name, 
-      sales_type, find_date, `source`, 
-      real_name, provider, customer_demand, 
-      signing_date, possibility, estimated_amount, 
-      stage, stage_remarks, stay_phase
-      )
-    values (#{id,jdbcType=VARCHAR}, #{opportunityTheme,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP},
-      #{customerName,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{contactsName,jdbcType=VARCHAR}, 
-      #{salesType,jdbcType=VARCHAR}, #{findDate,jdbcType=TIMESTAMP}, #{source,jdbcType=VARCHAR}, 
-      #{realName,jdbcType=VARCHAR}, #{provider,jdbcType=VARCHAR}, #{customerDemand,jdbcType=VARCHAR}, 
-      #{signingDate,jdbcType=TIMESTAMP}, #{possibility,jdbcType=VARCHAR}, #{estimatedAmount,jdbcType=DECIMAL}, 
-      #{stage,jdbcType=VARCHAR}, #{stageRemarks,jdbcType=VARCHAR}, #{stayPhase,jdbcType=VARCHAR}
-      )
+    insert into ix_details (id,contacts_details_id, customer_details_id,
+      opportunity_theme, update_date, customer_name, 
+      `state`, contacts_name, sales_type, 
+      find_date, `source`, real_name, 
+      provider, customer_demand, signing_date, 
+      possibility, estimated_amount, stage, 
+      stage_remarks, stay_phase)
+    values (#{id,jdbcType=VARCHAR},#{contactsDetailsId,jdbcType=VARCHAR}, #{customerDetailsId,jdbcType=VARCHAR},
+      #{opportunityTheme,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{customerName,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{contactsName,jdbcType=VARCHAR}, #{salesType,jdbcType=VARCHAR}, 
+      #{findDate,jdbcType=TIMESTAMP}, #{source,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{provider,jdbcType=VARCHAR}, #{customerDemand,jdbcType=VARCHAR}, #{signingDate,jdbcType=TIMESTAMP}, 
+      #{possibility,jdbcType=VARCHAR}, #{estimatedAmount,jdbcType=DECIMAL}, #{stage,jdbcType=VARCHAR}, 
+      #{stageRemarks,jdbcType=VARCHAR}, #{stayPhase,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.trkj.crmproject.entity.hanwen.IxDetails" useGeneratedKeys="true">
     insert into ix_details
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contactsDetailsId != null">
+        contacts_details_id,
+      </if>
+      <if test="customerDetailsId != null">
+        customer_details_id,
+      </if>
       <if test="opportunityTheme != null">
         opportunity_theme,
       </if>
@@ -154,6 +162,12 @@ from ix_customer_details
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contactsDetailsId != null">
+        #{contactsDetailsId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerDetailsId != null">
+        #{customerDetailsId,jdbcType=VARCHAR},
+      </if>
       <if test="opportunityTheme != null">
         #{opportunityTheme,jdbcType=VARCHAR},
       </if>
@@ -210,6 +224,12 @@ from ix_customer_details
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.crmproject.entity.hanwen.IxDetails">
     update ix_details
     <set>
+      <if test="contactsDetailsId != null">
+        contacts_details_id = #{contactsDetailsId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerDetailsId != null">
+        customer_details_id = #{customerDetailsId,jdbcType=VARCHAR},
+      </if>
       <if test="opportunityTheme != null">
         opportunity_theme = #{opportunityTheme,jdbcType=VARCHAR},
       </if>
@@ -266,7 +286,8 @@ from ix_customer_details
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.crmproject.entity.hanwen.IxDetails">
     update ix_details
-    set
+    set contacts_details_id = #{contactsDetailsId,jdbcType=VARCHAR},
+      customer_details_id = #{customerDetailsId,jdbcType=VARCHAR},
       opportunity_theme = #{opportunityTheme,jdbcType=VARCHAR},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       customer_name = #{customerName,jdbcType=VARCHAR},
