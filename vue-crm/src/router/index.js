@@ -142,6 +142,14 @@ export const constantRoutes = [
       meta: {
         title: '订单-详情'}
     },
+    {
+      path: 'shipments/:id',
+      component: () =>import('@/views/indent/shipments'),
+      name: 'shipments',
+      hidden:true,
+      meta: {
+        title: '订单-发货'}
+    },
    ]
   },
   {
