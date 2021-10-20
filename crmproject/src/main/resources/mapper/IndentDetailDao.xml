@@ -19,16 +19,23 @@
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    <result column="cost_price" property="costPrice"/>
   </resultMap>
   <sql id="Base_Column_List">
-    id, indent_id, product_id, product_name, unit_price, money, quantity, model, discount, 
-    remark, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+    e.id, e.indent_id, e.product_id, e.product_name, e.unit_price, e.money, e.quantity, e.model, e.discount,
+    e.remark, e.AddName, e.AddTime, e.UpdateName, e.UpdateTime, e.DeleteName, e.DeleteTime, e.TimeLiness
   </sql>
   <select id="selectByPid" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
-    <include refid="Base_Column_List" />
-    from indent_detail
+    <include refid="Base_Column_List" />,l.cost_price
+    from indent_detail e left join product l on e.product_id = l.id
     where indent_id = #{indentId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from indent_detail e
+    where e.id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteById" parameterType="java.lang.String">
     delete from indent_detail

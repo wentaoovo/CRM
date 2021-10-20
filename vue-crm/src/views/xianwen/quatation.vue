@@ -104,6 +104,7 @@
               <el-input v-model="form.quotationTheme" placeholder="主题"></el-input>
             </el-form-item>
           </el-col>
+<<<<<<< HEAD
           <!-- <el-col :span="12">
             <el-form-item label="转成订单" prop="orderConcert">
               <el-radio-group v-model="form.orderConcert">
@@ -112,6 +113,8 @@
               </el-radio-group>
             </el-form-item>
           </el-col> -->
+=======
+>>>>>>> 1936c04635e1571398bbde3f2d8f329f88692df5
           <el-col :span="12">
           <el-form-item label="客户:" prop="customerName">
             <el-select v-model="form.customerName"
@@ -203,14 +206,6 @@
             </el-form-item>
           </el-col>
             <el-col :span="12">
-            <el-form-item label="转成订单" prop="orderConcert">
-              <el-radio-group v-model="formData.orderConcert" disabled>
-              <el-radio :label="'0'">可见</el-radio>
-              <el-radio :label="'1'">转成订单</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
-            <el-col :span="12">
             <el-form-item label="客户" prop="customerName">
               <el-input v-model="formData.customerName" placeholder="客户" disabled></el-input>
             </el-form-item>
@@ -296,9 +291,12 @@ export default {
         timeNow:[
           { required: true,message:'请选择日期', trigger:'change'}
         ],
+<<<<<<< HEAD
         // orderConcert:[
         //   {required: true,message:'请选择转成订单类型',trigger:'change'}
         // ],
+=======
+>>>>>>> 1936c04635e1571398bbde3f2d8f329f88692df5
         totalQuotation:[
           {required: true,message:'请输入报价', trigger:'blur'}
         ],
@@ -313,7 +311,7 @@ export default {
       formVisible:false,
       dialogFormVisible:false,
       form:{
-        orderConcert:0
+  
       },
       options:[
         {
@@ -347,14 +345,12 @@ methods:{
         pageNum,
         pageSize,
         keyword,
-        orderConcert,
         quotationTheme
        }=this.selectParams;
        const{data:ListRes}=await getList({
          pageNum:pageNum,
          pageSize:pageSize,
          keyword:keyword,
-         orderConcert:orderConcert,
          quotationTheme:quotationTheme
        });
        this.tableData=ListRes.list;

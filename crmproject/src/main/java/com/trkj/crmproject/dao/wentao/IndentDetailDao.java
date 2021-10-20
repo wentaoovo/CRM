@@ -11,5 +11,7 @@ public interface IndentDetailDao {
 
     List<IndentDetail> selectByPid(String indentId);
 
+    List<IndentDetail> selectById(String id);
+
     int updateById(List<IndentDetail> list);
 }
