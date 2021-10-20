@@ -95,16 +95,16 @@ export const constantRoutes = [
       meta: { title: '销售机会', icon: 'el-icon-s-promotion' }
     }]
   },
-  {
-    path: '/offer',
-    component: Layout,
-    children: [{
-      path: 'offier',
-      name: 'xianwen5',
-      component: () => import('@/views/xianwen/offer'),
-      meta: { title: '报价明细', icon: 'el-icon-document' }
-    }]
-  },
+  // {
+  //   path: '/offer',
+  //   component: Layout,
+  //   children: [{
+  //     path: 'offier',
+  //     name: 'xianwen5',
+  //     component: () => import('@/views/xianwen/offer'),
+  //     meta: { title: '报价明细', icon: 'el-icon-document' }
+  //   }]
+  // },
   {
     path: '/quatation',
     component: Layout,
@@ -114,14 +114,14 @@ export const constantRoutes = [
       component: () => import('@/views/xianwen/quatation'),
       meta: { title: '报价', icon: 'table' }
     },
-  {
-    path:'/quatationx',
-    component:()=>import('@/views/xianwen/quatationx'),
-    name:'quatationx',
-    hidden:true,
-    meta:{title:'报价明细'}
+  // {
+  //   path:'/quatationx',
+  //   component:()=>import('@/views/xianwen/quatationx'),
+  //   name:'quatationx',
+  //   hidden:true,
+  //   meta:{title:'报价明细'}
 
-  }
+  // }
   ]
   },
   {
